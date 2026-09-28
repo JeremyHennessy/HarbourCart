@@ -114,7 +114,8 @@ async function captureStore(store) {
 
     if (!best) continue;
 
-    const localVerified = storeValidated && sessionLooksLocal;
+    const localVerified =
+      Boolean(store.storeIdentityVerified) && sessionLooksLocal;
     prices.push({
       id: `${store.retailer.toLowerCase()}-${store.storeId}-${product.productId}`,
       retailer: store.retailer,
