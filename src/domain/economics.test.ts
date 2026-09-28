@@ -51,6 +51,7 @@ describe("HarbourCart economics", () => {
       shrinkRate: 0.01,
       freightCost: 0.25,
       handlingStatus: "CONFIRMED_PHASE_1",
+      measurementStatus: "NOT_REQUIRED",
       supplierEvidence: "CURRENT_PUBLIC",
       benchmarkEvidence: "CURRENT_PUBLIC",
     });
@@ -73,6 +74,7 @@ describe("HarbourCart economics", () => {
       shrinkRate: 0.01,
       freightCost: 0.25,
       handlingStatus: "CONFIRMED_PHASE_1",
+      measurementStatus: "NOT_REQUIRED",
       supplierEvidence: "VERIFIED_QUOTE",
       benchmarkEvidence: "CURRENT_LOCAL",
       minimumSavingsRate: 0.15,
@@ -96,6 +98,7 @@ describe("HarbourCart economics", () => {
       shrinkRate: 0.01,
       freightCost: 0.5,
       handlingStatus: "CONFIRMED_PHASE_1",
+      measurementStatus: "NOT_REQUIRED",
       supplierEvidence: "VERIFIED_QUOTE",
       benchmarkEvidence: "CURRENT_LOCAL",
     });
@@ -116,11 +119,36 @@ describe("HarbourCart economics", () => {
       shrinkRate: 0.01,
       freightCost: 0.25,
       handlingStatus: "REQUIRES_CONFIRMATION",
+      measurementStatus: "NOT_REQUIRED",
       supplierEvidence: "VERIFIED_QUOTE",
       benchmarkEvidence: "CURRENT_LOCAL",
     });
 
     expect(result.decision).toBe("BLOCKED");
     expect(result.decisionReasons.join(" ")).toMatch(/regulatory confirmation/i);
+  });
+
+  it("blocks an otherwise publishable weighed share until legal-for-trade measurement is resolved", () => {
+    const result = evaluateCandidate({
+      comparableRetail: 30,
+      procurementCost: 10,
+      targetSavingsRate: 0.15,
+      customerPriceOverride: 24,
+      labourMinutes: 2,
+      labourHourlyRate: 17,
+      packagingCost: 0.5,
+      shrinkRate: 0.01,
+      freightCost: 0.25,
+      handlingStatus: "CONFIRMED_PHASE_1",
+      measurementStatus: "TRADE_SCALE_REQUIRED",
+      supplierEvidence: "VERIFIED_QUOTE",
+      benchmarkEvidence: "CURRENT_LOCAL",
+      minimumSavingsRate: 0.15,
+      minimumContribution: 5,
+    });
+
+    expect(result.contribution).toBeGreaterThan(5);
+    expect(result.decision).toBe("BLOCKED");
+    expect(result.decisionReasons.join(" ")).toMatch(/Measurement Canada/i);
   });
 });
