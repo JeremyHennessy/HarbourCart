@@ -64,7 +64,7 @@ describe("HarbourCart economics", () => {
   it("publishes only when economics and all evidence gates pass", () => {
     const result = evaluateCandidate({
       comparableRetail: 20,
-      procurementCost: 9,
+      procurementCost: 8,
       targetSavingsRate: 0.15,
       customerPriceOverride: 16,
       labourMinutes: 2,
