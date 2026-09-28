@@ -98,6 +98,34 @@ export default function LiveRetailPanel({
         ))}
       </div>
 
+      {Boolean(feed?.signals?.length) && (
+        <div className="retail-research-signals">
+          <div>
+            <strong>Current flyer prices awaiting unit verification</strong>
+            <span>
+              Shown for research only. These values never enter savings math until
+              the package or sale unit is independently established.
+            </span>
+          </div>
+          <div className="retail-research-signal-grid">
+            {feed?.signals?.map((signal) => (
+              <a
+                className="retail-research-signal"
+                href={signal.imageUrl ?? signal.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                key={signal.id}
+              >
+                <span>{signal.retailerLabel} · {signal.storeName}</span>
+                <strong>{signal.displayName}</strong>
+                <b>{money.format(signal.price)}</b>
+                <small>Unit/package unverified · not used as comparator</small>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       {Boolean(feed?.errors.length) && (
         <details className="feed-errors">
           <summary>{feed?.errors.length} capture warning(s)</summary>
