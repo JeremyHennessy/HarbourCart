@@ -33,7 +33,7 @@ async function fetchText(url, cookieJar = new Map()) {
   });
 
   if (!response.ok) {
-    throw new Error(\`HTTP \${response.status} for \${url}\`);
+    throw new Error(`HTTP ${response.status} for ${url}`);
   }
 
   for (const cookieValue of cookiesFromHeaders(response.headers)) {
@@ -72,7 +72,7 @@ async function captureStore(store) {
     const storePage = await fetchText(store.storeUrl, cookieJar);
     storeValidated = storeTextLooksLocal(htmlToText(storePage.html), store);
   } catch (error) {
-    errors.push(\`store page: \${error.message}\`);
+    errors.push(`store page: ${error.message}`);
   }
 
   try {
@@ -83,7 +83,7 @@ async function captureStore(store) {
       bootstrap.url.includes(store.storeId) ||
       [...cookieJar.values()].some((value) => value.includes(store.storeId));
   } catch (error) {
-    errors.push(\`bootstrap: \${error.message}\`);
+    errors.push(`bootstrap: ${error.message}`);
   }
 
   const pageBodies = [];
@@ -92,7 +92,7 @@ async function captureStore(store) {
       const page = await fetchText(url, cookieJar);
       pageBodies.push({ url: page.url, text: htmlToText(page.html) });
     } catch (error) {
-      errors.push(\`\${url}: \${error.message}\`);
+      errors.push(`${url}: ${error.message}`);
     }
   }
 
@@ -115,7 +115,7 @@ async function captureStore(store) {
 
     const localVerified = storeValidated && sessionLooksLocal;
     prices.push({
-      id: \`\${store.retailer.toLowerCase()}-\${store.storeId}-\${product.productId}\`,
+      id: `${store.retailer.toLowerCase()}-${store.storeId}-${product.productId}`,
       retailer: store.retailer,
       retailerLabel: store.retailerLabel,
       storeId: store.storeId,
@@ -135,8 +135,8 @@ async function captureStore(store) {
       observedAt,
       sourceUrl: best.sourceUrl,
       sourceLabel: localVerified
-        ? \`\${store.retailerLabel} public web price with Halifax store session evidence\`
-        : \`\${store.retailerLabel} public web price; Halifax store applicability not independently verified\`,
+        ? `${store.retailerLabel} public web price with Halifax store session evidence`
+        : `${store.retailerLabel} public web price; Halifax store applicability not independently verified`,
       note: best.rawEvidence,
     });
   }
@@ -175,11 +175,11 @@ const attemptErrors = results.flatMap((result) =>
 
 const previousPrices = Array.isArray(previous?.prices) ? previous.prices : [];
 const freshKeys = new Set(
-  freshPrices.map((price) => \`\${price.retailer}|\${price.storeId}|\${price.productId}\`),
+  freshPrices.map((price) => `${price.retailer}|${price.storeId}|${price.productId}`),
 );
 const retained = previousPrices.filter(
   (price) =>
-    !freshKeys.has(\`\${price.retailer}|\${price.storeId}|\${price.productId}\`),
+    !freshKeys.has(`${price.retailer}|${price.storeId}|${price.productId}`),
 );
 
 const now = new Date().toISOString();
