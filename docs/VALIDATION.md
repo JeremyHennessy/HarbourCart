@@ -11,9 +11,10 @@ A customer-facing buy is publishable only when all of the following are true:
 1. a real supplier offer is verified;
 2. a current Halifax retail comparator is available;
 3. the handling workflow is permitted for the current operating phase;
-4. the customer saving clears the configured minimum;
-5. variable contribution clears the configured minimum;
-6. the evidence snapshot used to show the claim is retained.
+4. any HarbourCart sale-by-weight measurement requirement is resolved;
+5. the customer saving clears the configured minimum;
+6. variable contribution clears the configured minimum;
+7. the evidence snapshot used to show the claim is retained.
 
 The code implements this as an evidence-gated decision engine. Strong economics alone cannot return PUBLISH.
 
@@ -41,6 +42,23 @@ Source:
 https://inspection.canada.ca/en/food-labels/labelling/industry/fresh-fruits-vegetables
 
 **Implication:** "whole produce" is not the same thing as "no labelling obligations." The regulator fact pattern must describe exactly whether HarbourCart bags, weighs, labels, or simply transfers intact produce units.
+
+### Measurement Canada — food sold by weight
+
+Measurement Canada states that scales used to sell food by weight must be:
+
+- approved by Measurement Canada;
+- certified;
+- inspected every five years.
+
+The scale must be installed and operated correctly, and packaging/tare weight must not be charged to the customer.
+
+Source:
+https://ised-isde.canada.ca/site/measurement-canada/en/consumers/buying-measured-goods/buying-and-selling-food-weight
+
+**Product implication:** HarbourCart should prefer fixed-count whole produce and intact supplier/manufacturer-sealed packs during the first real-money pilot. A HarbourCart-prepared weighed household share remains blocked until the provincial handling classification and legal-for-trade measurement process are both resolved.
+
+This is separate from CFIA labelling and separate from Nova Scotia's food-establishment classification.
 
 ### Halifax Regional Food Hub
 
@@ -143,7 +161,11 @@ Obtain written answers for:
 - the classification of a recurring weekly pickup;
 - future dry-good repacking, if ever considered.
 
-### 2. Halifax Food Hub buyer eligibility
+### 2. Sale-by-weight measurement
+
+For any HarbourCart-prepared product whose sale quantity is determined by weight, confirm the legal-for-trade scale process before publication. Keep count-based whole items and intact sealed supplier packs separate from weighed-household-share candidates.
+
+### 3. Halifax Food Hub buyer eligibility
 
 Confirm:
 
@@ -156,7 +178,7 @@ Confirm:
 - catalogue export/API/integration options;
 - whether producer-direct quotes can be negotiated for committed volume.
 
-### 3. Real supplier quotes
+### 4. Real supplier quotes
 
 For each target product, capture:
 
@@ -170,7 +192,7 @@ For each target product, capture:
 - substitutions/shortage rules;
 - source/provenance.
 
-### 4. Current Halifax retail comparator
+### 5. Current Halifax retail comparator
 
 Capture:
 
@@ -183,7 +205,7 @@ Capture:
 - URL/screenshot/source evidence;
 - confidence/comparability notes.
 
-### 5. Fixed operating costs
+### 6. Fixed operating costs
 
 Before real-money checkout, price:
 
@@ -221,6 +243,8 @@ saving_percent
 contribution
 calculated_at
 handling_eligibility_version
+measurement_eligibility_version
+sale_basis
 \`\`\`
 
 If the supplier offer, retail comparator, or handling eligibility becomes stale or invalid, the claim must be recalculated or withdrawn.

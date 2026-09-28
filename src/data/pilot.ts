@@ -1,6 +1,7 @@
 import type {
   EvidenceStatus,
   HandlingStatus,
+  MeasurementStatus,
   PriceTier,
 } from "../domain/economics";
 
@@ -18,6 +19,8 @@ export type PilotCandidate = {
   supplierEvidence: EvidenceStatus;
   benchmarkEvidence: EvidenceStatus;
   handlingStatus: HandlingStatus;
+  measurementStatus: MeasurementStatus;
+  saleBasis: "COUNT" | "WEIGHED_SHARE" | "SEALED_PACK";
   handlingLabel: string;
   householdsInterested: number;
   targetHouseholds: number;
@@ -52,6 +55,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "REQUIRES_CONFIRMATION",
+    measurementStatus: "TRADE_SCALE_REQUIRED",
+    saleBasis: "WEIGHED_SHARE",
     handlingLabel: "Loose whole-produce case split needs written classification",
     householdsInterested: 67,
     targetHouseholds: 100,
@@ -79,6 +84,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "REQUIRES_CONFIRMATION",
+    measurementStatus: "TRADE_SCALE_REQUIRED",
+    saleBasis: "WEIGHED_SHARE",
     handlingLabel: "Loose whole-produce case split needs written classification",
     householdsInterested: 41,
     targetHouseholds: 100,
@@ -106,6 +113,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "CONFIRMED_PHASE_1",
+    measurementStatus: "NOT_REQUIRED",
+    saleBasis: "COUNT",
     handlingLabel: "Whole unprocessed produce; no cutting or washing by HarbourCart",
     householdsInterested: 58,
     targetHouseholds: 90,
@@ -133,6 +142,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "REQUIRES_CONFIRMATION",
+    measurementStatus: "TRADE_SCALE_REQUIRED",
+    saleBasis: "WEIGHED_SHARE",
     handlingLabel: "Case split by weight needs written classification",
     householdsInterested: 52,
     targetHouseholds: 90,
@@ -160,6 +171,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "REQUIRES_CONFIRMATION",
+    measurementStatus: "TRADE_SCALE_REQUIRED",
+    saleBasis: "WEIGHED_SHARE",
     handlingLabel: "Loose case split / customer bagging needs written classification",
     householdsInterested: 128,
     targetHouseholds: 150,
@@ -187,6 +200,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "CONFIRMED_PHASE_1",
+    measurementStatus: "NOT_REQUIRED",
+    saleBasis: "COUNT",
     handlingLabel: "Whole produce; customer receives whole cucumbers",
     householdsInterested: 83,
     targetHouseholds: 100,
@@ -214,6 +229,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "REQUIRES_CONFIRMATION",
+    measurementStatus: "TRADE_SCALE_REQUIRED",
+    saleBasis: "WEIGHED_SHARE",
     handlingLabel: "Loose case split / weighed customer bag needs written classification",
     householdsInterested: 36,
     targetHouseholds: 80,
@@ -241,6 +258,8 @@ export const pilotCandidates: PilotCandidate[] = [
     supplierEvidence: "CURRENT_PUBLIC",
     benchmarkEvidence: "CURRENT_PUBLIC",
     handlingStatus: "CONFIRMED_PHASE_1",
+    measurementStatus: "NOT_REQUIRED",
+    saleBasis: "SEALED_PACK",
     handlingLabel: "Phase 1 only if sold in an intact manufacturer-sealed pack",
     householdsInterested: 113,
     targetHouseholds: 150,

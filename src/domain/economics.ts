@@ -13,6 +13,11 @@ export type HandlingStatus =
   | "REQUIRES_CONFIRMATION"
   | "NOT_PHASE_1";
 
+export type MeasurementStatus =
+  | "NOT_REQUIRED"
+  | "CONFIRMED"
+  | "TRADE_SCALE_REQUIRED";
+
 export type EvidenceStatus =
   | "VERIFIED_QUOTE"
   | "CURRENT_LOCAL"
@@ -34,6 +39,7 @@ export type CandidateEconomicsInput = {
   shrinkRate: number;
   freightCost: number;
   handlingStatus: HandlingStatus;
+  measurementStatus: MeasurementStatus;
   supplierEvidence: EvidenceStatus;
   benchmarkEvidence: EvidenceStatus;
   minimumSavingsRate?: number;
@@ -178,6 +184,12 @@ export function evaluateCandidate(
     );
   }
 
+  if (input.measurementStatus === "TRADE_SCALE_REQUIRED") {
+    reasons.push(
+      "If HarbourCart uses weight to determine the quantity sold, a Measurement Canada legal-for-trade scale requirement must be resolved before publication.",
+    );
+  }
+
   if (input.supplierEvidence !== "VERIFIED_QUOTE") {
     reasons.push("A real supplier quote is required before publication.");
   }
@@ -207,6 +219,7 @@ export function evaluateCandidate(
   let decision: BuyDecision;
   if (
     input.handlingStatus !== "CONFIRMED_PHASE_1" ||
+    input.measurementStatus === "TRADE_SCALE_REQUIRED" ||
     input.supplierEvidence !== "VERIFIED_QUOTE" ||
     input.benchmarkEvidence !== "CURRENT_LOCAL"
   ) {

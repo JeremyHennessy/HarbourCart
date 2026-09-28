@@ -19,6 +19,8 @@ Required fields:
 - grade_or_variant rules
 - temperature_control_required
 - phase_1_default_handling_class
+- sale_basis: COUNT / WEIGHED_SHARE / SEALED_PACK
+- measurement_requirement
 
 ### Supplier
 
@@ -78,6 +80,19 @@ The monthly Statistics Canada source is stored separately from current local ret
 - evidence date
 - evidence reference
 - version
+
+### MeasurementEligibility
+
+Tracks whether HarbourCart itself must make a trade measurement for the customer-facing sale.
+
+- sale_basis
+- status: NOT_REQUIRED / CONFIRMED / TRADE_SCALE_REQUIRED
+- authority
+- device/certification evidence when applicable
+- evidence date
+- version
+
+A supplier-sealed pack or fixed-count whole item can avoid a HarbourCart weighing step. A weighed household share cannot bypass this gate.
 
 ### BuyCandidate
 
@@ -143,6 +158,8 @@ Immutable record of what supported the customer-facing claim.
 - supplier offer identity/date/validity
 - benchmark identity/date/geography/promo state
 - handling-eligibility version
+- measurement-eligibility version
+- sale basis
 - procurement cost
 - payment cost
 - labour cost
@@ -162,7 +179,7 @@ HarbourCart intentionally has two distinct concepts:
 1. **Research signal** — whether public structural economics justify spending time on a quote.
 2. **Publication decision** — whether verified evidence supports an actual customer-facing buy.
 
-A strong research signal must never bypass missing quote, benchmark, or handling evidence.
+A strong research signal must never bypass missing quote, benchmark, handling, or measurement evidence.
 
 ## Source freshness
 

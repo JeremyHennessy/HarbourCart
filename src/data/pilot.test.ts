@@ -15,6 +15,14 @@ describe("pilot research data", () => {
       expect(candidate.publicReferenceUnitPrice).toBeGreaterThan(0);
       expect(candidate.publicCaseUnitPrice).toBeGreaterThan(0);
       expect(candidate.householdQuantity).toBeGreaterThan(0);
+      expect(["COUNT", "WEIGHED_SHARE", "SEALED_PACK"]).toContain(
+        candidate.saleBasis,
+      );
+      if (candidate.saleBasis === "WEIGHED_SHARE") {
+        expect(candidate.measurementStatus).toBe("TRADE_SCALE_REQUIRED");
+      } else {
+        expect(candidate.measurementStatus).toBe("NOT_REQUIRED");
+      }
     }
   });
 
