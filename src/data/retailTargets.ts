@@ -92,7 +92,6 @@ export const retailProductTargets = [
     atlanticAliases: ["Royal Gala Apples", "Gala Apples"],
     sobeysAliases: ["Royal Gala Apples", "Gala Apples"],
   },
-,
   {
     productId: "cauliflower",
     productName: "Cauliflower",
