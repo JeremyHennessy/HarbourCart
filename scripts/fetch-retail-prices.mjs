@@ -48,6 +48,248 @@ async function fetchText(url, cookieJar = new Map()) {
   };
 }
 
+
+async function fetchJson(url) {
+  const response = await fetch(url, {
+    redirect: "follow",
+    signal: AbortSignal.timeout(15_000),
+    headers: {
+      "user-agent": USER_AGENT,
+      accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} for ${url}`);
+  }
+  return response.json();
+}
+
+function findFlyerItems(json) {
+  for (const key of ["flyer_items", "items", "ecom_items"]) {
+    if (Array.isArray(json?.[key])) return json[key];
+  }
+  for (const value of Object.values(json ?? {})) {
+    if (
+      Array.isArray(value) &&
+      value.some(
+        (item) => item && typeof item === "object" && "name" in item,
+      )
+    ) {
+      return value;
+    }
+  }
+  return [];
+}
+
+function activeMerchantFlyers(json, merchantPattern) {
+  const flyers = Array.isArray(json) ? json : json?.flyers ?? [];
+  const matcher = new RegExp(merchantPattern, "i");
+  const now = Date.now();
+
+  return flyers.filter((flyer) => {
+    const merchant = flyer.merchant_name || flyer.merchant || "";
+    const validFrom = flyer.valid_from
+      ? Date.parse(flyer.valid_from)
+      : -Infinity;
+    const validTo = flyer.valid_to ? Date.parse(flyer.valid_to) : Infinity;
+    return matcher.test(merchant) && validFrom <= now && now <= validTo;
+  });
+}
+
+function flippItemMatchesProduct(item, product) {
+  const name = String(item?.name ?? "").toLowerCase();
+  return product.aliases.some((alias) =>
+    name.includes(alias.toLowerCase()),
+  );
+}
+
+function numericFlippPrice(item) {
+  const raw =
+    item?.current_price ??
+    (item?.price !== "" && item?.price != null ? item.price : undefined);
+  const price = Number(raw);
+  return Number.isFinite(price) && price > 0 ? price : undefined;
+}
+
+function normalizeFlippItem(item, product) {
+  const price = numericFlippPrice(item);
+  if (!price) return undefined;
+
+  const text = [
+    item?.name,
+    item?.sale_story,
+    item?.pre_price_text,
+    item?.post_price_text,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  if (product.canonicalUnit === "ea") {
+    return {
+      price,
+      quantity: 1,
+      unit: "ea",
+      normalizedPrice: price,
+      normalizedUnit: "ea",
+    };
+  }
+
+  const kgPackage = text.match(/([0-9]+(?:\.[0-9]+)?)\s*kg\b/i);
+  if (kgPackage) {
+    const kilograms = Number(kgPackage[1]);
+    if (kilograms > 0) {
+      return {
+        price,
+        quantity: kilograms,
+        unit: "kg",
+        normalizedPrice: price / kilograms,
+        normalizedUnit: "kg",
+      };
+    }
+  }
+
+  const gramPackage = text.match(/([0-9]+(?:\.[0-9]+)?)\s*g\b/i);
+  if (gramPackage) {
+    const grams = Number(gramPackage[1]);
+    if (grams >= 100) {
+      const kilograms = grams / 1000;
+      return {
+        price,
+        quantity: kilograms,
+        unit: "kg",
+        normalizedPrice: price / kilograms,
+        normalizedUnit: "kg",
+      };
+    }
+  }
+
+  const lbPackage = text.match(/([0-9]+(?:\.[0-9]+)?)\s*lb\b/i);
+  if (lbPackage) {
+    const pounds = Number(lbPackage[1]);
+    if (pounds > 0) {
+      const kilograms = pounds * 0.45359237;
+      return {
+        price,
+        quantity: kilograms,
+        unit: "kg",
+        normalizedPrice: price / kilograms,
+        normalizedUnit: "kg",
+      };
+    }
+  }
+
+  if (/\bper\s*lb\b|\/\s*lb\b/i.test(text)) {
+    return {
+      price,
+      quantity: 1,
+      unit: "kg",
+      normalizedPrice: price / 0.45359237,
+      normalizedUnit: "kg",
+    };
+  }
+
+  if (/\bper\s*kg\b|\/\s*kg\b/i.test(text)) {
+    return {
+      price,
+      quantity: 1,
+      unit: "kg",
+      normalizedPrice: price,
+      normalizedUnit: "kg",
+    };
+  }
+
+  return undefined;
+}
+
+async function captureFlippFallback(store, alreadyCapturedProductIds) {
+  const fallback = store.flyerFallback;
+  if (!fallback || fallback.provider !== "FLIPP") {
+    return { prices: [], errors: [] };
+  }
+
+  const errors = [];
+  const prices = [];
+  const base = "https://backflipp.wishabi.com/flipp";
+  const locale = fallback.locale || "en-ca";
+  const postalCode = fallback.postalCode;
+  const flyerListUrl =
+    `${base}/flyers?locale=${encodeURIComponent(locale)}&postal_code=${encodeURIComponent(postalCode)}`;
+
+  try {
+    const flyerList = await fetchJson(flyerListUrl);
+    const flyers = activeMerchantFlyers(
+      flyerList,
+      fallback.merchantPattern,
+    );
+
+    for (const flyer of flyers) {
+      const flyerId = flyer.id || flyer.flyer_id;
+      if (!flyerId) continue;
+
+      const detailUrl =
+        `${base}/flyers/${flyerId}?locale=${encodeURIComponent(locale)}&postal_code=${encodeURIComponent(postalCode)}`;
+      const detail = await fetchJson(detailUrl);
+
+      for (const product of config.products) {
+        if (alreadyCapturedProductIds.has(product.productId)) continue;
+
+        const candidates = findFlyerItems(detail)
+          .filter((item) => flippItemMatchesProduct(item, product))
+          .map((item) => ({
+            item,
+            normalized: normalizeFlippItem(item, product),
+          }))
+          .filter((candidate) => candidate.normalized)
+          .sort(
+            (a, b) =>
+              a.normalized.normalizedPrice -
+              b.normalized.normalizedPrice,
+          );
+
+        const best = candidates[0];
+        if (!best) continue;
+
+        const observedAt = new Date().toISOString();
+        prices.push({
+          id:
+            `${store.retailer.toLowerCase()}-flyer-${flyerId}-${product.productId}`,
+          retailer: store.retailer,
+          retailerLabel: store.retailerLabel,
+          storeId: store.storeId,
+          storeName: store.storeName,
+          storeAddress: store.storeAddress,
+          scope: "HALIFAX_FLYER",
+          status: "CURRENT",
+          productId: product.productId,
+          productName: product.productName,
+          ...best.normalized,
+          promo: true,
+          observedAt,
+          ...(flyer.valid_from ? { validFrom: flyer.valid_from } : {}),
+          ...(flyer.valid_to ? { validTo: flyer.valid_to } : {}),
+          sourceUrl: detailUrl,
+          sourceLabel:
+            `${store.retailerLabel} weekly flyer syndicated by Flipp/Wishabi for postal code ${postalCode}`,
+          note: [
+            best.item.name,
+            best.item.sale_story,
+            best.item.pre_price_text,
+            best.item.post_price_text,
+          ]
+            .filter(Boolean)
+            .join(" "),
+        });
+        alreadyCapturedProductIds.add(product.productId);
+      }
+    }
+  } catch (error) {
+    errors.push(`Flipp fallback: ${error.message}`);
+  }
+
+  return { prices, errors };
+}
+
 function storeTextLooksLocal(text, store) {
   const normalized = text.toLowerCase();
   const addressParts = store.storeAddress
@@ -142,6 +384,16 @@ async function captureStore(store) {
       note: best.rawEvidence,
     });
   }
+
+  const capturedProductIds = new Set(
+    prices.map((price) => price.productId),
+  );
+  const flyerFallback = await captureFlippFallback(
+    store,
+    capturedProductIds,
+  );
+  prices.push(...flyerFallback.prices);
+  errors.push(...flyerFallback.errors);
 
   return {
     store,
