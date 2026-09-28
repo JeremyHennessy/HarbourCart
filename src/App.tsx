@@ -2,8 +2,18 @@ import { useMemo, useState } from "react";
 import { demandIdeas, pilotCandidates, type PilotCandidate } from "./data/pilot";
 import LiveRetailPanel from "./components/LiveRetailPanel";
 import LocalSupportView from "./components/LocalSupportView";
+import OperatingCostPanel from "./components/OperatingCostPanel";
+import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";
+import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
+import { useSupplierOffers } from "./hooks/useSupplierOffers";
 import { lowestCurrentComparator, type LiveRetailFeed } from "./domain/liveRetail";
+import {
+  selectBestSupplierProjection,
+  validateSupplierOffer,
+  type SupplierOffer,
+  type SupplierOfferProjection,
+} from "./domain/offers";
 import {
   activePriceTier,
   evaluateCandidate,
@@ -67,23 +77,38 @@ function useDemandRecord() {
 function candidateEconomics(
   buy: PilotCandidate,
   householdCount: number,
-  comparableUnitPrice = buy.publicReferenceUnitPrice,
+  options: {
+    comparableUnitPrice?: number;
+    supplierProjection?: SupplierOfferProjection;
+    hasCurrentLocalBenchmark?: boolean;
+  } = {},
 ): CandidateEconomics {
   const tier = activePriceTier(buy.tiers, householdCount);
+  const comparableUnitPrice =
+    options.comparableUnitPrice ?? buy.publicReferenceUnitPrice;
+  const supplierProjection = options.supplierProjection;
+
   return evaluateCandidate({
     comparableRetail: comparableUnitPrice * buy.householdQuantity,
-    procurementCost: buy.publicCaseUnitPrice * buy.householdQuantity,
+    procurementCost:
+      supplierProjection?.procurementPerHousehold ??
+      buy.publicCaseUnitPrice * buy.householdQuantity,
     targetSavingsRate: assumptions.targetSavingsRate,
     customerPriceOverride: tier.customerPrice,
     labourMinutes: assumptions.labourMinutes,
     labourHourlyRate: assumptions.labourHourlyRate,
     packagingCost: assumptions.packagingCost,
     shrinkRate: assumptions.shrinkRate,
-    freightCost: buy.freightPerHousehold,
+    freightCost:
+      supplierProjection?.deliveryPerHousehold ?? buy.freightPerHousehold,
     handlingStatus: buy.handlingStatus,
     measurementStatus: buy.measurementStatus,
-    supplierEvidence: buy.supplierEvidence,
-    benchmarkEvidence: buy.benchmarkEvidence,
+    supplierEvidence: supplierProjection
+      ? "VERIFIED_QUOTE"
+      : buy.supplierEvidence,
+    benchmarkEvidence: options.hasCurrentLocalBenchmark
+      ? "CURRENT_LOCAL"
+      : buy.benchmarkEvidence,
     minimumSavingsRate: assumptions.minimumSavingsRate,
     minimumContribution: assumptions.minimumContribution,
   });
@@ -117,15 +142,26 @@ function BuyCard({
   buy,
   joined,
   onToggle,
+  liveRetailFeed,
 }: {
   buy: PilotCandidate;
   joined: boolean;
   onToggle: () => void;
+  liveRetailFeed?: LiveRetailFeed;
 }) {
   const householdCount = buy.householdsInterested + (joined ? 1 : 0);
   const activeTier = activePriceTier(buy.tiers, householdCount);
   const nextTier = nextPriceTier(buy.tiers, householdCount);
-  const economics = candidateEconomics(buy, householdCount);
+  const liveComparator = lowestCurrentComparator(
+    liveRetailFeed?.prices ?? [],
+    buy.id,
+    new Date().toISOString(),
+  );
+  const economics = candidateEconomics(buy, householdCount, {
+    comparableUnitPrice:
+      liveComparator?.normalizedPrice ?? buy.publicReferenceUnitPrice,
+    hasCurrentLocalBenchmark: Boolean(liveComparator),
+  });
   const progress = Math.min(
     100,
     Math.round((householdCount / buy.targetHouseholds) * 100),
@@ -150,12 +186,15 @@ function BuyCard({
           <span className="price">{money.format(activeTier.customerPrice)}</span>
           <span className="muted"> model tier</span>
         </div>
-        <strong>{percent.format(economics.savingsRate)} vs public reference</strong>
+        <strong>
+          {percent.format(economics.savingsRate)} vs{" "}
+          {liveComparator ? "current local retail" : "public reference"}
+        </strong>
       </div>
 
       <div className="mini-metrics">
         <div>
-          <span>Public reference</span>
+          <span>{liveComparator ? "Current local retail" : "Public reference"}</span>
           <strong>{money.format(economics.comparableRetail)}</strong>
         </div>
         <div>
@@ -208,8 +247,20 @@ function BuyCard({
             ? " · legal-for-trade scale requirement unresolved"
             : ""}
         </p>
+        {liveComparator && (
+          <p className="evidence-line">
+            Current local comparator: {liveComparator.retailerLabel} ·{" "}
+            {liveComparator.storeName} ·{" "}
+            {money.format(liveComparator.normalizedPrice)}/
+            {liveComparator.normalizedUnit} · observed{" "}
+            {new Date(liveComparator.observedAt).toLocaleString("en-CA")}.{" "}
+            <a href={liveComparator.sourceUrl} target="_blank" rel="noreferrer">
+              Retail source
+            </a>
+          </p>
+        )}
         <p className="evidence-line">
-          Public screen observed {buy.observedAt}. Reference{" "}
+          Public structural screen observed {buy.observedAt}. Reference{" "}
           {money.format(buy.publicReferenceUnitPrice)}/{buy.unit} vs case-equivalent{" "}
           {money.format(buy.publicCaseUnitPrice)}/{buy.unit}. Structural spread{" "}
           {percent.format(
@@ -238,9 +289,11 @@ function BuyCard({
 function CustomerBuys({
   demandRecord,
   updateDemand,
+  liveRetailFeed,
 }: {
   demandRecord: DemandRecord;
   updateDemand: (next: DemandRecord) => void;
+  liveRetailFeed?: LiveRetailFeed;
 }) {
   const toggle = (buy: PilotCandidate) => {
     const current = demandRecord[buy.id];
@@ -338,6 +391,7 @@ function CustomerBuys({
               buy={buy}
               joined={Boolean(demandRecord[buy.id]?.joined)}
               onToggle={() => toggle(buy)}
+              liveRetailFeed={liveRetailFeed}
             />
           ))}
         </div>
@@ -452,10 +506,18 @@ function AdminView({
   demandRecord,
   liveRetailFeed,
   liveRetailError,
+  supplierOffers,
+  addSupplierOffer,
+  removeSupplierOffer,
+  replaceSupplierOffers,
 }: {
   demandRecord: DemandRecord;
   liveRetailFeed?: LiveRetailFeed;
   liveRetailError?: string;
+  supplierOffers: SupplierOffer[];
+  addSupplierOffer: (offer: SupplierOffer) => void;
+  removeSupplierOffer: (id: string) => void;
+  replaceSupplierOffers: (offers: SupplierOffer[]) => void;
 }) {
   const rows = useMemo(
     () =>
@@ -467,15 +529,27 @@ function AdminView({
           buy.id,
           new Date().toISOString(),
         );
-        const economics = candidateEconomics(
-          buy,
-          householdCount,
-          liveComparator?.normalizedPrice ?? buy.publicReferenceUnitPrice,
+        const supplierProjection = selectBestSupplierProjection(
+          supplierOffers,
+          {
+            productId: buy.id,
+            unit: buy.unit,
+            householdQuantity: buy.householdQuantity,
+            householdCount,
+            asOf: new Date().toISOString().slice(0, 10),
+          },
         );
+        const economics = candidateEconomics(buy, householdCount, {
+          comparableUnitPrice:
+            liveComparator?.normalizedPrice ?? buy.publicReferenceUnitPrice,
+          supplierProjection,
+          hasCurrentLocalBenchmark: Boolean(liveComparator),
+        });
         return {
           buy,
           householdCount,
           liveComparator,
+          supplierProjection,
           economics,
           signal: economicSignal(economics),
           spread: structuralSpread(
@@ -484,8 +558,16 @@ function AdminView({
           ),
         };
       }),
-    [demandRecord, liveRetailFeed],
+    [demandRecord, liveRetailFeed, supplierOffers],
   );
+
+  const todayDate = new Date().toISOString().slice(0, 10);
+  const verifiedQuoteCount = supplierOffers.filter(
+    (offer) => validateSupplierOffer(offer, todayDate).valid,
+  ).length;
+  const publishableCount = rows.filter(
+    ({ economics }) => economics.decision === "PUBLISH",
+  ).length;
 
   const attractive = rows.filter(
     ({ economics }) =>
@@ -517,15 +599,24 @@ function AdminView({
         </div>
         <div>
           <span>Verified supplier quotes</span>
-          <strong>0</strong>
+          <strong>{verifiedQuoteCount}</strong>
         </div>
         <div>
           <span>Publishable now</span>
-          <strong>0</strong>
+          <strong>{publishableCount}</strong>
         </div>
       </div>
 
       <LiveRetailPanel feed={liveRetailFeed} error={liveRetailError} />
+
+      <SupplierQuoteWorkspace
+        offers={supplierOffers}
+        addOffer={addSupplierOffer}
+        removeOffer={removeSupplierOffer}
+        replaceOffers={replaceSupplierOffers}
+      />
+
+      <OperatingCostPanel />
 
       <div className="table-wrap">
         <table className="admin-table">
@@ -535,6 +626,7 @@ function AdminView({
               <th>Demand</th>
               <th>Public spread</th>
               <th>Current comparator</th>
+              <th>Supplier quote</th>
               <th>Model price</th>
               <th>Model saving</th>
               <th>Contribution</th>
@@ -543,7 +635,7 @@ function AdminView({
             </tr>
           </thead>
           <tbody>
-            {rows.map(({ buy, householdCount, liveComparator, economics, signal, spread }) => (
+            {rows.map(({ buy, householdCount, liveComparator, supplierProjection, economics, signal, spread }) => (
               <tr key={buy.id}>
                 <td>
                   <strong>{buy.product}</strong>
@@ -566,6 +658,34 @@ function AdminView({
                     <span>Awaiting Halifax-verified live price</span>
                   )}
                 </td>
+                <td>
+                  {supplierProjection ? (
+                    <>
+                      <strong>
+                        {money.format(
+                          supplierProjection.procurementPerHousehold +
+                            supplierProjection.deliveryPerHousehold,
+                        )}
+                        /household
+                      </strong>
+                      <span>
+                        {supplierTargets.find(
+                          (supplier) =>
+                            supplier.id === supplierProjection.offer.supplierId,
+                        )?.name ?? supplierProjection.offer.supplierId}
+                      </span>
+                      <small>
+                        MOQ {supplierProjection.offer.minimumOrderCases} case
+                        {supplierProjection.offer.minimumOrderCases === 1 ? "" : "s"}
+                        {supplierProjection.surplusQuantity > 0
+                          ? ` · ${supplierProjection.surplusQuantity.toFixed(2)} ${supplierProjection.offer.unit} surplus`
+                          : ""}
+                      </small>
+                    </>
+                  ) : (
+                    <span>Awaiting verified supplier quote</span>
+                  )}
+                </td>
                 <td>{money.format(economics.customerPrice)}</td>
                 <td>{percent.format(economics.savingsRate)}</td>
                 <td className={economics.contribution >= 5 ? "positive" : economics.contribution < 0 ? "negative" : ""}>
@@ -577,11 +697,21 @@ function AdminView({
                   </span>
                 </td>
                 <td>
-                  <span className="status-chip status-chip--blocked">BLOCKED</span>
+                  <span
+                    className={
+                      economics.decision === "PUBLISH"
+                        ? "status-chip status-chip--good"
+                        : economics.decision === "REVIEW"
+                          ? "status-chip status-chip--review"
+                          : "status-chip status-chip--blocked"
+                    }
+                  >
+                    {economics.decision}
+                  </span>
                   <small>
-                    quote + Halifax benchmark
-                    {buy.handlingStatus !== "CONFIRMED_PHASE_1" ? " + handling" : ""}
-                    {buy.measurementStatus === "TRADE_SCALE_REQUIRED" ? " + trade scale" : ""}
+                    {economics.decisionReasons.length
+                      ? economics.decisionReasons.join(" ")
+                      : "All configured publication gates pass."}
                   </small>
                 </td>
               </tr>
@@ -714,6 +844,12 @@ function App() {
   const [view, setView] = useState<View>("buys");
   const [demandRecord, updateDemand] = useDemandRecord();
   const { feed: liveRetailFeed, error: liveRetailError } = useLiveRetailFeed();
+  const {
+    offers: supplierOffers,
+    addOffer: addSupplierOffer,
+    removeOffer: removeSupplierOffer,
+    replaceOffers: replaceSupplierOffers,
+  } = useSupplierOffers();
 
   return (
     <>
@@ -752,7 +888,11 @@ function App() {
 
       <main id="top">
         {view === "buys" && (
-          <CustomerBuys demandRecord={demandRecord} updateDemand={updateDemand} />
+          <CustomerBuys
+            demandRecord={demandRecord}
+            updateDemand={updateDemand}
+            liveRetailFeed={liveRetailFeed}
+          />
         )}
         {view === "demand" && (
           <DemandView demandRecord={demandRecord} updateDemand={updateDemand} />
@@ -762,6 +902,10 @@ function App() {
             demandRecord={demandRecord}
             liveRetailFeed={liveRetailFeed}
             liveRetailError={liveRetailError}
+            supplierOffers={supplierOffers}
+            addSupplierOffer={addSupplierOffer}
+            removeSupplierOffer={removeSupplierOffer}
+            replaceSupplierOffers={replaceSupplierOffers}
           />
         )}
         {view === "support" && <LocalSupportView />}

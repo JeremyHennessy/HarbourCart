@@ -12,7 +12,9 @@
         "https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/fresh-vegetables/c/28195",
         "https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/c/28000",
         "https://www.atlanticsuperstore.ca/en/search?search-bar=apples",
-        "https://www.atlanticsuperstore.ca/en/search?search-bar=potatoes"
+        "https://www.atlanticsuperstore.ca/en/search?search-bar=potatoes",
+        "https://www.atlanticsuperstore.ca/en/search?search-bar=carrots",
+        "https://www.atlanticsuperstore.ca/en/search?search-bar=flour"
       ],
       "storeIdentityVerified": true,
       "storeEvidenceUrl": "https://www.atlanticsuperstore.ca/store-locator/details/0369",
@@ -107,6 +109,76 @@
       "aliases": [
         "Royal Gala Apples",
         "Gala Apples"
+      ]
+    },
+    {
+      "productId": "cauliflower",
+      "productName": "Cauliflower",
+      "canonicalUnit": "ea",
+      "aliases": [
+        "Cauliflower"
+      ]
+    },
+    {
+      "productId": "celery",
+      "productName": "Celery Stalks",
+      "canonicalUnit": "ea",
+      "aliases": [
+        "Celery Stalks",
+        "Celery Stalk"
+      ]
+    },
+    {
+      "productId": "green-onion",
+      "productName": "Green Onion",
+      "canonicalUnit": "ea",
+      "aliases": [
+        "Green Onion"
+      ]
+    },
+    {
+      "productId": "carrots",
+      "productName": "Carrots",
+      "canonicalUnit": "kg",
+      "aliases": [
+        "Carrots, 3 lb Bag",
+        "Carrots"
+      ]
+    },
+    {
+      "productId": "sweet-potato",
+      "productName": "Sweet Potato",
+      "canonicalUnit": "kg",
+      "aliases": [
+        "Sweet Potato",
+        "Sweet Potatoes"
+      ]
+    },
+    {
+      "productId": "sweet-peppers",
+      "productName": "Mixed Sweet Peppers",
+      "canonicalUnit": "kg",
+      "aliases": [
+        "Naturally Imperfect Mixed Sweet Peppers",
+        "Mixed Sweet Peppers"
+      ]
+    },
+    {
+      "productId": "romaine-hearts",
+      "productName": "Romaine Hearts",
+      "canonicalUnit": "ea",
+      "aliases": [
+        "Romaine Heart, 3 Pack",
+        "Romaine Hearts"
+      ]
+    },
+    {
+      "productId": "flour",
+      "productName": "All-Purpose Flour",
+      "canonicalUnit": "kg",
+      "aliases": [
+        "All Purpose Flour",
+        "All-Purpose Flour"
       ]
     }
   ]

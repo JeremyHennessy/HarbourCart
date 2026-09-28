@@ -22,6 +22,20 @@ export type OfferValidation = {
   reasons: string[];
 };
 
+export type SupplierOfferProjection = {
+  offer: SupplierOffer;
+  requiredQuantity: number;
+  casesNeeded: number;
+  casesPurchased: number;
+  purchasedQuantity: number;
+  surplusQuantity: number;
+  procurementTotal: number;
+  deliveryTotal: number;
+  procurementPerHousehold: number;
+  deliveryPerHousehold: number;
+  effectiveUnitProcurementCost: number;
+};
+
 export function validateSupplierOffer(
   offer: SupplierOffer,
   asOf: string,
@@ -56,4 +70,75 @@ export function offerUnitPrice(offer: SupplierOffer): number {
     throw new Error("Case quantity must be greater than zero.");
   }
   return offer.casePrice / offer.caseQuantity;
+}
+
+export function projectSupplierOffer(
+  offer: SupplierOffer,
+  householdQuantity: number,
+  householdCount: number,
+): SupplierOfferProjection {
+  if (householdQuantity <= 0 || householdCount <= 0) {
+    throw new Error("Household quantity and household count must be greater than zero.");
+  }
+  if (offer.caseQuantity <= 0 || offer.minimumOrderCases <= 0) {
+    throw new Error("Offer case quantity and minimum order must be greater than zero.");
+  }
+
+  const requiredQuantity = householdQuantity * householdCount;
+  const casesNeeded = Math.ceil(requiredQuantity / offer.caseQuantity);
+  const casesPurchased = Math.max(casesNeeded, offer.minimumOrderCases);
+  const purchasedQuantity = casesPurchased * offer.caseQuantity;
+  const surplusQuantity = Math.max(0, purchasedQuantity - requiredQuantity);
+  const procurementTotal = casesPurchased * offer.casePrice;
+  const deliveryTotal = offer.deliveryCost ?? 0;
+  const procurementPerHousehold = procurementTotal / householdCount;
+  const deliveryPerHousehold = deliveryTotal / householdCount;
+  const effectiveUnitProcurementCost =
+    procurementTotal / requiredQuantity;
+
+  return {
+    offer,
+    requiredQuantity,
+    casesNeeded,
+    casesPurchased,
+    purchasedQuantity,
+    surplusQuantity,
+    procurementTotal,
+    deliveryTotal,
+    procurementPerHousehold,
+    deliveryPerHousehold,
+    effectiveUnitProcurementCost,
+  };
+}
+
+export function selectBestSupplierProjection(
+  offers: SupplierOffer[],
+  input: {
+    productId: string;
+    unit: string;
+    householdQuantity: number;
+    householdCount: number;
+    asOf: string;
+  },
+): SupplierOfferProjection | undefined {
+  return offers
+    .filter(
+      (offer) =>
+        offer.productId === input.productId &&
+        offer.unit === input.unit &&
+        validateSupplierOffer(offer, input.asOf).valid,
+    )
+    .map((offer) =>
+      projectSupplierOffer(
+        offer,
+        input.householdQuantity,
+        input.householdCount,
+      ),
+    )
+    .sort(
+      (a, b) =>
+        a.procurementPerHousehold +
+        a.deliveryPerHousehold -
+        (b.procurementPerHousehold + b.deliveryPerHousehold),
+    )[0];
 }

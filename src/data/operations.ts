@@ -83,6 +83,30 @@ export const operatingAssumptions: OperatingAssumption[] = [
       "Current public Hubs/Buying Groups Growing plan is $400 per 4-month season for annual sales in the stated $30K-$100K band. HarbourCart's actual plan depends on turnover and pilot duration. Weekly model uses $400 / 17.3 weeks = about $23.12.",
   },
   {
+    id: "bus-stop-community-room",
+    label: "Bus Stop Theatre Community Room public rate",
+    value: 60,
+    unit: "CAD/4 hours + HST",
+    evidence: "PUBLIC_VENDOR",
+    sourceUrl:
+      "https://rentals.busstoptheatre.coop/",
+    observedAt: "2026-09-28",
+    note:
+      "Current published non-member Community Room rate is $60 for up to four hours plus HST. This is a rental-price screen only; HarbourCart must obtain written permission for commercial grocery pickup/food handling before treating the room as eligible.",
+  },
+  {
+    id: "halifax-brewery-small-room",
+    label: "Halifax Brewery Market Pu'Taliewey Room public rate",
+    value: 60,
+    unit: "CAD/hour + HST",
+    evidence: "PUBLIC_VENDOR",
+    sourceUrl:
+      "https://www.halifaxbrewerymarket.com/",
+    observedAt: "2026-09-28",
+    note:
+      "Current event-rental sheet lists the small private room at $60/hour standard, with setup/tear-down billed at 50% of the hourly rate. Food-pickup suitability and recurring availability require direct confirmation.",
+  },
+  {
     id: "insurance",
     label: "General/product liability insurance",
     value: null,
@@ -120,6 +144,15 @@ export const operatingScenarios = [
     pickupHourlyRate: 40,
     pickupHours: 4,
     transportKm: 200,
+    transportRatePerKm: 0.73,
+    softwareWeeklyCost: 400 / 17.3,
+  },
+  {
+    id: "low-cost-community-room",
+    label: "Low-cost community-room screen",
+    pickupHourlyRate: 60 / 4,
+    pickupHours: 4,
+    transportKm: 25,
     transportRatePerKm: 0.73,
     softwareWeeklyCost: 400 / 17.3,
   },

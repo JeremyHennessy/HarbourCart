@@ -38,12 +38,34 @@ export type LiveRetailPrice = {
   note?: string;
 };
 
+export type RetailResearchSignal = {
+  id: string;
+  retailer: RetailerId;
+  retailerLabel: string;
+  storeId?: string;
+  storeName?: string;
+  storeAddress?: string;
+  scope: "HALIFAX_FLYER" | "RETAILER_PUBLIC";
+  status: "UNIT_UNVERIFIED";
+  productId: string;
+  productName: string;
+  displayName: string;
+  price: number;
+  observedAt: string;
+  validFrom?: string;
+  validTo?: string;
+  sourceUrl: string;
+  imageUrl?: string;
+  note?: string;
+};
+
 export type LiveRetailFeed = {
   schemaVersion: 1;
   generatedAt: string;
   lastAttemptAt: string;
   lastSuccessfulAt?: string;
   prices: LiveRetailPrice[];
+  signals?: RetailResearchSignal[];
   errors: Array<{
     retailer: RetailerId;
     sourceUrl: string;
