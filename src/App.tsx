@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import { demandIdeas, pilotCandidates, type PilotCandidate } from "./data/pilot";
+import LiveRetailPanel from "./components/LiveRetailPanel";
+import LocalSupportView from "./components/LocalSupportView";
 import {
   activePriceTier,
   evaluateCandidate,
@@ -18,7 +20,7 @@ const percent = new Intl.NumberFormat("en-CA", {
   maximumFractionDigits: 0,
 });
 
-type View = "buys" | "demand" | "admin" | "evidence";
+type View = "buys" | "demand" | "admin" | "support" | "evidence";
 type DemandRecord = Record<string, { joined: boolean; targetPrice: number }>;
 
 const assumptions = {
@@ -502,6 +504,8 @@ function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
         </div>
       </div>
 
+      <LiveRetailPanel />
+
       <div className="table-wrap">
         <table className="admin-table">
           <thead>
@@ -691,6 +695,7 @@ function App() {
             ["buys", "Candidate buys"],
             ["demand", "Demand"],
             ["admin", "Procurement"],
+            ["support", "Local support"],
             ["evidence", "Evidence"],
           ] as const).map(([id, label]) => (
             <button
@@ -715,6 +720,7 @@ function App() {
           <DemandView demandRecord={demandRecord} updateDemand={updateDemand} />
         )}
         {view === "admin" && <AdminView demandRecord={demandRecord} />}
+        {view === "support" && <LocalSupportView />}
         {view === "evidence" && <EvidenceView />}
       </main>
 
