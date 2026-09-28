@@ -119,3 +119,31 @@ If either retailer blocks automated access or a page structure changes:
 - stale or store-unverified prices cannot satisfy the publication gate.
 
 The system must fail **closed** for savings claims, not silently reuse an old price as current.
+
+
+## Verified CI capture behaviour — 2026-09-28
+
+The feature branch was tested from GitHub Actions, the same environment that will run scheduled refreshes.
+
+### Atlantic Superstore
+
+For the configured Barrington Street store, the smoke test:
+
+- successfully established a selected-store session;
+- captured 7 configured product prices;
+- reported no retailer fetch errors.
+
+The store page itself does not need to be re-discovered on every refresh: store ID/address identity is retained as configuration evidence, while the live session must still show the selected store context before a capture can be scoped as `HALIFAX_STORE`.
+
+### Sobeys
+
+Direct Sobeys store/product requests from the GitHub Actions runner returned HTTP 403.
+
+The Flipp/Wishabi fallback successfully found the active Sobeys flyer for B3H 2R9 and returned 329 flyer items. The flyer API included names/prices but did not safely preserve unit/package information for the configured fresh-produce candidates in this week's flyer.
+
+HarbourCart therefore does **not** infer units such as "$0.99 must mean per pound." Those offers remain unusable as normalized publication comparators unless the package/unit can be established from another supported source.
+
+Current result:
+
+- Superstore: live Halifax store-scoped comparator pipeline demonstrated;
+- Sobeys: current public/flyer research signals available, but local normalized comparator coverage remains incomplete.
