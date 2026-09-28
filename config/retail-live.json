@@ -13,7 +13,10 @@
         "https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/c/28000",
         "https://www.atlanticsuperstore.ca/en/search?search-bar=apples",
         "https://www.atlanticsuperstore.ca/en/search?search-bar=potatoes"
-      ]
+      ],
+      "storeIdentityVerified": true,
+      "storeEvidenceUrl": "https://www.atlanticsuperstore.ca/store-locator/details/0369",
+      "storeIdentityVerifiedAt": "2026-09-28"
     },
     {
       "retailer": "SOBEYS",
@@ -30,7 +33,10 @@
         "https://www.sobeys.com/products/green-cabbage-1-count",
         "https://www.sobeys.com/products/yellow-onions-2%252E27-kg",
         "https://www.sobeys.com/products/russet-potatoes-2%252E27-kg"
-      ]
+      ],
+      "storeIdentityVerified": true,
+      "storeEvidenceUrl": "https://www.sobeys.com/stores/sobeys-queen-street?f=715",
+      "storeIdentityVerifiedAt": "2026-09-28"
     }
   ],
   "products": [
