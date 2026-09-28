@@ -4,10 +4,12 @@ import LiveRetailPanel from "./components/LiveRetailPanel";
 import LocalSupportView from "./components/LocalSupportView";
 import OperatingCostPanel from "./components/OperatingCostPanel";
 import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";
+import BasketEconomicsPanel from "./components/BasketEconomicsPanel";
 import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
 import { useSupplierOffers } from "./hooks/useSupplierOffers";
 import { lowestCurrentComparator, type LiveRetailFeed } from "./domain/liveRetail";
+import { evaluateBasket, type BasketItemEconomics } from "./domain/basket";
 import {
   selectBestSupplierProjection,
   validateSupplierOffer,
@@ -38,10 +40,10 @@ type DemandRecord = Record<string, { joined: boolean; targetPrice: number }>;
 const assumptions = {
   targetSavingsRate: 0.15,
   minimumSavingsRate: 0.15,
-  minimumContribution: 5,
-  labourMinutes: 4,
+  basketMinimumContribution: 5,
+  basketLabourMinutes: 4,
   labourHourlyRate: 17,
-  packagingCost: 0.75,
+  basketPackagingCost: 0.75,
   shrinkRate: 0.01,
 };
 
@@ -95,9 +97,10 @@ function candidateEconomics(
       buy.publicCaseUnitPrice * buy.householdQuantity,
     targetSavingsRate: assumptions.targetSavingsRate,
     customerPriceOverride: tier.customerPrice,
-    labourMinutes: assumptions.labourMinutes,
+    // Shared transaction costs belong to the household basket, not each item.
+    labourMinutes: 0,
     labourHourlyRate: assumptions.labourHourlyRate,
-    packagingCost: assumptions.packagingCost,
+    packagingCost: 0,
     shrinkRate: assumptions.shrinkRate,
     freightCost:
       supplierProjection?.deliveryPerHousehold ?? buy.freightPerHousehold,
@@ -110,18 +113,20 @@ function candidateEconomics(
       ? "CURRENT_LOCAL"
       : buy.benchmarkEvidence,
     minimumSavingsRate: assumptions.minimumSavingsRate,
-    minimumContribution: assumptions.minimumContribution,
+    minimumContribution: 0,
+    cardRate: 0,
+    cardFixed: 0,
   });
 }
 
 function economicSignal(economics: CandidateEconomics) {
-  if (economics.savingsRate < assumptions.minimumSavingsRate || economics.contribution < 0) {
+  if (
+    economics.savingsRate < assumptions.minimumSavingsRate ||
+    economics.contribution < 0
+  ) {
     return { label: "DROP / REPRICE", tone: "reject" };
   }
-  if (economics.contribution < assumptions.minimumContribution) {
-    return { label: "THIN", tone: "review" };
-  }
-  return { label: "QUOTE FIRST", tone: "good" };
+  return { label: "BASKET CANDIDATE", tone: "good" };
 }
 
 function EvidenceChip({ buy }: { buy: PilotCandidate }) {
@@ -198,7 +203,7 @@ function BuyCard({
           <strong>{money.format(economics.comparableRetail)}</strong>
         </div>
         <div>
-          <span>Variable contribution</span>
+          <span>Item contribution · before basket overhead</span>
           <strong>{money.format(economics.contribution)}</strong>
         </div>
         <div>
@@ -360,7 +365,7 @@ function CustomerBuys({
         </div>
         <div>
           <strong>$5</strong>
-          <span>normal variable-contribution gate</span>
+          <span>household basket contribution gate</span>
         </div>
         <div>
           <strong>50</strong>
@@ -545,12 +550,18 @@ function AdminView({
           supplierProjection,
           hasCurrentLocalBenchmark: Boolean(liveComparator),
         });
+        const evidenceReady =
+          Boolean(supplierProjection) &&
+          Boolean(liveComparator) &&
+          buy.handlingStatus === "CONFIRMED_PHASE_1" &&
+          buy.measurementStatus !== "TRADE_SCALE_REQUIRED";
         return {
           buy,
           householdCount,
           liveComparator,
           supplierProjection,
           economics,
+          evidenceReady,
           signal: economicSignal(economics),
           spread: structuralSpread(
             { price: buy.publicReferenceUnitPrice, quantity: 1 },
@@ -565,15 +576,38 @@ function AdminView({
   const verifiedQuoteCount = supplierOffers.filter(
     (offer) => validateSupplierOffer(offer, todayDate).valid,
   ).length;
-  const publishableCount = rows.filter(
-    ({ economics }) => economics.decision === "PUBLISH",
-  ).length;
-
   const attractive = rows.filter(
     ({ economics }) =>
       economics.savingsRate >= assumptions.minimumSavingsRate &&
-      economics.contribution >= assumptions.minimumContribution,
+      economics.contribution >= 0,
   ).length;
+
+  const basketItems: BasketItemEconomics[] = rows
+    .filter(
+      ({ evidenceReady, economics }) =>
+        evidenceReady &&
+        economics.savingsRate > 0 &&
+        economics.contribution >= 0,
+    )
+    .map(({ buy, economics }) => ({
+      id: buy.id,
+      label: buy.product,
+      customerPrice: economics.customerPrice,
+      comparableRetail: economics.comparableRetail,
+      procurementCost: economics.procurementCost,
+      freightCost: economics.freightCost,
+      shrinkCost: economics.shrinkCost,
+      evidenceReady: true,
+    }));
+
+  const basketEconomics = evaluateBasket({
+    items: basketItems,
+    labourMinutes: assumptions.basketLabourMinutes,
+    labourHourlyRate: assumptions.labourHourlyRate,
+    basketPackagingCost: assumptions.basketPackagingCost,
+    minimumSavingsRate: assumptions.minimumSavingsRate,
+    minimumContribution: assumptions.basketMinimumContribution,
+  });
 
   return (
     <section className="section admin-page">
@@ -602,8 +636,8 @@ function AdminView({
           <strong>{verifiedQuoteCount}</strong>
         </div>
         <div>
-          <span>Publishable now</span>
-          <strong>{publishableCount}</strong>
+          <span>Basket-ready items</span>
+          <strong>{basketItems.length}</strong>
         </div>
       </div>
 
@@ -616,7 +650,15 @@ function AdminView({
         replaceOffers={replaceSupplierOffers}
       />
 
-      <OperatingCostPanel />
+      <BasketEconomicsPanel economics={basketEconomics} items={basketItems} />
+
+      <OperatingCostPanel
+        contributionPerHousehold={
+          basketItems.length > 0 && basketEconomics.allEvidenceReady
+            ? basketEconomics.contribution
+            : undefined
+        }
+      />
 
       <div className="table-wrap">
         <table className="admin-table">
@@ -629,7 +671,7 @@ function AdminView({
               <th>Supplier quote</th>
               <th>Model price</th>
               <th>Model saving</th>
-              <th>Contribution</th>
+              <th>Item contribution</th>
               <th>Research signal</th>
               <th>Publication gate</th>
             </tr>
@@ -688,8 +730,9 @@ function AdminView({
                 </td>
                 <td>{money.format(economics.customerPrice)}</td>
                 <td>{percent.format(economics.savingsRate)}</td>
-                <td className={economics.contribution >= 5 ? "positive" : economics.contribution < 0 ? "negative" : ""}>
+                <td className={economics.contribution >= 0 ? "positive" : "negative"}>
                   {money.format(economics.contribution)}
+                  <small>before basket overhead</small>
                 </td>
                 <td>
                   <span className={`status-chip status-chip--${signal.tone}`}>
@@ -706,12 +749,14 @@ function AdminView({
                           : "status-chip status-chip--blocked"
                     }
                   >
-                    {economics.decision}
+                    {economics.decision === "PUBLISH"
+                      ? "ITEM READY"
+                      : economics.decision}
                   </span>
                   <small>
                     {economics.decisionReasons.length
                       ? economics.decisionReasons.join(" ")
-                      : "All configured publication gates pass."}
+                      : "Item clears evidence and item-level economics; final publication depends on basket and weekly cohort gates."}
                   </small>
                 </td>
               </tr>
@@ -722,16 +767,16 @@ function AdminView({
 
       <div className="decision-legend">
         <div>
-          <strong>QUOTE FIRST</strong>
-          <span>Structural economics clear the working gates. Get real evidence next.</span>
+          <strong>BASKET CANDIDATE</strong>
+          <span>Item has positive pre-basket contribution and meets the working item savings target.</span>
         </div>
         <div>
-          <strong>THIN</strong>
-          <span>Positive but below the normal $5/order contribution gate.</span>
+          <strong>ITEM READY</strong>
+          <span>Supplier quote, Halifax comparator, handling and measurement evidence all pass. The $5 gate is applied to the household basket.</span>
         </div>
         <div>
           <strong>DROP / REPRICE</strong>
-          <span>Fails savings or variable contribution before fixed costs.</span>
+          <span>Item fails the savings target or loses money before shared basket overhead.</span>
         </div>
       </div>
     </section>
