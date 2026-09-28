@@ -126,13 +126,20 @@ function normalizeFlippItem(item, product) {
     .join(" ");
 
   if (product.canonicalUnit === "ea") {
-    return {
-      price,
-      quantity: 1,
-      unit: "ea",
-      normalizedPrice: price,
-      normalizedUnit: "ea",
-    };
+    // A flyer price alone does not prove "each"; it can represent a multipack.
+    // Normalize only when the flyer text itself explicitly carries a one-count
+    // or each-price signal. Otherwise retain the item as an unnormalized
+    // research signal.
+    if (/\b1\s*(?:ea|each|count|ct)\b|\beach\b/i.test(text)) {
+      return {
+        price,
+        quantity: 1,
+        unit: "ea",
+        normalizedPrice: price,
+        normalizedUnit: "ea",
+      };
+    }
+    return undefined;
   }
 
   const kgPackage = text.match(/([0-9]+(?:\.[0-9]+)?)\s*kg\b/i);
@@ -205,11 +212,12 @@ function normalizeFlippItem(item, product) {
 async function captureFlippFallback(store, alreadyCapturedProductIds) {
   const fallback = store.flyerFallback;
   if (!fallback || fallback.provider !== "FLIPP") {
-    return { prices: [], errors: [] };
+    return { prices: [], signals: [], errors: [] };
   }
 
   const errors = [];
   const prices = [];
+  const signals = [];
   const base = "https://backflipp.wishabi.com/flipp";
   const locale = fallback.locale || "en-ca";
   const postalCode = fallback.postalCode;
@@ -240,8 +248,11 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
       for (const product of config.products) {
         if (alreadyCapturedProductIds.has(product.productId)) continue;
 
-        const candidates = findFlyerItems(detail)
+        const matchedItems = findFlyerItems(detail)
           .filter((item) => flippItemMatchesProduct(item, product))
+          .filter((item) => numericFlippPrice(item));
+
+        const candidates = matchedItems
           .map((item) => ({
             item,
             normalized: normalizeFlippItem(item, product),
@@ -254,7 +265,39 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
           );
 
         const best = candidates[0];
-        if (!best) continue;
+        if (!best) {
+          const raw = [...matchedItems].sort(
+            (a, b) => numericFlippPrice(a) - numericFlippPrice(b),
+          )[0];
+          if (raw) {
+            const observedAt = new Date().toISOString();
+            signals.push({
+              id:
+                `${store.retailer.toLowerCase()}-flyer-signal-${flyerId}-${product.productId}`,
+              retailer: store.retailer,
+              retailerLabel: store.retailerLabel,
+              storeId: store.storeId,
+              storeName: store.storeName,
+              storeAddress: store.storeAddress,
+              scope: "HALIFAX_FLYER",
+              status: "UNIT_UNVERIFIED",
+              productId: product.productId,
+              productName: product.productName,
+              displayName: raw.name || product.productName,
+              price: numericFlippPrice(raw),
+              observedAt,
+              ...(flyer.valid_from ? { validFrom: flyer.valid_from } : {}),
+              ...(flyer.valid_to ? { validTo: flyer.valid_to } : {}),
+              sourceUrl: detailUrl,
+              ...(raw.cutout_image_url
+                ? { imageUrl: raw.cutout_image_url.replace(/^http:/, "https:") }
+                : {}),
+              note:
+                "Current local flyer price captured, but package/unit is not explicit enough for normalized savings math.",
+            });
+          }
+          continue;
+        }
 
         const observedAt = new Date().toISOString();
         prices.push({
@@ -289,16 +332,16 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
         alreadyCapturedProductIds.add(product.productId);
       }
     }
-    if (flyers.length > 0 && prices.length === 0) {
+    if (flyers.length > 0 && prices.length === 0 && signals.length === 0) {
       errors.push(
-        `Flipp fallback: matched ${flyers.length} active flyer(s) but no configured target product had a safely normalizable price`,
+        `Flipp fallback: matched ${flyers.length} active flyer(s) but no configured target product had a usable price signal`,
       );
     }
   } catch (error) {
     errors.push(`Flipp fallback: ${error.message}`);
   }
 
-  return { prices, errors };
+  return { prices, signals, errors };
 }
 
 function storeTextLooksLocal(text, store) {
@@ -411,6 +454,7 @@ async function captureStore(store) {
     storeValidated,
     sessionLooksLocal,
     prices,
+    signals: flyerFallback.signals,
     errors,
   };
 }
@@ -430,6 +474,7 @@ for (const store of config.stores) {
 }
 
 const freshPrices = results.flatMap((result) => result.prices);
+const freshSignals = results.flatMap((result) => result.signals ?? []);
 const attemptErrors = results.flatMap((result) =>
   result.errors.map((message) => ({
     retailer: result.store.retailer,
@@ -455,6 +500,7 @@ const output = {
   lastSuccessfulAt:
     freshPrices.length > 0 ? now : previous?.lastSuccessfulAt,
   prices: [...freshPrices, ...retained],
+  signals: freshSignals,
   errors: attemptErrors,
 };
 
@@ -470,9 +516,11 @@ console.log(
         storeValidated: result.storeValidated,
         sessionLooksLocal: result.sessionLooksLocal,
         pricesCaptured: result.prices.length,
+        researchSignalsCaptured: result.signals?.length ?? 0,
         errors: result.errors,
       })),
       totalFreshPrices: freshPrices.length,
+      totalFreshSignals: freshSignals.length,
       retainedPreviousPrices: retained.length,
     },
     null,
