@@ -1,5 +1,9 @@
 import { useMemo, useState } from "react";
 import { demandIdeas, pilotCandidates, type PilotCandidate } from "./data/pilot";
+import LiveRetailPanel from "./components/LiveRetailPanel";
+import LocalSupportView from "./components/LocalSupportView";
+import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
+import { lowestCurrentComparator, type LiveRetailFeed } from "./domain/liveRetail";
 import {
   activePriceTier,
   evaluateCandidate,
@@ -18,7 +22,7 @@ const percent = new Intl.NumberFormat("en-CA", {
   maximumFractionDigits: 0,
 });
 
-type View = "buys" | "demand" | "admin" | "evidence";
+type View = "buys" | "demand" | "admin" | "support" | "evidence";
 type DemandRecord = Record<string, { joined: boolean; targetPrice: number }>;
 
 const assumptions = {
@@ -63,10 +67,11 @@ function useDemandRecord() {
 function candidateEconomics(
   buy: PilotCandidate,
   householdCount: number,
+  comparableUnitPrice = buy.publicReferenceUnitPrice,
 ): CandidateEconomics {
   const tier = activePriceTier(buy.tiers, householdCount);
   return evaluateCandidate({
-    comparableRetail: buy.publicReferenceUnitPrice * buy.householdQuantity,
+    comparableRetail: comparableUnitPrice * buy.householdQuantity,
     procurementCost: buy.publicCaseUnitPrice * buy.householdQuantity,
     targetSavingsRate: assumptions.targetSavingsRate,
     customerPriceOverride: tier.customerPrice,
@@ -443,16 +448,34 @@ function DemandView({
   );
 }
 
-function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
+function AdminView({
+  demandRecord,
+  liveRetailFeed,
+  liveRetailError,
+}: {
+  demandRecord: DemandRecord;
+  liveRetailFeed?: LiveRetailFeed;
+  liveRetailError?: string;
+}) {
   const rows = useMemo(
     () =>
       pilotCandidates.map((buy) => {
         const householdCount =
           buy.householdsInterested + (demandRecord[buy.id]?.joined ? 1 : 0);
-        const economics = candidateEconomics(buy, householdCount);
+        const liveComparator = lowestCurrentComparator(
+          liveRetailFeed?.prices ?? [],
+          buy.id,
+          new Date().toISOString(),
+        );
+        const economics = candidateEconomics(
+          buy,
+          householdCount,
+          liveComparator?.normalizedPrice ?? buy.publicReferenceUnitPrice,
+        );
         return {
           buy,
           householdCount,
+          liveComparator,
           economics,
           signal: economicSignal(economics),
           spread: structuralSpread(
@@ -461,7 +484,7 @@ function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
           ),
         };
       }),
-    [demandRecord],
+    [demandRecord, liveRetailFeed],
   );
 
   const attractive = rows.filter(
@@ -502,6 +525,8 @@ function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
         </div>
       </div>
 
+      <LiveRetailPanel feed={liveRetailFeed} error={liveRetailError} />
+
       <div className="table-wrap">
         <table className="admin-table">
           <thead>
@@ -509,6 +534,7 @@ function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
               <th>Candidate</th>
               <th>Demand</th>
               <th>Public spread</th>
+              <th>Current comparator</th>
               <th>Model price</th>
               <th>Model saving</th>
               <th>Contribution</th>
@@ -517,7 +543,7 @@ function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map(({ buy, householdCount, economics, signal, spread }) => (
+            {rows.map(({ buy, householdCount, liveComparator, economics, signal, spread }) => (
               <tr key={buy.id}>
                 <td>
                   <strong>{buy.product}</strong>
@@ -525,6 +551,21 @@ function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
                 </td>
                 <td>{householdCount}</td>
                 <td>{percent.format(spread)}</td>
+                <td>
+                  {liveComparator ? (
+                    <>
+                      <strong>
+                        {money.format(liveComparator.normalizedPrice)}/
+                        {liveComparator.normalizedUnit}
+                      </strong>
+                      <span>
+                        {liveComparator.retailerLabel} · {liveComparator.storeName}
+                      </span>
+                    </>
+                  ) : (
+                    <span>Awaiting Halifax-verified live price</span>
+                  )}
+                </td>
                 <td>{money.format(economics.customerPrice)}</td>
                 <td>{percent.format(economics.savingsRate)}</td>
                 <td className={economics.contribution >= 5 ? "positive" : economics.contribution < 0 ? "negative" : ""}>
@@ -672,6 +713,7 @@ function EvidenceView() {
 function App() {
   const [view, setView] = useState<View>("buys");
   const [demandRecord, updateDemand] = useDemandRecord();
+  const { feed: liveRetailFeed, error: liveRetailError } = useLiveRetailFeed();
 
   return (
     <>
@@ -691,6 +733,7 @@ function App() {
             ["buys", "Candidate buys"],
             ["demand", "Demand"],
             ["admin", "Procurement"],
+            ["support", "Local support"],
             ["evidence", "Evidence"],
           ] as const).map(([id, label]) => (
             <button
@@ -714,7 +757,14 @@ function App() {
         {view === "demand" && (
           <DemandView demandRecord={demandRecord} updateDemand={updateDemand} />
         )}
-        {view === "admin" && <AdminView demandRecord={demandRecord} />}
+        {view === "admin" && (
+          <AdminView
+            demandRecord={demandRecord}
+            liveRetailFeed={liveRetailFeed}
+            liveRetailError={liveRetailError}
+          />
+        )}
+        {view === "support" && <LocalSupportView />}
         {view === "evidence" && <EvidenceView />}
       </main>
 

@@ -27,5 +27,11 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Check retailer refresh script syntax
+        run: node --check scripts/fetch-retail-prices.mjs
+
+      - name: Smoke test retailer refresh
+        run: node scripts/fetch-retail-prices.mjs
+
       - name: Build
         run: npm run build

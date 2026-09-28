@@ -1,0 +1,49 @@
+name: Refresh live grocery prices
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9,21 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/fetch-retail-prices.mjs"
+      - "scripts/retail-parser.mjs"
+      - "config/retail-live.json"
+      - ".github/workflows/retail-prices.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: retail-live-refresh
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Refresh official retailer price observations
+        run: node scripts/fetch-retail-prices.mjs
+
+      - name: Commit refreshed snapshot if changed
+        run: |
+          if git diff --quiet -- public/data/retail-live.json; then
+            echo "No retail snapshot change."
+            exit 0
+          fi
+
+          git config user.name "HarbourCart Price Monitor"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/retail-live.json
+          git commit -m "data: refresh live grocery prices"
+          git push

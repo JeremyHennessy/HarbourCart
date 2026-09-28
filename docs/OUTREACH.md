@@ -200,3 +200,44 @@ My reading of Measurement Canada's guidance is that a scale used to sell food by
 If the sale is instead by fixed numerical count, or HarbourCart transfers an intact supplier/manufacturer-sealed package without making a trade measurement, please confirm whether HarbourCart itself would avoid a trade-scale requirement for that transaction.
 
 Thank you.
+
+
+## 7. Nova Scotia Loyal — retailer and online incentive eligibility
+
+Current contact:
+
+- novascotialoyal@novascotia.ca
+- 902-424-0377
+- https://nsloyal.ca/en
+- retailer application: https://portal.nsloyal.ca/retailers/register
+
+### Draft message
+
+**Subject:** Eligibility question — HarbourCart online local-food buying club
+
+Hello,
+
+I am developing HarbourCart, a Halifax-based online household buying club that aggregates customer demand for Nova Scotia food, places consolidated supplier orders, and uses scheduled local pickup rather than a traditional full-time storefront.
+
+I am trying to determine which Nova Scotia Loyal pathways could apply before we design any customer-facing incentive.
+
+I have reviewed the current program materials and noticed:
+
+- the retailer application explicitly asks whether a retail business is physical, online, or both;
+- the general eligibility page also refers to retailers having a permanent business location in Nova Scotia;
+- Nova Scotia Loyal currently supports a 10% incentive on online orders through selected farmers' market partners;
+- approved CSA programs can offer the current 10% customer incentive.
+
+Could you please clarify:
+
+1. Can an online-first Nova Scotia retailer with scheduled pickup locations qualify as a Nova Scotia Loyal retailer partner without operating a conventional full-time storefront?
+2. Could HarbourCart be considered for the 10% online farmers' market / local-food incentive, or would participation need to occur through an existing approved market or hub?
+3. Could a participating CSA farm use HarbourCart for customer discovery, demand aggregation, payment, or pickup while preserving the farm's 10% CSA incentive eligibility?
+4. If multiple participating Nova Scotia farms are included in one HarbourCart order, can each supplier's eligible products retain program benefits?
+5. What transaction reporting, producer verification, reimbursement, branding, and audit evidence would be required for an online group-buy model?
+6. Are there any current or upcoming 2026-27 programs supporting local-food e-commerce, food aggregation, buying clubs, or retailer adoption that HarbourCart should review?
+7. Could participating producers use the Producer Labelling Program to create consumer-ready packages intended for sale through HarbourCart?
+
+HarbourCart's product design will keep negotiated cash savings and any government-funded incentive as separate values. We will not advertise any Nova Scotia Loyal discount until eligibility for the exact transaction model is confirmed.
+
+Thank you.
