@@ -259,13 +259,13 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
               )
               .slice(0, 40)
               .map((item) => ({
-                name: item?.name,
-                short_name: item?.short_name,
-                brand: item?.brand,
-                price: item?.price,
-                discount: item?.discount,
-                valid_from: item?.valid_from,
-                valid_to: item?.valid_to,
+                ...Object.fromEntries(
+                  Object.entries(item ?? {}).filter(
+                    ([, value]) =>
+                      value == null ||
+                      ["string", "number", "boolean"].includes(typeof value),
+                  ),
+                ),
                 text_areas: item?.text_areas,
               }))
           : [];
