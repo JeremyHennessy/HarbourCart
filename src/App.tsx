@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { demandIdeas, pilotCandidates, type PilotCandidate } from "./data/pilot";
 import LiveRetailPanel from "./components/LiveRetailPanel";
 import LocalSupportView from "./components/LocalSupportView";
+import OperatingCostPanel from "./components/OperatingCostPanel";
 import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";
 import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
@@ -585,6 +586,8 @@ function AdminView({
         removeOffer={removeSupplierOffer}
         replaceOffers={replaceSupplierOffers}
       />
+
+      <OperatingCostPanel />
 
       <div className="table-wrap">
         <table className="admin-table">
