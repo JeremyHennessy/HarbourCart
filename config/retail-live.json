@@ -36,7 +36,13 @@
       ],
       "storeIdentityVerified": true,
       "storeEvidenceUrl": "https://www.sobeys.com/stores/sobeys-queen-street?f=715",
-      "storeIdentityVerifiedAt": "2026-09-28"
+      "storeIdentityVerifiedAt": "2026-09-28",
+      "flyerFallback": {
+        "provider": "FLIPP",
+        "merchantPattern": "Sobeys",
+        "postalCode": "B3H2R9",
+        "locale": "en-ca"
+      }
     }
   ],
   "products": [
