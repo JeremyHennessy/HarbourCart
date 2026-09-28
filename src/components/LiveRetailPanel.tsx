@@ -16,12 +16,10 @@ export default function LiveRetailPanel() {
 
   useEffect(() => {
     const controller = new AbortController();
-    const url =
-      import.meta.env.BASE_URL +
-      "data/retail-live.json?t=" +
-      String(Date.now());
+    const url = new URL("data/retail-live.json", window.location.href);
+    url.searchParams.set("t", String(Date.now()));
 
-    fetch(url, { cache: "no-store", signal: controller.signal })
+    fetch(url.toString(), { cache: "no-store", signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Retail feed returned HTTP " + response.status + ".");
