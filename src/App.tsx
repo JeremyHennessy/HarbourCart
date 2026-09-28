@@ -142,15 +142,26 @@ function BuyCard({
   buy,
   joined,
   onToggle,
+  liveRetailFeed,
 }: {
   buy: PilotCandidate;
   joined: boolean;
   onToggle: () => void;
+  liveRetailFeed?: LiveRetailFeed;
 }) {
   const householdCount = buy.householdsInterested + (joined ? 1 : 0);
   const activeTier = activePriceTier(buy.tiers, householdCount);
   const nextTier = nextPriceTier(buy.tiers, householdCount);
-  const economics = candidateEconomics(buy, householdCount);
+  const liveComparator = lowestCurrentComparator(
+    liveRetailFeed?.prices ?? [],
+    buy.id,
+    new Date().toISOString(),
+  );
+  const economics = candidateEconomics(buy, householdCount, {
+    comparableUnitPrice:
+      liveComparator?.normalizedPrice ?? buy.publicReferenceUnitPrice,
+    hasCurrentLocalBenchmark: Boolean(liveComparator),
+  });
   const progress = Math.min(
     100,
     Math.round((householdCount / buy.targetHouseholds) * 100),
@@ -175,12 +186,15 @@ function BuyCard({
           <span className="price">{money.format(activeTier.customerPrice)}</span>
           <span className="muted"> model tier</span>
         </div>
-        <strong>{percent.format(economics.savingsRate)} vs public reference</strong>
+        <strong>
+          {percent.format(economics.savingsRate)} vs{" "}
+          {liveComparator ? "current local retail" : "public reference"}
+        </strong>
       </div>
 
       <div className="mini-metrics">
         <div>
-          <span>Public reference</span>
+          <span>{liveComparator ? "Current local retail" : "Public reference"}</span>
           <strong>{money.format(economics.comparableRetail)}</strong>
         </div>
         <div>
@@ -233,8 +247,20 @@ function BuyCard({
             ? " · legal-for-trade scale requirement unresolved"
             : ""}
         </p>
+        {liveComparator && (
+          <p className="evidence-line">
+            Current local comparator: {liveComparator.retailerLabel} ·{" "}
+            {liveComparator.storeName} ·{" "}
+            {money.format(liveComparator.normalizedPrice)}/
+            {liveComparator.normalizedUnit} · observed{" "}
+            {new Date(liveComparator.observedAt).toLocaleString("en-CA")}.{" "}
+            <a href={liveComparator.sourceUrl} target="_blank" rel="noreferrer">
+              Retail source
+            </a>
+          </p>
+        )}
         <p className="evidence-line">
-          Public screen observed {buy.observedAt}. Reference{" "}
+          Public structural screen observed {buy.observedAt}. Reference{" "}
           {money.format(buy.publicReferenceUnitPrice)}/{buy.unit} vs case-equivalent{" "}
           {money.format(buy.publicCaseUnitPrice)}/{buy.unit}. Structural spread{" "}
           {percent.format(
@@ -263,9 +289,11 @@ function BuyCard({
 function CustomerBuys({
   demandRecord,
   updateDemand,
+  liveRetailFeed,
 }: {
   demandRecord: DemandRecord;
   updateDemand: (next: DemandRecord) => void;
+  liveRetailFeed?: LiveRetailFeed;
 }) {
   const toggle = (buy: PilotCandidate) => {
     const current = demandRecord[buy.id];
@@ -363,6 +391,7 @@ function CustomerBuys({
               buy={buy}
               joined={Boolean(demandRecord[buy.id]?.joined)}
               onToggle={() => toggle(buy)}
+              liveRetailFeed={liveRetailFeed}
             />
           ))}
         </div>
@@ -859,7 +888,11 @@ function App() {
 
       <main id="top">
         {view === "buys" && (
-          <CustomerBuys demandRecord={demandRecord} updateDemand={updateDemand} />
+          <CustomerBuys
+            demandRecord={demandRecord}
+            updateDemand={updateDemand}
+            liveRetailFeed={liveRetailFeed}
+          />
         )}
         {view === "demand" && (
           <DemandView demandRecord={demandRecord} updateDemand={updateDemand} />
