@@ -271,7 +271,7 @@ export const pilotCandidates: PilotCandidate[] = [
     freightPerHousehold: 0.4,
     note:
       "A larger package is only modestly cheaper per kilogram. Do not assume wholesale-size pantry goods create a worthwhile deal.",
-  },,
+  },
   {
     id: "yellow-onions",
     product: "Yellow onions · supplier-packed 10 lb bag",
