@@ -248,10 +248,32 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
                 : { type: typeof value, value: String(value).slice(0, 120) },
           ]),
         );
+        const interesting = Array.isArray(detail?.items)
+          ? detail.items
+              .filter((item) =>
+                /cucumber|tomato|cabbage|onion|potato|broccoli|apple|carrot/i.test(
+                  [item?.name, item?.short_name, item?.brand, item?.price]
+                    .filter(Boolean)
+                    .join(" "),
+                ),
+              )
+              .slice(0, 40)
+              .map((item) => ({
+                name: item?.name,
+                short_name: item?.short_name,
+                brand: item?.brand,
+                price: item?.price,
+                discount: item?.discount,
+                valid_from: item?.valid_from,
+                valid_to: item?.valid_to,
+                text_areas: item?.text_areas,
+              }))
+          : [];
         console.log("HARBOURCART_FLYER_DETAIL_DEBUG", JSON.stringify({
           flyerId,
           detailUrl,
           summary,
+          interesting,
         }));
       }
 
