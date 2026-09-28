@@ -76,6 +76,7 @@ function candidateEconomics(
     shrinkRate: assumptions.shrinkRate,
     freightCost: buy.freightPerHousehold,
     handlingStatus: buy.handlingStatus,
+    measurementStatus: buy.measurementStatus,
     supplierEvidence: buy.supplierEvidence,
     benchmarkEvidence: buy.benchmarkEvidence,
     minimumSavingsRate: assumptions.minimumSavingsRate,
@@ -97,7 +98,8 @@ function EvidenceChip({ buy }: { buy: PilotCandidate }) {
   const complete =
     buy.supplierEvidence === "VERIFIED_QUOTE" &&
     buy.benchmarkEvidence === "CURRENT_LOCAL" &&
-    buy.handlingStatus === "CONFIRMED_PHASE_1";
+    buy.handlingStatus === "CONFIRMED_PHASE_1" &&
+    buy.measurementStatus !== "TRADE_SCALE_REQUIRED";
 
   return (
     <span className={`status-chip ${complete ? "status-chip--good" : "status-chip--blocked"}`}>
@@ -189,6 +191,17 @@ function BuyCard({
         <p>{buy.note}</p>
         <p>
           <strong>Handling:</strong> {buy.handlingLabel}
+        </p>
+        <p>
+          <strong>Sale basis:</strong>{" "}
+          {buy.saleBasis === "COUNT"
+            ? "fixed count"
+            : buy.saleBasis === "SEALED_PACK"
+              ? "intact supplier/manufacturer pack"
+              : "weighed household share"}
+          {buy.measurementStatus === "TRADE_SCALE_REQUIRED"
+            ? " · legal-for-trade scale requirement unresolved"
+            : ""}
         </p>
         <p className="evidence-line">
           Public screen observed {buy.observedAt}. Reference{" "}
@@ -524,7 +537,11 @@ function AdminView({ demandRecord }: { demandRecord: DemandRecord }) {
                 </td>
                 <td>
                   <span className="status-chip status-chip--blocked">BLOCKED</span>
-                  <small>quote + Halifax benchmark{buy.handlingStatus !== "CONFIRMED_PHASE_1" ? " + handling" : ""}</small>
+                  <small>
+                    quote + Halifax benchmark
+                    {buy.handlingStatus !== "CONFIRMED_PHASE_1" ? " + handling" : ""}
+                    {buy.measurementStatus === "TRADE_SCALE_REQUIRED" ? " + trade scale" : ""}
+                  </small>
                 </td>
               </tr>
             ))}
@@ -565,6 +582,13 @@ function EvidenceView() {
       detail:
         "Packaging at retail can trigger net quantity, language, origin, and responsible-party rules depending on how produce is packaged and sold.",
       url: "https://inspection.canada.ca/en/food-labels/labelling/industry/fresh-fruits-vegetables",
+    },
+    {
+      name: "Measurement Canada — food sold by weight",
+      status: "Authoritative",
+      detail:
+        "If HarbourCart uses weight to determine the quantity sold, the scale must be legal for trade: approved, certified, and inspected. Count-based or intact sealed-pack candidates avoid this HarbourCart measurement step.",
+      url: "https://ised-isde.canada.ca/site/measurement-canada/en/consumers/buying-measured-goods/buying-and-selling-food-weight",
     },
     {
       name: "Halifax Regional Food Hub",
@@ -635,6 +659,7 @@ function EvidenceView() {
           <li>Verified supplier offer with MOQ, pack, validity and delivery terms.</li>
           <li>Current Halifax retail comparator for the same or genuinely comparable item.</li>
           <li>Handling class permitted for the phase-1 operating workflow.</li>
+          <li>Any HarbourCart sale-by-weight measurement requirement is resolved.</li>
           <li>Customer saving clears the configured minimum.</li>
           <li>Variable contribution clears the configured minimum.</li>
           <li>Immutable evidence snapshot is stored for what the household saw.</li>
