@@ -22,15 +22,13 @@ Initial catalogue: **10–15 candidates**
 
 Prioritize:
 
-- potatoes;
-- onions;
-- apples;
-- whole broccoli/cabbage;
-- tomatoes;
-- other whole produce with strong quote potential;
-- one or two intact sealed pantry products.
+- intact supplier-packed potatoes and onions;
+- whole produce sold by fixed count, such as broccoli heads or cucumbers;
+- orchard/farm products already packed by the supplier for household sale;
+- one or two intact sealed pantry products;
+- weighed loose-case candidates only as research items until trade-scale and handling requirements are resolved.
 
-Keep eggs, meat, dairy, seafood, prepared food, cutting/washing, and bulk repacking outside phase 1 until operating requirements are confirmed.
+Keep eggs, meat, dairy, seafood, prepared food, cutting/washing, and bulk repacking outside phase 1 until operating requirements are confirmed. For the first real-money pilot, also avoid HarbourCart-prepared weighed shares unless a legal-for-trade scale process and the provincial handling classification are confirmed.
 
 ## Fake-money flow
 
@@ -84,6 +82,7 @@ If these fail, diagnose demand, price, product selection, or operating cost befo
 Do not move to real-money checkout if:
 
 - the exact handling workflow remains regulator-unresolved;
+- a candidate relies on HarbourCart sale-by-weight but legal-for-trade measurement has not been resolved;
 - no real supplier quote supports the modeled savings;
 - weekly promotions consistently beat the group-buy economics;
 - pickup/transport fixed costs erase the variable contribution;
@@ -92,6 +91,7 @@ Do not move to real-money checkout if:
 ## Real-money pilot prerequisites
 
 - written regulatory classification;
+- legal-for-trade measurement process for any sale-by-weight candidate, or an operating scope that avoids it;
 - supplier terms and order minimums;
 - current local benchmark feed;
 - insurance quote;
