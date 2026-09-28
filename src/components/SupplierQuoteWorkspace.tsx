@@ -206,7 +206,7 @@ export default function SupplierQuoteWorkspace({
 
         <label>
           Unit
-          <select value={unit} onChange={(e) => setUnit(e.target.value)}>
+          <select\n            value={unit}\n            onChange={(e) => setUnit(e.target.value as "kg" | "ea")}\n          >
             <option value="kg">kg</option>
             <option value="ea">each</option>
           </select>
