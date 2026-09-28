@@ -102,6 +102,10 @@ See [docs/PILOT.md](docs/PILOT.md).
 
 See [docs/DATA_MODEL.md](docs/DATA_MODEL.md).
 
+## Operating-cost model
+
+The product-level contribution gate is not treated as full profit. Pickup space, transport, pilot software and unresolved fixed costs are modelled separately in [docs/OPERATIONS.md](docs/OPERATIONS.md).
+
 ## Run locally
 
 \`\`\`bash
