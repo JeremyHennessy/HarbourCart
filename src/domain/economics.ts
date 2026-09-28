@@ -27,6 +27,7 @@ export type CandidateEconomicsInput = {
   comparableRetail: number;
   procurementCost: number;
   targetSavingsRate: number;
+  customerPriceOverride?: number;
   labourMinutes: number;
   labourHourlyRate: number;
   packagingCost: number;
@@ -142,10 +143,12 @@ export function evaluateCandidate(
 ): CandidateEconomics {
   const minimumSavingsRate = input.minimumSavingsRate ?? 0.15;
   const minimumContribution = input.minimumContribution ?? 5;
-  const customerPrice = customerPriceFromSavings(
-    input.comparableRetail,
-    input.targetSavingsRate,
-  );
+  const customerPrice =
+    input.customerPriceOverride ??
+    customerPriceFromSavings(
+      input.comparableRetail,
+      input.targetSavingsRate,
+    );
   const processingCost = cardFee(
     customerPrice,
     input.cardRate ?? 0.029,
