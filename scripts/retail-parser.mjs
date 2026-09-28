@@ -173,7 +173,13 @@ export function parseProduct(text, product) {
   return {
     ...parsed,
     promo,
-    formerPrice: former ? Number(former[1]) : undefined,
+    // A "formerly" value around variable-weight produce is often the retailer's
+    // approximate item/package total rather than a normalized per-kg price.
+    // Keep it only for each-priced products where the unit is unambiguous.
+    formerPrice:
+      product.canonicalUnit === "ea" && former
+        ? Number(former[1])
+        : undefined,
     rawEvidence: context.contextText.slice(0, 360),
   };
 }
