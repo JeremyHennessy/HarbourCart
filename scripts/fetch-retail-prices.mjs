@@ -223,6 +223,12 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
       fallback.merchantPattern,
     );
 
+    if (flyers.length === 0) {
+      errors.push(
+        `Flipp fallback: no active flyer matched ${fallback.merchantPattern} for ${postalCode}`,
+      );
+    }
+
     for (const flyer of flyers) {
       const flyerId = flyer.id || flyer.flyer_id;
       if (!flyerId) continue;
@@ -282,6 +288,11 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
         });
         alreadyCapturedProductIds.add(product.productId);
       }
+    }
+    if (flyers.length > 0 && prices.length === 0) {
+      errors.push(
+        `Flipp fallback: matched ${flyers.length} active flyer(s) but no configured target product had a safely normalizable price`,
+      );
     }
   } catch (error) {
     errors.push(`Flipp fallback: ${error.message}`);
