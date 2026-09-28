@@ -2,6 +2,7 @@ export type RetailerId = "ATLANTIC_SUPERSTORE" | "SOBEYS";
 
 export type LivePriceScope =
   | "HALIFAX_STORE"
+  | "HALIFAX_FLYER"
   | "ATLANTIC_PUBLIC"
   | "RETAILER_PUBLIC";
 
@@ -30,6 +31,8 @@ export type LiveRetailPrice = {
   promo: boolean;
   formerPrice?: number;
   observedAt: string;
+  validFrom?: string;
+  validTo?: string;
   sourceUrl: string;
   sourceLabel: string;
   note?: string;
@@ -62,10 +65,27 @@ export function livePriceStatus(
   asOf: string,
   maxAgeHours = 36,
 ): LivePriceStatus {
-  if (price.scope !== "HALIFAX_STORE") return "STORE_UNVERIFIED";
+  if (
+    price.scope !== "HALIFAX_STORE" &&
+    price.scope !== "HALIFAX_FLYER"
+  ) {
+    return "STORE_UNVERIFIED";
+  }
+
   const age = ageHours(price.observedAt, asOf);
-  if (age < 0 || age > maxAgeHours) return "STALE";
-  return "CURRENT";
+  if (age < 0) return "STALE";
+
+  if (price.scope === "HALIFAX_FLYER") {
+    const current = Date.parse(asOf);
+    const validFrom = price.validFrom ? Date.parse(price.validFrom) : -Infinity;
+    const validTo = price.validTo
+      ? Date.parse(price.validTo + "T23:59:59Z")
+      : Date.parse(price.observedAt) + 7 * 86_400_000;
+
+    return validFrom <= current && current <= validTo ? "CURRENT" : "STALE";
+  }
+
+  return age <= maxAgeHours ? "CURRENT" : "STALE";
 }
 
 export function lowestCurrentComparator(
