@@ -39,8 +39,34 @@ describe("live retail comparator", () => {
     ).toBe("STORE_UNVERIFIED");
   });
 
-  it("marks old observations stale", () => {
+  it("marks old store observations stale", () => {
     expect(livePriceStatus(base, "2026-10-01T12:00:00Z")).toBe("STALE");
+  });
+
+  it("accepts a current Halifax flyer through its validity window", () => {
+    expect(
+      livePriceStatus(
+        {
+          ...base,
+          scope: "HALIFAX_FLYER",
+          validFrom: "2026-09-24",
+          validTo: "2026-09-30",
+        },
+        "2026-09-28T20:00:00Z",
+      ),
+    ).toBe("CURRENT");
+
+    expect(
+      livePriceStatus(
+        {
+          ...base,
+          scope: "HALIFAX_FLYER",
+          validFrom: "2026-09-24",
+          validTo: "2026-09-30",
+        },
+        "2026-10-01T01:00:00Z",
+      ),
+    ).toBe("STALE");
   });
 
   it("selects the lowest current Halifax comparator", () => {
