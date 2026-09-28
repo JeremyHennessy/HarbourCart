@@ -119,6 +119,25 @@
       "sourceUrl": "https://www.atlanticsuperstore.ca/en/search?search-bar=apples",
       "sourceLabel": "Atlantic Superstore current public product listing; specific Halifax-store applicability not independently verified",
       "note": "Current public catalogue signal for loose Royal Gala apples. A 2.72 kg value bag was also observed at $7, so HarbourCart should compare against the cheaper genuinely comparable retail option where appropriate."
+    },
+    {
+      "id": "sobeys-public-english-cucumber",
+      "retailer": "SOBEYS",
+      "retailerLabel": "Sobeys",
+      "scope": "RETAILER_PUBLIC",
+      "status": "STORE_UNVERIFIED",
+      "productId": "english-cucumber",
+      "productName": "English Cucumber Seedless",
+      "price": 2.49,
+      "quantity": 1,
+      "unit": "ea",
+      "normalizedPrice": 2.49,
+      "normalizedUnit": "ea",
+      "promo": false,
+      "observedAt": "2026-09-28T22:40:00Z",
+      "sourceUrl": "https://www.sobeys.com/products/category/Chapman%27S",
+      "sourceLabel": "Sobeys current public product catalogue; Halifax-store applicability not independently verified",
+      "note": "Official Sobeys public catalogue currently exposes English Cucumber Seedless 1 Count at $2.49. Sobeys states product pricing and availability may vary; this is not a Halifax-local publication benchmark."
     }
   ],
   "errors": [
