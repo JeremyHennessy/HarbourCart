@@ -1417,3 +1417,34 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+
+.live-price-card__retailers {
+  display: grid;
+  gap: 9px;
+}
+
+.retailer-price-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: center;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.retailer-price-row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.retailer-price-row small,
+.retailer-price-row strong {
+  display: block;
+}
+
+.retailer-price-row strong {
+  margin-top: 3px;
+  color: var(--deep);
+  font-size: 1rem;
+}
