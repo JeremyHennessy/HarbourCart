@@ -4,6 +4,14 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "17 9,21 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/fetch-retail-prices.mjs"
+      - "scripts/retail-parser.mjs"
+      - "config/retail-live.json"
+      - ".github/workflows/retail-prices.yml"
 
 permissions:
   contents: write
