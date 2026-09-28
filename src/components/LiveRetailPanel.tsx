@@ -76,14 +76,17 @@ export default function LiveRetailPanel({
                     </div>
                     <span
                       className={
-                        signal.scope === "HALIFAX_STORE"
+                        signal.scope === "HALIFAX_STORE" ||
+                        signal.scope === "HALIFAX_FLYER"
                           ? "status-chip status-chip--good"
                           : "status-chip status-chip--blocked"
                       }
                     >
                       {signal.scope === "HALIFAX_STORE"
-                        ? "Halifax verified"
-                        : "Scope unverified"}
+                        ? "Halifax store"
+                        : signal.scope === "HALIFAX_FLYER"
+                          ? "Halifax flyer"
+                          : "Scope unverified"}
                     </span>
                   </div>
                 ))}
