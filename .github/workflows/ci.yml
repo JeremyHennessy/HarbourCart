@@ -31,6 +31,8 @@ jobs:
         run: node --check scripts/fetch-retail-prices.mjs
 
       - name: Smoke test retailer refresh
+        env:
+          HARBOURCART_DEBUG_FLYER: "1"
         run: node scripts/fetch-retail-prices.mjs
 
       - name: Build
