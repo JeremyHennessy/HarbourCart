@@ -166,3 +166,37 @@ Required fields:
 - referral source.
 
 No payment should be collected during the initial fake-money validation round.
+
+
+## 6. Measurement Canada — only if HarbourCart prepares weighed shares
+
+Current Atlantic District contact:
+
+- Measurement Canada — Atlantic District
+- 50 Brown Avenue, Dartmouth, NS B3B 1X8
+- 1-855-637-8737
+- ic.mcatlanticdistrictoffice-mcbureaudedistrictatlantique.ic@canada.ca
+- https://ised-isde.canada.ca/site/measurement-canada/en/offices
+
+Measurement Canada states that scales used to sell food by weight must be approved, certified, and inspected. HarbourCart should avoid adding a scale to phase 1 unless weighed household shares materially improve the economics.
+
+### Draft clarification message
+
+**Subject:** Legal-for-trade scale requirements for pre-ordered produce buying club
+
+Hello,
+
+I am validating HarbourCart, a Halifax household buying club. For some potential products, a supplier may deliver a bulk case of whole produce and HarbourCart might divide it into pre-ordered household shares by weight.
+
+Before adopting that workflow, could you please confirm the trade-measurement requirements for this fact pattern:
+
+1. HarbourCart purchases a bulk case from a supplier.
+2. Before customer pickup, HarbourCart weighs whole produce into customer-specific shares.
+3. The customer is charged a fixed advertised price for a declared quantity, for example 2 kg of tomatoes or 1 kg of beans.
+4. The scale is used by HarbourCart to determine the quantity placed in each customer order.
+
+My reading of Measurement Canada's guidance is that a scale used to sell food by weight must be approved for trade, certified, and periodically inspected, with packaging/tare excluded. Please confirm whether that applies to this pre-order/prepack workflow and what type of approved scale and initial inspection/certification process would be required in Nova Scotia.
+
+If the sale is instead by fixed numerical count, or HarbourCart transfers an intact supplier/manufacturer-sealed package without making a trade measurement, please confirm whether HarbourCart itself would avoid a trade-scale requirement for that transaction.
+
+Thank you.
