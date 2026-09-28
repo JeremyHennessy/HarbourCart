@@ -106,6 +106,18 @@ See [docs/DATA_MODEL.md](docs/DATA_MODEL.md).
 
 The product-level contribution gate is not treated as full profit. Pickup space, transport, pilot software and unresolved fixed costs are modelled separately in [docs/OPERATIONS.md](docs/OPERATIONS.md).
 
+## Live retail comparison
+
+Atlantic Superstore and Sobeys public price observations are refreshed by a scheduled GitHub Actions workflow and shown in Procurement with explicit store/freshness status. Store-unverified prices remain research signals and cannot unlock a savings claim.
+
+See [docs/LIVE_RETAIL.md](docs/LIVE_RETAIL.md).
+
+## Local-buy incentives
+
+Current Nova Scotia Loyal consumer incentives, retailer-partner possibilities and producer-only programs are modeled separately from HarbourCart cash prices.
+
+See [docs/GOVERNMENT_SUPPORT.md](docs/GOVERNMENT_SUPPORT.md).
+
 ## Run locally
 
 \`\`\`bash
