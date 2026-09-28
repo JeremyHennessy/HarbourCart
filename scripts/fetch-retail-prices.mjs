@@ -25,6 +25,7 @@ async function fetchText(url, cookieJar = new Map()) {
   const cookie = [...cookieJar.values()].join("; ");
   const response = await fetch(url, {
     redirect: "follow",
+    signal: AbortSignal.timeout(15_000),
     headers: {
       "user-agent": USER_AGENT,
       accept: "text/html,application/xhtml+xml",
