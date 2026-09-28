@@ -1,77 +1,131 @@
 # HarbourCart
 
-**Working product name for a Halifax group-buy grocery platform.**
+**Halifax group-buy grocery research and pilot platform.**
 
-HarbourCart is being designed around one rule:
+HarbourCart is designed around one non-negotiable rule:
 
 > Do not publish a group buy merely because something is available in bulk. Publish it only when current evidence shows a worthwhile customer saving and sustainable unit economics.
 
-## Phase 0 status
+## Current status
 
-This repository currently contains a customer-facing research prototype and the first tested economics domain functions.
+The repository now contains a phase-1 research pilot with:
 
-The prototype deliberately distinguishes:
+- customer-facing candidate-buy cards;
+- price-tier demand mechanics;
+- price-specific reverse-demand capture stored locally in the browser;
+- a procurement/admin decision queue;
+- an evidence-gated economics engine;
+- conservative weekly benchmark-selection logic;
+- supplier-offer validation/expiry rules;
+- typed pilot research data with provenance;
+- regulatory/source evidence documentation;
+- a 50-household fake-money pilot plan;
+- regulator, Food Hub, supplier, and benchmark outreach templates;
+- unit/integrity tests and GitHub Actions CI.
 
-- public pack/case-price signals;
-- real supplier quotes (not yet obtained);
-- current retail benchmarks;
-- model prices;
-- customer-facing savings claims.
+There is **no live checkout, payment collection, supplier API, or verified customer savings claim yet**.
 
-No ordering, payment, supplier integration, or live savings claim is implemented yet.
+## Views
 
-## Core workflow
+### Candidate buys
 
-1. Households express price-specific demand.
-2. HarbourCart requests/ingests supplier offers.
-3. Offers are normalized to common units.
-4. Current Halifax retail is benchmarked.
-5. Payment, labour, packaging, shrink and logistics are added.
-6. Handling/regulatory eligibility is checked.
-7. A buy opens only if it passes the configured customer-savings and contribution gates.
-8. Commitments aggregate until the order threshold closes.
-9. Procurement is placed against committed demand.
+Shows research candidates and model price tiers while clearly distinguishing public structural price screens from verified supplier evidence.
+
+### Demand
+
+Lets a test household record the maximum price it would pay. During this research phase, those signals stay in browser localStorage and are non-binding.
+
+### Procurement
+
+Separates:
+
+- **research signal** — whether public economics justify quote outreach; from
+- **publication decision** — whether quote, local benchmark, handling eligibility, saving, and contribution evidence all pass.
+
+### Evidence
+
+Surfaces the current public authorities and explains the publication contract.
 
 ## Working economics gate
 
-The first feasibility model uses:
+Default working assumptions:
 
-- comparable retail basket: **$80**
-- target customer saving: **15%**
-- card processing: **2.9% + $0.30**
-- labour: **4 minutes/order at $17/hour**
-- packaging: **$0.75/order**
+- minimum customer saving: **15%**
+- normal minimum variable contribution: **CA$5/order**
+- domestic-card processing: **2.9% + CA$0.30**
+- fulfilment labour: **4 minutes/order at CA$17/hour**
+- packaging: **CA$0.75/order**
 - shrink: **1% of procurement**
+- candidate-specific inbound freight allocation
 
-This model produces approximately:
+These are validation assumptions, not final production pricing.
 
-- procurement at 65% of retail → **$11.32/order contribution**
-- 70% → **$7.28**
-- 75% → **$3.24**
-- 80% → **-$0.80**
+## Evidence rules
 
-These are working assumptions, not production pricing.
+The code will not return a publish decision solely because the math looks attractive.
 
-## Run locally
+A publishable buy currently requires:
 
-```bash
-npm install
-npm test
-npm run dev
-```
-
-## Build
-
-```bash
-npm run build
-```
-
-The Vite base path is configured for GitHub Pages at `/HarbourCart/`.
-
-## Evidence and validation
+1. verified supplier quote;
+2. current Halifax retail comparator;
+3. phase-1-confirmed handling status;
+4. configured savings threshold;
+5. configured contribution threshold.
 
 See [docs/VALIDATION.md](docs/VALIDATION.md).
 
-## Change-control note
+## External gates
 
-The initial repository commit (`030c2d3da2d042affaee81b43547c7dc960868e1`) contains only the repository name. Phase 0 development is being done on a separate branch so the initial baseline remains unchanged until the prototype is verified.
+Tracked in GitHub issues:
+
+- #2 — Nova Scotia food-handling classification
+- #3 — Halifax Regional Food Hub eligibility/terms
+- #4 — real supplier quotes at 50 / 100 / 250-household demand
+- #5 — weekly Halifax retail comparator capture
+
+Outreach templates: [docs/OUTREACH.md](docs/OUTREACH.md)
+
+## Pilot
+
+The first behavioural validation is intentionally fake-money:
+
+- 50 Halifax-area households;
+- 10–15 candidates;
+- price-specific intent;
+- no card collection;
+- no product promise;
+- compare demand curves with real quotes.
+
+See [docs/PILOT.md](docs/PILOT.md).
+
+## Data model
+
+See [docs/DATA_MODEL.md](docs/DATA_MODEL.md).
+
+## Run locally
+
+\`\`\`bash
+npm install
+npm test
+npm run dev
+\`\`\`
+
+## Build
+
+\`\`\`bash
+npm run build
+\`\`\`
+
+Vite is configured for GitHub Pages at \`/HarbourCart/\`.
+
+## Change control
+
+Initial repository baseline:
+
+\`030c2d3da2d042affaee81b43547c7dc960868e1\`
+
+The current pilot has been developed on:
+
+\`agent/phase-0-foundation-20260928\`
+
+until CI and deployment verification are complete.
