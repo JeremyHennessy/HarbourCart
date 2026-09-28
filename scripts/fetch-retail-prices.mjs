@@ -205,7 +205,7 @@ console.log(
         storeValidated: result.storeValidated,
         sessionLooksLocal: result.sessionLooksLocal,
         pricesCaptured: result.prices.length,
-        errors: result.errors.length,
+        errors: result.errors,
       })),
       totalFreshPrices: freshPrices.length,
       retainedPreviousPrices: retained.length,
