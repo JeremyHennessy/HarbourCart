@@ -1,52 +1,31 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { pilotCandidates } from "../data/pilot";
-import {
-  lowestResearchSignal,
-  type LiveRetailFeed,
-} from "../domain/liveRetail";
+import type { LiveRetailFeed } from "../domain/liveRetail";
 
 const money = new Intl.NumberFormat("en-CA", {
   style: "currency",
   currency: "CAD",
 });
 
-export default function LiveRetailPanel() {
-  const [feed, setFeed] = useState<LiveRetailFeed>();
-  const [error, setError] = useState<string>();
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const url = new URL("data/retail-live.json", window.location.href);
-    url.searchParams.set("t", String(Date.now()));
-
-    fetch(url.toString(), { cache: "no-store", signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Retail feed returned HTTP " + response.status + ".");
-        }
-        return response.json() as Promise<LiveRetailFeed>;
-      })
-      .then((data) => {
-        setFeed(data);
-        setError(undefined);
-      })
-      .catch((reason: unknown) => {
-        if (controller.signal.aborted) return;
-        setError(
-          reason instanceof Error
-            ? reason.message
-            : "Live retail feed unavailable.",
-        );
-      });
-
-    return () => controller.abort();
-  }, []);
-
+export default function LiveRetailPanel({
+  feed,
+  error,
+}: {
+  feed?: LiveRetailFeed;
+  error?: string;
+}) {
   const cards = useMemo(
     () =>
       pilotCandidates.map((buy) => ({
         buy,
-        signal: lowestResearchSignal(feed?.prices ?? [], buy.id),
+        signals: (feed?.prices ?? [])
+          .filter((price) => price.productId === buy.id)
+          .sort((a, b) => {
+            if (a.retailer !== b.retailer) {
+              return a.retailer.localeCompare(b.retailer);
+            }
+            return a.normalizedPrice - b.normalizedPrice;
+          }),
       })),
     [feed],
   );
@@ -75,31 +54,40 @@ export default function LiveRetailPanel() {
       {error && <p className="feed-error">{error}</p>}
 
       <div className="live-retail-grid">
-        {cards.map(({ buy, signal }) => (
+        {cards.map(({ buy, signals }) => (
           <div className="live-price-card" key={buy.id}>
             <span>{buy.product}</span>
-            {signal ? (
-              <>
-                <strong>
-                  {money.format(signal.normalizedPrice)}/
-                  {signal.normalizedUnit}
-                </strong>
-                <small>
-                  {signal.retailerLabel}
-                  {signal.storeName ? " · " + signal.storeName : ""}
-                </small>
-                <span
-                  className={
-                    signal.scope === "HALIFAX_STORE"
-                      ? "status-chip status-chip--good"
-                      : "status-chip status-chip--blocked"
-                  }
-                >
-                  {signal.scope === "HALIFAX_STORE"
-                    ? "Halifax store verified"
-                    : "Store scope unverified"}
-                </span>
-              </>
+            {signals.length ? (
+              <div className="live-price-card__retailers">
+                {signals.map((signal) => (
+                  <div
+                    className="retailer-price-row"
+                    key={signal.id}
+                  >
+                    <div>
+                      <small>
+                        {signal.retailerLabel}
+                        {signal.storeName ? " · " + signal.storeName : ""}
+                      </small>
+                      <strong>
+                        {money.format(signal.normalizedPrice)}/
+                        {signal.normalizedUnit}
+                      </strong>
+                    </div>
+                    <span
+                      className={
+                        signal.scope === "HALIFAX_STORE"
+                          ? "status-chip status-chip--good"
+                          : "status-chip status-chip--blocked"
+                      }
+                    >
+                      {signal.scope === "HALIFAX_STORE"
+                        ? "Halifax verified"
+                        : "Scope unverified"}
+                    </span>
+                  </div>
+                ))}
+              </div>
             ) : (
               <small>No current retailer observation captured.</small>
             )}
