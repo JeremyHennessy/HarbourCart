@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { pilotCandidates } from "./pilot";
+import { demandIdeas, pilotCandidates } from "./pilot";
 import { structuralSpread } from "../domain/economics";
 
 describe("pilot research data", () => {
-  it("has unique candidate ids", () => {
+  it("has unique candidate ids and a pilot-sized catalogue", () => {
     const ids = pilotCandidates.map((candidate) => candidate.id);
     expect(new Set(ids).size).toBe(ids.length);
+    expect(pilotCandidates.length).toBeGreaterThanOrEqual(12);
+    expect(demandIdeas.length).toBeGreaterThanOrEqual(10);
   });
 
   it("keeps every candidate tied to dated evidence", () => {
@@ -24,6 +26,16 @@ describe("pilot research data", () => {
         expect(candidate.measurementStatus).toBe("NOT_REQUIRED");
       }
     }
+  });
+
+  it("prioritizes multiple candidates that avoid HarbourCart trade weighing", () => {
+    expect(
+      pilotCandidates.filter(
+        (candidate) =>
+          candidate.saleBasis === "COUNT" ||
+          candidate.saleBasis === "SEALED_PACK",
+      ).length,
+    ).toBeGreaterThanOrEqual(6);
   });
 
   it("does not represent public structural screens as verified supplier quotes", () => {
