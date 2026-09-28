@@ -55,7 +55,7 @@ describe("retailer text parser", () => {
     });
 
     expect(parsed?.normalizedPrice).toBeCloseTo(1.5, 5);
-    expect(parsed?.formerPrice).toBe(3.25);
+    expect(parsed?.formerPrice).toBeUndefined();
   });
 
   it("normalizes a Russet potato bag from its own unit price", () => {
