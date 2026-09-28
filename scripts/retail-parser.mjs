@@ -18,15 +18,42 @@ export function htmlToText(html) {
     .trim();
 }
 
-export function findWindow(text, aliases) {
+export function findProductContext(text, aliases) {
   const lower = text.toLowerCase();
-  for (const alias of aliases) {
+  const orderedAliases = [...aliases].sort((a, b) => b.length - a.length);
+
+  for (const alias of orderedAliases) {
     const index = lower.indexOf(alias.toLowerCase());
-    if (index >= 0) {
-      return text.slice(Math.max(0, index - 80), index + 520);
-    }
+    if (index < 0) continue;
+
+    const addIndex = lower.indexOf(" add ", index);
+    const toCartIndex =
+      addIndex >= 0 ? lower.indexOf(" to cart", addIndex) : -1;
+    const end =
+      toCartIndex >= 0
+        ? Math.min(text.length, toCartIndex + " to cart".length)
+        : Math.min(text.length, index + 260);
+
+    const previousCart = lower.lastIndexOf(" to cart", index);
+    const contextStart =
+      previousCart >= 0
+        ? previousCart + " to cart".length
+        : Math.max(0, index - 140);
+
+    return {
+      alias,
+      priceText: text.slice(index, end),
+      contextText: text.slice(contextStart, end),
+    };
   }
+
   return undefined;
+}
+
+// Kept as a compatibility helper for callers/tests that only need the
+// product-anchored price text.
+export function findWindow(text, aliases) {
+  return findProductContext(text, aliases)?.priceText;
 }
 
 export function parseEa(windowText) {
@@ -126,27 +153,27 @@ export function parseKg(windowText) {
 }
 
 export function parseProduct(text, product) {
-  const windowText = findWindow(text, product.aliases);
-  if (!windowText) return undefined;
+  const context = findProductContext(text, product.aliases);
+  if (!context) return undefined;
 
   const parsed =
     product.canonicalUnit === "ea"
-      ? parseEa(windowText)
-      : parseKg(windowText);
+      ? parseEa(context.priceText)
+      : parseKg(context.priceText);
 
   if (!parsed) return undefined;
 
-  const former = windowText.match(
+  const former = context.contextText.match(
     /formerly:?\s*\$([0-9]+(?:\.[0-9]{1,2})?)/i,
   );
   const promo = /\bsale\b|\bSAVE\b|\bmember\b|\bdeal\b/i.test(
-    windowText,
+    context.contextText,
   );
 
   return {
     ...parsed,
     promo,
     formerPrice: former ? Number(former[1]) : undefined,
-    rawEvidence: windowText.slice(0, 320),
+    rawEvidence: context.contextText.slice(0, 360),
   };
 }

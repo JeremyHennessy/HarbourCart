@@ -89,7 +89,7 @@ export const retailProductTargets = [
     productId: "gala-apples",
     productName: "Royal Gala Apples",
     canonicalUnit: "kg",
-    atlanticAliases: ["Royal Gala", "Gala Apples"],
-    sobeysAliases: ["Royal Gala", "Gala Apples"],
+    atlanticAliases: ["Royal Gala Apples", "Gala Apples"],
+    sobeysAliases: ["Royal Gala Apples", "Gala Apples"],
   },
 ] as const;
