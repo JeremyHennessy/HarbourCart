@@ -237,6 +237,24 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
         `${base}/flyers/${flyerId}?locale=${encodeURIComponent(locale)}&postal_code=${encodeURIComponent(postalCode)}`;
       const detail = await fetchJson(detailUrl);
 
+      if (process.env.HARBOURCART_DEBUG_FLYER === "1") {
+        const summary = Object.fromEntries(
+          Object.entries(detail ?? {}).map(([key, value]) => [
+            key,
+            Array.isArray(value)
+              ? { type: "array", length: value.length, sampleKeys: value[0] && typeof value[0] === "object" ? Object.keys(value[0]).slice(0, 20) : [] }
+              : value && typeof value === "object"
+                ? { type: "object", keys: Object.keys(value).slice(0, 30) }
+                : { type: typeof value, value: String(value).slice(0, 120) },
+          ]),
+        );
+        console.log("HARBOURCART_FLYER_DETAIL_DEBUG", JSON.stringify({
+          flyerId,
+          detailUrl,
+          summary,
+        }));
+      }
+
       for (const product of config.products) {
         if (alreadyCapturedProductIds.has(product.productId)) continue;
 
