@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { htmlToText, parseProduct } from "./retail-parser.mjs";
 
 const ROOT = process.cwd();
 const CONFIG_PATH = path.join(ROOT, "config", "retail-live.json");
@@ -8,26 +9,6 @@ const USER_AGENT =
   "Mozilla/5.0 (compatible; HarbourCartPriceMonitor/0.1; +https://github.com/JeremyHennessy/HarbourCart)";
 
 const config = JSON.parse(await fs.readFile(CONFIG_PATH, "utf8"));
-
-function decodeEntities(text) {
-  return text
-    .replaceAll("&nbsp;", " ")
-    .replaceAll("&amp;", "&")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&#39;", "'")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
-}
-
-function htmlToText(html) {
-  return decodeEntities(
-    html
-      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
-      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
-      .replace(/<[^>]+>/g, " "),
-  )
-    .replace(/\s+/g, " ")
-    .trim();
-}
 
 function cookiesFromHeaders(headers) {
   if (typeof headers.getSetCookie === "function") {
@@ -63,119 +44,6 @@ async function fetchText(url, cookieJar = new Map()) {
   return {
     url: response.url,
     html: await response.text(),
-  };
-}
-
-function findWindow(text, aliases) {
-  const lower = text.toLowerCase();
-  for (const alias of aliases) {
-    const index = lower.indexOf(alias.toLowerCase());
-    if (index >= 0) {
-      return text.slice(Math.max(0, index - 80), index + 520);
-    }
-  }
-  return undefined;
-}
-
-function parseEa(windowText) {
-  const perEach =
-    windowText.match(/\$([0-9]+(?:\.[0-9]{1,2})?)\s*\/\s*1\s*ea/i) ??
-    windowText.match(/\$([0-9]+(?:\.[0-9]{1,2})?)\s+1\s*EA\b/i) ??
-    windowText.match(/\$([0-9]+(?:\.[0-9]{1,2})?).{0,40}\(\$([0-9]+(?:\.[0-9]{1,2})?)\s+per\s+EA\)/i);
-
-  if (!perEach) return undefined;
-  const price = Number(perEach[2] ?? perEach[1]);
-  if (!Number.isFinite(price) || price <= 0) return undefined;
-
-  return {
-    price,
-    quantity: 1,
-    unit: "ea",
-    normalizedPrice: price,
-    normalizedUnit: "ea",
-  };
-}
-
-function parseKg(windowText) {
-  const direct =
-    windowText.match(/\$([0-9]+(?:\.[0-9]{1,2})?)\s*\/\s*1\s*kg/i) ??
-    windowText.match(/\$([0-9]+(?:\.[0-9]{1,2})?)\s*\/\s*kg/i);
-
-  if (direct) {
-    const price = Number(direct[1]);
-    if (Number.isFinite(price) && price > 0) {
-      return {
-        price,
-        quantity: 1,
-        unit: "kg",
-        normalizedPrice: price,
-        normalizedUnit: "kg",
-      };
-    }
-  }
-
-  const per100g = windowText.match(
-    /\$([0-9]+(?:\.[0-9]{1,2})?)\s*(?:\/|per)\s*100\s*g/i,
-  );
-  if (per100g) {
-    const perKg = Number(per100g[1]) * 10;
-    if (Number.isFinite(perKg) && perKg > 0) {
-      return {
-        price: perKg,
-        quantity: 1,
-        unit: "kg",
-        normalizedPrice: perKg,
-        normalizedUnit: "kg",
-      };
-    }
-  }
-
-  const packageMatch = windowText.match(
-    /(?:sale:\s*)?\$([0-9]+(?:\.[0-9]{1,2})?).{0,120}?([0-9]+(?:\.[0-9]+)?)\s*kg\b/i,
-  );
-  if (packageMatch) {
-    const packagePrice = Number(packageMatch[1]);
-    const kilograms = Number(packageMatch[2]);
-    if (
-      Number.isFinite(packagePrice) &&
-      Number.isFinite(kilograms) &&
-      packagePrice > 0 &&
-      kilograms > 0
-    ) {
-      return {
-        price: packagePrice,
-        quantity: kilograms,
-        unit: "kg",
-        normalizedPrice: packagePrice / kilograms,
-        normalizedUnit: "kg",
-      };
-    }
-  }
-
-  return undefined;
-}
-
-function parseProduct(text, product) {
-  const windowText = findWindow(text, product.aliases);
-  if (!windowText) return undefined;
-
-  const parsed =
-    product.canonicalUnit === "ea"
-      ? parseEa(windowText)
-      : parseKg(windowText);
-
-  if (!parsed) return undefined;
-
-  const former = windowText.match(
-    /formerly:?\s*\$([0-9]+(?:\.[0-9]{1,2})?)/i,
-  );
-  const promo = /\bsale\b|\bSAVE\b|\bmember\b|\bdeal\b/i.test(windowText);
-
-  return {
-    ...parsed,
-    promo,
-    formerPrice: former ? Number(former[1]) : undefined,
-    rawEvidence: windowText.slice(0, 320),
   };
 }
 
