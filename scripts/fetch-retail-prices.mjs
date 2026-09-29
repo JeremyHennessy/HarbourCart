@@ -311,6 +311,9 @@ async function captureFlippFallback(store, alreadyCapturedProductIds) {
           scope: "HALIFAX_FLYER",
           status: "CURRENT",
           productId: product.productId,
+          comparisonProductId:
+            product.comparisonProductId ?? product.productId,
+          comparability: product.comparability ?? "EXACT",
           productName: product.productName,
           ...best.normalized,
           promo: true,
@@ -422,6 +425,9 @@ async function captureStore(store) {
       scope: localVerified ? "HALIFAX_STORE" : "RETAILER_PUBLIC",
       status: localVerified ? "CURRENT" : "STORE_UNVERIFIED",
       productId: product.productId,
+      comparisonProductId:
+        product.comparisonProductId ?? product.productId,
+      comparability: product.comparability ?? "EXACT",
       productName: product.productName,
       price: best.price,
       quantity: best.quantity,
