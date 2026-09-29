@@ -840,6 +840,8 @@ function AdminView({
 
       <LiveRetailPanel feed={liveRetailFeed} error={liveRetailError} />
 
+      <SupplierAvailabilityPanel />
+
       <SupplierQuoteWorkspace
         offers={supplierOffers}
         addOffer={addSupplierOffer}
