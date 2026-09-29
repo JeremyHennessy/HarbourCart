@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Generate approved HarbourCart brand assets from the locked lighthouse-cart masters."""
-from PIL import Image, ImageDraw, ImageFont, ImageColor
+from PIL import Image, ImageDraw, ImageFont, ImageColor, ImageFile
 from pathlib import Path
 from io import BytesIO
 import base64, json, math, os
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'public' / 'brand'
