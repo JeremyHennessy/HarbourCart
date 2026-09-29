@@ -39,7 +39,7 @@ jobs:
 
       - name: Commit generated assets
         run: |
-          if git diff --quiet -- public/brand; then
+          if [ -z "$(git status --porcelain -- public/brand)" ]; then
             echo "Brand assets already match generator output."
             exit 0
           fi
