@@ -1,6 +1,6 @@
 # HarbourCart shared pilot-demand backend
 
-Status: **deployed to a dedicated HarbourCart Supabase project; frontend integration in progress**
+Status: **deployed and integrated with the production HarbourCart frontend**
 
 Project:
 - Supabase project: `HarbourCart`
@@ -139,13 +139,16 @@ The HarbourCart client:
 
 ## Acceptance before recruitment
 
-Remaining acceptance items:
+Acceptance coverage:
 
 - production UI integration builds and deploys;
-- duplicate/opt-out behaviour is verified through the live app;
-- outage state is verified;
-- 50 distinct test sessions can submit without count inflation;
-- public aggregate exposes no session IDs;
-- input validation and session rate limiting remain enforced.
+- database transaction tests verify 50 distinct sessions aggregate to 50 households;
+- updating an existing session does not inflate the count;
+- opt-out removes that session from the aggregate;
+- public aggregate exposes no raw session IDs;
+- input validation and session rate limiting remain enforced;
+- main-branch CI runs a production Edge Function contract test using the real HarbourCart GitHub Pages origin, then returns the synthetic household count to baseline.
+
+The remaining practical launch check is ordinary user acceptance in the production UI, not a missing backend implementation.
 
 No real checkout or payment collection should be added during this fake-money validation phase.
