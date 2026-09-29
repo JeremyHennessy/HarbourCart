@@ -42,10 +42,12 @@ export default function PilotReadinessPanel({
   demandReady,
   currentRetailCount,
   verifiedQuoteCount,
+  recruitedHouseholds,
 }: {
   demandReady: boolean;
   currentRetailCount: number;
   verifiedQuoteCount: number;
+  recruitedHouseholds: number;
 }) {
   const fakeMoneyGates: Gate[] = [
     {
@@ -84,10 +86,18 @@ export default function PilotReadinessPanel({
     {
       id: "pilot-cohort",
       label: "50-household recruitment",
-      status: "PARTIAL",
+      status:
+        recruitedHouseholds >= 50
+          ? "READY"
+          : recruitedHouseholds > 0
+            ? "PARTIAL"
+            : "BLOCKED",
       detail:
-        "Pilot flow and success gates are defined. Recruit after the shared-demand and real-quote gates are green.",
+        recruitedHouseholds >= 50
+          ? `${recruitedHouseholds} unique pilot households have submitted at least one active intent.`
+          : `${recruitedHouseholds} / 50 unique pilot households currently have an active intent. Recruit after the shared-demand and real-quote gates are green.`,
       issue: 6,
+      hardBlocker: recruitedHouseholds < 50,
     },
   ];
 
@@ -208,6 +218,10 @@ export default function PilotReadinessPanel({
         <div>
           <span>Current Halifax prices</span>
           <strong>{currentRetailCount}</strong>
+        </div>
+        <div>
+          <span>Pilot households</span>
+          <strong>{recruitedHouseholds}/50</strong>
         </div>
       </div>
 
