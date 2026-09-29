@@ -78,9 +78,12 @@ Sources:
 https://www.halifaxfoodhub.ca/sell-with-us
 https://www.halifaxfoodhub.ca/_files/ugd/355c8a_728f4057e0d3492a984bf34df169e2b5.pdf
 
-The handbook says membership eligibility may include wholesale buyers, retailers, institutions, food-service operators, community groups, and individuals supporting the mission.
+The Hub's current buyer page confirms that buyers can register through the online store, place orders from Friday 7am through Monday 3pm, and use Thursday-afternoon pickup or delivery. Buyer co-op membership is optional, with a published one-time $50 membership share.
 
-**Not yet confirmed:** whether a consumer buying club like HarbourCart can buy through the Hub on the terms required for the pilot, the applicable buyer minimums, current buyer pricing, delivery/pickup terms, payment terms, or an authorized product feed.
+Buyer source:
+https://www.halifaxfoodhub.ca/fr/buyers
+
+**Not yet confirmed:** whether HarbourCart's exact household buying-club/retailer model is accepted as a wholesale buyer, the applicable buyer order minimums, current buyer pricing/fees, payment terms, delivery charges, or an authorized catalogue/API feed.
 
 ### Statistics Canada food-price benchmark
 
