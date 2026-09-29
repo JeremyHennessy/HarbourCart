@@ -2,6 +2,13 @@ name: Generate approved brand assets
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - brand/approved-harbourcart-assets-20260928
+    paths:
+      - "scripts/generate-brand-assets.py"
+      - "scripts/brand-masters/**"
+      - ".github/workflows/brand-assets.yml"
 
 permissions:
   contents: write
