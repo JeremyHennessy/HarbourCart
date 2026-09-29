@@ -1086,6 +1086,15 @@ function App() {
   const [demandRecord, updateDemand] = useDemandRecord();
   const { feed: liveRetailFeed, error: liveRetailError } = useLiveRetailFeed();
   const {
+    aggregateByProduct,
+    loading: demandLoading,
+    submittingProductId,
+    error: demandError,
+    submit: submitDemand,
+    pickupPreference,
+    setPickupPreference,
+  } = usePilotDemand();
+  const {
     offers: supplierOffers,
     addOffer: addSupplierOffer,
     removeOffer: removeSupplierOffer,
@@ -1133,10 +1142,24 @@ function App() {
             demandRecord={demandRecord}
             updateDemand={updateDemand}
             liveRetailFeed={liveRetailFeed}
+            aggregateByProduct={aggregateByProduct}
+            submitDemand={submitDemand}
+            submittingProductId={submittingProductId}
+            demandError={demandError}
           />
         )}
         {view === "demand" && (
-          <DemandView demandRecord={demandRecord} updateDemand={updateDemand} />
+          <DemandView
+            demandRecord={demandRecord}
+            updateDemand={updateDemand}
+            aggregateByProduct={aggregateByProduct}
+            submitDemand={submitDemand}
+            submittingProductId={submittingProductId}
+            loading={demandLoading}
+            error={demandError}
+            pickupPreference={pickupPreference}
+            setPickupPreference={setPickupPreference}
+          />
         )}
         {view === "admin" && (
           <AdminView
@@ -1159,8 +1182,8 @@ function App() {
           <span>HarbourCart</span>
         </div>
         <p>
-          Halifax research pilot · demand entries stay in this browser · no live
-          ordering or payments
+          Halifax fake-money pilot · anonymous demand is shared across participating
+          households · no live ordering or payments
         </p>
       </footer>
     </>
