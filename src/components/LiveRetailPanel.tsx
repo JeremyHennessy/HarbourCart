@@ -68,6 +68,13 @@ export default function LiveRetailPanel({
                       <small>
                         {signal.retailerLabel}
                         {signal.storeName ? " · " + signal.storeName : ""}
+                        {signal.comparability === "VALUE_ALTERNATIVE"
+                          ? " · value alternative"
+                          : signal.comparability === "COMPARABLE"
+                            ? " · comparable"
+                            : signal.comparability === "NOT_COMPARABLE"
+                              ? " · not comparable"
+                              : " · exact"}
                       </small>
                       <strong>
                         {money.format(signal.normalizedPrice)}/
