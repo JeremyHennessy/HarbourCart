@@ -8,6 +8,11 @@ import BasketEconomicsPanel from "./components/BasketEconomicsPanel";
 import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
 import { useSupplierOffers } from "./hooks/useSupplierOffers";
+import {
+  usePilotDemand,
+  type DemandAggregateView,
+  type PickupPreference,
+} from "./hooks/usePilotDemand";
 import { lowestCurrentComparator, type LiveRetailFeed } from "./domain/liveRetail";
 import { evaluateBasket, type BasketItemEconomics } from "./domain/basket";
 import {
@@ -148,13 +153,17 @@ function BuyCard({
   joined,
   onToggle,
   liveRetailFeed,
+  aggregate,
+  submitting,
 }: {
   buy: PilotCandidate;
   joined: boolean;
-  onToggle: () => void;
+  onToggle: () => Promise<void>;
   liveRetailFeed?: LiveRetailFeed;
+  aggregate?: DemandAggregateView;
+  submitting: boolean;
 }) {
-  const householdCount = buy.householdsInterested + (joined ? 1 : 0);
+  const householdCount = aggregate?.interested_households ?? 0;
   const activeTier = activePriceTier(buy.tiers, householdCount);
   const nextTier = nextPriceTier(buy.tiers, householdCount);
   const liveComparator = lowestCurrentComparator(
@@ -219,8 +228,10 @@ function BuyCard({
       </div>
 
       <div className="progress-label">
-        <strong>{householdCount} households · research scenario</strong>
-        <span>{buy.targetHouseholds} target scenario</span>
+        <strong>
+          {householdCount} real pilot household{householdCount === 1 ? "" : "s"}
+        </strong>
+        <span>{buy.targetHouseholds} target</span>
       </div>
       <div className="progress" aria-label={`${progress}% of target interest`}>
         <span style={{ width: `${progress}%` }} />
@@ -228,7 +239,7 @@ function BuyCard({
 
       <div className="tier-strip">
         <div>
-          <span>Current model tier</span>
+          <span>Model price at current demand</span>
           <strong>{money.format(activeTier.customerPrice)}</strong>
         </div>
         <div>
@@ -258,6 +269,13 @@ function BuyCard({
             ? " · legal-for-trade scale requirement unresolved"
             : ""}
         </p>
+        {aggregate?.median_maximum_price != null && (
+          <p className="evidence-line">
+            Current pilot median maximum price:{" "}
+            {money.format(aggregate.median_maximum_price)} across households
+            currently counted in.
+          </p>
+        )}
         {liveComparator && (
           <p className="evidence-line">
             Current local comparator: {liveComparator.retailerLabel} ·{" "}
@@ -294,9 +312,14 @@ function BuyCard({
       <button
         type="button"
         className={joined ? "button button--joined" : "button button--secondary"}
-        onClick={onToggle}
+        onClick={() => void onToggle()}
+        disabled={submitting}
       >
-        {joined ? "Interested · saved locally" : "I’d buy at the right price"}
+        {submitting
+          ? "Saving…"
+          : joined
+            ? "Counted in shared pilot"
+            : "I’d buy at the right price"}
       </button>
     </article>
   );
@@ -306,20 +329,45 @@ function CustomerBuys({
   demandRecord,
   updateDemand,
   liveRetailFeed,
+  aggregateByProduct,
+  submitDemand,
+  submittingProductId,
+  demandError,
 }: {
   demandRecord: DemandRecord;
   updateDemand: (next: DemandRecord) => void;
   liveRetailFeed?: LiveRetailFeed;
+  aggregateByProduct: Map<string, DemandAggregateView>;
+  submitDemand: (input: {
+    productId: string;
+    joined: boolean;
+    maximumPrice: number;
+  }) => Promise<boolean>;
+  submittingProductId?: string;
+  demandError?: string;
 }) {
-  const toggle = (buy: PilotCandidate) => {
+  const toggle = async (buy: PilotCandidate) => {
     const current = demandRecord[buy.id];
+    const currentCount =
+      aggregateByProduct.get(buy.id)?.interested_households ?? 0;
+    const targetPrice =
+      current?.targetPrice ??
+      activePriceTier(buy.tiers, currentCount).customerPrice;
+    const nextJoined = !current?.joined;
+
+    const saved = await submitDemand({
+      productId: buy.id,
+      joined: nextJoined,
+      maximumPrice: targetPrice,
+    });
+
+    if (!saved) return;
+
     updateDemand({
       ...demandRecord,
       [buy.id]: {
-        joined: !current?.joined,
-        targetPrice:
-          current?.targetPrice ??
-          activePriceTier(buy.tiers, buy.householdsInterested).customerPrice,
+        joined: nextJoined,
+        targetPrice,
       },
     });
   };
@@ -331,15 +379,16 @@ function CustomerBuys({
           <span className="eyebrow">Halifax group buying</span>
           <h1>Buy together. Keep the good deals.</h1>
           <p className="hero__lede">
-            HarbourCart starts with demand, tests the real landed cost, and only
-            turns a candidate into a buy when current evidence supports the price.
+            HarbourCart starts with real anonymous household demand, tests the
+            landed cost, and only turns a candidate into a buy when current
+            evidence supports the price.
           </p>
           <div className="hero__actions">
             <a className="button" href="#candidate-buys">
               Explore candidates
             </a>
             <span className="prototype-warning">
-              Research pilot · no checkout or payments
+              Fake-money pilot · no checkout or payment method
             </span>
           </div>
         </div>
@@ -349,21 +398,21 @@ function CustomerBuys({
             <span>01</span>
             <div>
               <strong>Tell us your price</strong>
-              <p>Households signal what they would actually buy.</p>
+              <p>Anonymous households signal what they would actually buy.</p>
             </div>
           </div>
           <div className="step">
             <span>02</span>
             <div>
-              <strong>Aggregate demand</strong>
-              <p>We take concrete volume to farms, hubs, and distributors.</p>
+              <strong>Aggregate real demand</strong>
+              <p>Shared pilot totals become concrete volume for supplier quotes.</p>
             </div>
           </div>
           <div className="step">
             <span>03</span>
             <div>
               <strong>Verify before opening</strong>
-              <p>Quote, retail comparator, handling, and economics must all pass.</p>
+              <p>Quote, retail comparator, handling and basket economics must pass.</p>
             </div>
           </div>
         </div>
@@ -372,7 +421,7 @@ function CustomerBuys({
       <section className="signal-strip" aria-label="Pilot rules">
         <div>
           <strong>15%</strong>
-          <span>working minimum customer saving</span>
+          <span>working minimum basket saving</span>
         </div>
         <div>
           <strong>$5</strong>
@@ -384,19 +433,26 @@ function CustomerBuys({
         </div>
         <div>
           <strong>0</strong>
-          <span>unverified live offers</span>
+          <span>payments collected</span>
         </div>
       </section>
+
+      {demandError && (
+        <div className="pilot-demand-alert">
+          Shared demand is temporarily unavailable: {demandError}
+        </div>
+      )}
 
       <section className="section" id="candidate-buys">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">Price screen first</span>
+            <span className="eyebrow">Real pilot demand + price evidence</span>
             <h2>Candidate buys</h2>
           </div>
           <p>
-            Public case-size prices help identify where to ask for quotes. They
-            are deliberately not represented as Halifax supplier offers.
+            Household counts now come from the shared anonymous pilot. Public
+            case-size prices still identify quote targets and are not represented
+            as supplier offers.
           </p>
         </div>
 
@@ -408,6 +464,8 @@ function CustomerBuys({
               joined={Boolean(demandRecord[buy.id]?.joined)}
               onToggle={() => toggle(buy)}
               liveRetailFeed={liveRetailFeed}
+              aggregate={aggregateByProduct.get(buy.id)}
+              submitting={submittingProductId === buy.id}
             />
           ))}
         </div>
@@ -419,9 +477,28 @@ function CustomerBuys({
 function DemandView({
   demandRecord,
   updateDemand,
+  aggregateByProduct,
+  submitDemand,
+  submittingProductId,
+  loading,
+  error,
+  pickupPreference,
+  setPickupPreference,
 }: {
   demandRecord: DemandRecord;
   updateDemand: (next: DemandRecord) => void;
+  aggregateByProduct: Map<string, DemandAggregateView>;
+  submitDemand: (input: {
+    productId: string;
+    joined: boolean;
+    maximumPrice: number;
+    pickupPreference?: PickupPreference;
+  }) => Promise<boolean>;
+  submittingProductId?: string;
+  loading: boolean;
+  error?: string;
+  pickupPreference: PickupPreference;
+  setPickupPreference: (value: PickupPreference) => void;
 }) {
   const setPrice = (id: string, value: number) => {
     const current = demandRecord[id];
@@ -434,13 +511,42 @@ function DemandView({
     });
   };
 
-  const toggle = (id: string, defaultPrice: number) => {
+  const save = async (id: string, defaultPrice: number) => {
     const current = demandRecord[id];
+    const price = current?.targetPrice ?? defaultPrice;
+    const saved = await submitDemand({
+      productId: id,
+      joined: true,
+      maximumPrice: price,
+      pickupPreference,
+    });
+    if (!saved) return;
+
     updateDemand({
       ...demandRecord,
       [id]: {
-        joined: !current?.joined,
-        targetPrice: current?.targetPrice ?? defaultPrice,
+        joined: true,
+        targetPrice: price,
+      },
+    });
+  };
+
+  const remove = async (id: string, defaultPrice: number) => {
+    const current = demandRecord[id];
+    const price = current?.targetPrice ?? defaultPrice;
+    const saved = await submitDemand({
+      productId: id,
+      joined: false,
+      maximumPrice: price,
+      pickupPreference,
+    });
+    if (!saved) return;
+
+    updateDemand({
+      ...demandRecord,
+      [id]: {
+        joined: false,
+        targetPrice: price,
       },
     });
   };
@@ -449,33 +555,70 @@ function DemandView({
     <section className="demand-page section">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">Reverse marketplace</span>
+          <span className="eyebrow">Shared anonymous pilot</span>
           <h2>What would you actually buy?</h2>
         </div>
         <p>
-          These are local-only pilot signals stored in this browser. The displayed
-          community counts are research scenarios, not collected HarbourCart
-          households. No order is placed and no payment method is collected.
+          These totals are now collected across participating browsers. HarbourCart
+          stores a random session ID, product choice, maximum price and optional
+          pickup preference — not your name, email, address or payment details.
         </p>
       </div>
+
+      <div className="pilot-preferences">
+        <div>
+          <strong>Preferred pickup window</strong>
+          <span>Used only for pilot planning.</span>
+        </div>
+        <select
+          value={pickupPreference}
+          onChange={(event) =>
+            setPickupPreference(event.target.value as PickupPreference)
+          }
+        >
+          <option value="flexible">Flexible</option>
+          <option value="weekday-evening">Weekday evening</option>
+          <option value="saturday-morning">Saturday morning</option>
+          <option value="saturday-afternoon">Saturday afternoon</option>
+          <option value="sunday-morning">Sunday morning</option>
+        </select>
+      </div>
+
+      {loading && <p className="pilot-demand-state">Loading shared pilot totals…</p>}
+      {error && (
+        <p className="pilot-demand-alert">
+          Shared demand service unavailable: {error}
+        </p>
+      )}
 
       <div className="demand-cards">
         {demandIdeas.map((idea) => {
           const current = demandRecord[idea.id];
           const joined = Boolean(current?.joined);
           const price = current?.targetPrice ?? idea.targetPrice;
-          const households = idea.baseHouseholds + (joined ? 1 : 0);
+          const aggregate = aggregateByProduct.get(idea.id);
+          const households = aggregate?.interested_households ?? 0;
           const width = Math.min(
             100,
             Math.round((households / idea.targetHouseholds) * 100),
           );
+          const submitting = submittingProductId === idea.id;
 
           return (
             <article className="demand-card" key={idea.id}>
               <div>
                 <span className="eyebrow">{idea.unitLabel}</span>
                 <h3>{idea.name}</h3>
-                <p>{households} households in the research scenario</p>
+                <p>
+                  {households} real pilot household
+                  {households === 1 ? "" : "s"} currently counted in
+                </p>
+                {aggregate?.median_maximum_price != null && (
+                  <small>
+                    Median maximum price:{" "}
+                    {money.format(aggregate.median_maximum_price)}
+                  </small>
+                )}
               </div>
               <label>
                 I would buy at or below
@@ -483,11 +626,15 @@ function DemandView({
                   <span>$</span>
                   <input
                     type="number"
-                    min="0"
+                    min="0.25"
+                    max="500"
                     step="0.25"
                     value={price}
                     onChange={(event) =>
-                      setPrice(idea.id, Number.parseFloat(event.target.value) || 0)
+                      setPrice(
+                        idea.id,
+                        Number.parseFloat(event.target.value) || 0,
+                      )
                     }
                   />
                 </span>
@@ -503,13 +650,30 @@ function DemandView({
                       ? "Later phase"
                       : "Handling confirmation needed"}
                 </span>
-                <button
-                  type="button"
-                  className={joined ? "button button--joined" : "button button--secondary"}
-                  onClick={() => toggle(idea.id, idea.targetPrice)}
-                >
-                  {joined ? "Count me in" : "Add my demand"}
-                </button>
+                <div className="demand-actions">
+                  <button
+                    type="button"
+                    className={joined ? "button button--joined" : "button button--secondary"}
+                    disabled={submitting || price <= 0}
+                    onClick={() => void save(idea.id, idea.targetPrice)}
+                  >
+                    {submitting
+                      ? "Saving…"
+                      : joined
+                        ? "Update my price"
+                        : "Add my demand"}
+                  </button>
+                  {joined && (
+                    <button
+                      type="button"
+                      className="text-button"
+                      disabled={submitting}
+                      onClick={() => void remove(idea.id, idea.targetPrice)}
+                    >
+                      Remove my demand
+                    </button>
+                  )}
+                </div>
               </div>
             </article>
           );
@@ -922,6 +1086,15 @@ function App() {
   const [demandRecord, updateDemand] = useDemandRecord();
   const { feed: liveRetailFeed, error: liveRetailError } = useLiveRetailFeed();
   const {
+    aggregateByProduct,
+    loading: demandLoading,
+    submittingProductId,
+    error: demandError,
+    submit: submitDemand,
+    pickupPreference,
+    setPickupPreference,
+  } = usePilotDemand();
+  const {
     offers: supplierOffers,
     addOffer: addSupplierOffer,
     removeOffer: removeSupplierOffer,
@@ -969,10 +1142,24 @@ function App() {
             demandRecord={demandRecord}
             updateDemand={updateDemand}
             liveRetailFeed={liveRetailFeed}
+            aggregateByProduct={aggregateByProduct}
+            submitDemand={submitDemand}
+            submittingProductId={submittingProductId}
+            demandError={demandError}
           />
         )}
         {view === "demand" && (
-          <DemandView demandRecord={demandRecord} updateDemand={updateDemand} />
+          <DemandView
+            demandRecord={demandRecord}
+            updateDemand={updateDemand}
+            aggregateByProduct={aggregateByProduct}
+            submitDemand={submitDemand}
+            submittingProductId={submittingProductId}
+            loading={demandLoading}
+            error={demandError}
+            pickupPreference={pickupPreference}
+            setPickupPreference={setPickupPreference}
+          />
         )}
         {view === "admin" && (
           <AdminView
@@ -995,8 +1182,8 @@ function App() {
           <span>HarbourCart</span>
         </div>
         <p>
-          Halifax research pilot · demand entries stay in this browser · no live
-          ordering or payments
+          Halifax fake-money pilot · anonymous demand is shared across participating
+          households · no live ordering or payments
         </p>
       </footer>
     </>

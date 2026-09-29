@@ -1,104 +1,151 @@
 # HarbourCart shared pilot-demand backend
 
-Status: **interface/data contract ready; remote provider not yet selected**
+Status: **deployed to a dedicated HarbourCart Supabase project; frontend integration in progress**
 
-The current public prototype stores demand in browser localStorage. That is suitable only for single-browser UX testing. It cannot support a real 50-household validation because one household cannot see another household's response.
+Project:
+- Supabase project: `HarbourCart`
+- project ref: `ryctzudgyldtjphkzkff`
+- region: `ca-central-1`
+- Edge Function: `pilot-demand`
 
-## Pilot requirement
+No database secret, service-role key, or privileged connection string is shipped to the browser.
 
-Before public recruitment, HarbourCart needs a shared anonymous demand store.
+## Pilot data
 
-Minimum record:
+The fake-money pilot stores only:
 
 ```text
-session_id
+anonymous session UUID
 product_id
-joined
+joined / opt-out state
 maximum_price
 pickup_preference
 created_at
 updated_at
 ```
 
-The client should not collect a name, email, phone number, address, or payment method for the fake-money demand pilot unless a later study requires it.
+It does **not** require a name, email, phone number, street address, account, or payment method.
 
-## Identity
+## Identity and deduplication
 
-Use a random anonymous pilot session ID stored on the device.
+Each browser creates one random UUIDv4 and stores it locally.
 
-The backend must enforce one current intent per:
+The database primary key is:
 
 `session_id + product_id`
 
-Repeated submissions update the household's current intent instead of inflating the household count.
+Repeated submissions from one browser therefore update that household's current intent rather than inflating the household count.
 
-The domain aggregation logic lives in:
+## Database model
 
-- `src/domain/demand.ts`
-- `src/domain/demand.test.ts`
+Tables:
+- `pilot_products` — active product allowlist and price bounds
+- `pilot_demand_intents` — anonymous current intent by session/product
+- `pilot_demand_rate_limits` — per-session rolling request limit
 
-## Minimum API contract
+All tables have RLS enabled and direct `anon` / `authenticated` table access revoked.
 
-### Submit/update intent
+The public browser does **not** call Postgres directly. The Edge Function performs validated server-side RPC calls using the Supabase secret key available only inside the hosted function.
 
-`POST /pilot-demand`
+## API
 
-Example:
+Endpoint:
+
+`https://ryctzudgyldtjphkzkff.supabase.co/functions/v1/pilot-demand`
+
+### Read aggregate
+
+`GET /functions/v1/pilot-demand`
+
+Returns only aggregate values:
 
 ```json
 {
-  "session_id": "random-client-id",
-  "product_id": "russet-potatoes",
-  "joined": true,
-  "maximum_price": 7.5,
-  "pickup_preference": "Saturday morning",
-  "updated_at": "2026-09-29T00:00:00Z"
+  "data": [
+    {
+      "product_id": "russet-potatoes",
+      "interested_households": 18,
+      "median_maximum_price": 7.75,
+      "updated_at": "2026-09-29T00:00:00Z"
+    }
+  ]
 }
 ```
 
-### Read public aggregate
+Raw session IDs are never returned by the public aggregate endpoint.
 
-`GET /pilot-demand/aggregate`
+### Submit/update intent
 
-Return only aggregates suitable for public display:
+`POST /functions/v1/pilot-demand`
 
 ```json
-[
-  {
-    "product_id": "russet-potatoes",
-    "interested_households": 18,
-    "median_maximum_price": 7.75
-  }
-]
+{
+  "session_id": "8d3ef6d8-ea10-4cc1-a33e-32675b0b46a4",
+  "product_id": "russet-potatoes",
+  "joined": true,
+  "maximum_price": 7.5,
+  "pickup_preference": "saturday-morning"
+}
 ```
 
-Do not return raw session IDs publicly.
+Allowed pickup preferences:
+- `weekday-evening`
+- `saturday-morning`
+- `saturday-afternoon`
+- `sunday-morning`
+- `flexible`
 
-## Abuse controls
+## Validation / abuse controls
 
-Before exposing the endpoint:
+The deployed function currently:
 
-- rate limit by IP / anonymous session;
-- validate product IDs against the pilot catalogue;
-- validate price bounds;
-- reject arbitrary extra fields;
-- use CORS only for approved HarbourCart origins;
-- never accept supplier/admin fields through the public endpoint;
-- retain timestamps for audit;
-- provide a way to invalidate obvious spam.
+- accepts browser CORS only from the HarbourCart GitHub Pages origin and local-development origins;
+- requires UUIDv4 anonymous session IDs;
+- rejects unknown request fields;
+- validates product IDs against an active database allowlist;
+- enforces per-product price bounds;
+- validates pickup-preference values;
+- enforces a per-session hourly request limit;
+- never accepts supplier/admin fields through the public endpoint;
+- returns only public-safe aggregate demand;
+- fails explicitly rather than falling back to simulated household counts.
 
-## Deployment constraint
+This is appropriate for a small fake-money pilot. Before a much larger public launch, add stronger bot/rate controls and monitoring.
 
-GitHub Pages cannot safely hold a database credential or privileged write token. The shared-demand API therefore requires a small external serverless/database endpoint.
+## Database test
 
-Do **not** place a privileged Neon/Supabase/Postgres connection string in the browser bundle.
+The deployed database functions were exercised with a test UUID:
+- submit joined intent;
+- aggregate;
+- opt out;
+- aggregate returns zero interested households.
+
+The test row remains opted out and therefore does not affect pilot counts.
+
+## Security review
+
+Supabase security advisors now report only informational notices that RLS-enabled tables have no direct policies. This is intentional: direct public table access is revoked, and the public browser uses the validated Edge Function.
+
+The prior anonymous `SECURITY DEFINER` warnings were removed by revoking direct anonymous/authenticated execution. Performance advisors are currently clear.
+
+## Frontend contract
+
+The HarbourCart client:
+- stores only its random anonymous session ID and its own local selections;
+- reads shared aggregate counts from the Edge Function;
+- sends price-specific intent to the Edge Function;
+- shows actual shared totals, not research-scenario counts;
+- keeps procurement's 50 / 100 / 250 household scenarios separate from actual consumer demand.
 
 ## Acceptance before recruitment
 
-- 50 distinct test sessions can submit concurrently;
-- duplicate submissions from one session do not inflate counts;
-- opt-out removes that session from the aggregate;
-- aggregate response contains no raw session IDs;
-- invalid product/price payloads are rejected;
-- the public UI clearly distinguishes actual collected demand from research scenarios;
-- outage falls back to an explicit unavailable state rather than fake counts.
+Remaining acceptance items:
+
+- production UI integration builds and deploys;
+- duplicate/opt-out behaviour is verified through the live app;
+- outage state is verified;
+- 50 distinct test sessions can submit without count inflation;
+- public aggregate exposes no session IDs;
+- input validation and session rate limiting remain enforced.
+
+No real checkout or payment collection should be added during this fake-money validation phase.
