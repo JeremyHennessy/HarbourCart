@@ -6,6 +6,7 @@ import OperatingCostPanel from "./components/OperatingCostPanel";
 import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";
 import SupplierAvailabilityPanel from "./components/SupplierAvailabilityPanel";
 import BasketEconomicsPanel from "./components/BasketEconomicsPanel";
+import PilotReadinessPanel from "./components/PilotReadinessPanel";
 import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
 import { useSupplierOffers } from "./hooks/useSupplierOffers";
@@ -740,6 +741,7 @@ function AdminView({
   addSupplierOffer,
   removeSupplierOffer,
   replaceSupplierOffers,
+  pilotDemandReady,
 }: {
   demandRecord: DemandRecord;
   liveRetailFeed?: LiveRetailFeed;
@@ -748,6 +750,7 @@ function AdminView({
   addSupplierOffer: (offer: SupplierOffer) => void;
   removeSupplierOffer: (id: string) => void;
   replaceSupplierOffers: (offers: SupplierOffer[]) => void;
+  pilotDemandReady: boolean;
 }) {
   const [scenarioHouseholds, setScenarioHouseholds] = useState(50);
 
@@ -801,6 +804,11 @@ function AdminView({
   const todayDate = new Date().toISOString().slice(0, 10);
   const verifiedQuoteCount = supplierOffers.filter(
     (offer) => validateSupplierOffer(offer, todayDate).valid,
+  ).length;
+  const currentHalifaxRetailCount = (liveRetailFeed?.prices ?? []).filter(
+    (price) =>
+      price.scope === "HALIFAX_STORE" &&
+      price.status === "CURRENT",
   ).length;
   const attractive = rows.filter(
     ({ economics }) =>
@@ -885,6 +893,12 @@ function AdminView({
           <strong>{basketItems.length}</strong>
         </div>
       </div>
+
+      <PilotReadinessPanel
+        demandReady={pilotDemandReady}
+        currentRetailCount={currentHalifaxRetailCount}
+        verifiedQuoteCount={verifiedQuoteCount}
+      />
 
       <LiveRetailPanel feed={liveRetailFeed} error={liveRetailError} />
 
@@ -1119,13 +1133,15 @@ function EvidenceView() {
       <div className="gate-stack">
         <h3>Publication gate</h3>
         <ol>
-          <li>Verified supplier offer with MOQ, pack, validity and delivery terms.</li>
-          <li>Current Halifax retail comparator for the same or genuinely comparable item.</li>
-          <li>Handling class permitted for the phase-1 operating workflow.</li>
-          <li>Any HarbourCart sale-by-weight measurement requirement is resolved.</li>
-          <li>Customer saving clears the configured minimum.</li>
-          <li>Variable contribution clears the configured minimum.</li>
-          <li>Immutable evidence snapshot is stored for what the household saw.</li>
+          <li>Every included item has a verified supplier offer with MOQ, pack, validity and delivery terms.</li>
+          <li>Every included item has a current Halifax retail comparator for the same or genuinely comparable item.</li>
+          <li>Handling class is permitted for the phase-1 operating workflow.</li>
+          <li>Any HarbourCart sale-by-weight measurement requirement is resolved or avoided by scope.</li>
+          <li>Item-specific costs remain positive before shared basket overhead.</li>
+          <li>The household basket clears the configured savings threshold.</li>
+          <li>The household basket clears the configured contribution threshold after shared payment, labour and packaging costs.</li>
+          <li>The weekly cohort covers pickup, transport, software and other fixed operating costs.</li>
+          <li>An immutable evidence snapshot is stored for what the household saw.</li>
         </ol>
       </div>
     </section>
@@ -1223,6 +1239,7 @@ function App() {
             addSupplierOffer={addSupplierOffer}
             removeSupplierOffer={removeSupplierOffer}
             replaceSupplierOffers={replaceSupplierOffers}
+            pilotDemandReady={!demandLoading && !demandError}
           />
         )}
         {view === "support" && <LocalSupportView />}
