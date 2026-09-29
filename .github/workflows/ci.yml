@@ -30,6 +30,11 @@ jobs:
       - name: Check retailer refresh script syntax
         run: node --check scripts/fetch-retail-prices.mjs
 
+      - name: Check farm directory scripts
+        run: |
+          node --check scripts/farm-parser.mjs
+          node --check scripts/fetch-farm-directory.mjs
+
       - name: Smoke test retailer refresh
         run: node scripts/fetch-retail-prices.mjs
 
