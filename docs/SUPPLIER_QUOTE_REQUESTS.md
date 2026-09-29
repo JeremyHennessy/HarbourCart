@@ -206,3 +206,135 @@ Thank you.
 Use the buyer-eligibility message in `docs/OUTREACH.md` before treating Hub catalogue pricing as HarbourCart procurement evidence.
 
 The key question is whether committed aggregate household demand can be purchased through the Hub while avoiding duplicated warehousing/last-mile infrastructure.
+
+
+## Four Seasons Farm
+
+**To:** order4seasons@gmail.com  
+**Public evidence:** https://fourseasonsfarm.ca/order-from-us/
+
+**Subject:** HarbourCart — current Halifax store price list and case terms
+
+Hello,
+
+I am validating HarbourCart, a Halifax household buying club that aggregates household demand into one consolidated supplier order.
+
+Your current store ordering model looks especially compatible with our initial pilot because you offer retail-ready units, case pricing, a low order minimum and a Halifax Thursday route.
+
+Could you please send the current weekly store/restaurant product and price list and confirm whether HarbourCart could order on the same commercial terms?
+
+For the first pilot, we are particularly interested in products that can move to households in intact supplier-packed units or fixed counts, including:
+
+- potatoes;
+- storage onions;
+- carrots;
+- cabbage;
+- broccoli;
+- cauliflower;
+- celery;
+- winter squash;
+- any other current fall products you consider suitable for retail-ready household orders.
+
+Please confirm the current case/pack configuration, case price, CA$75 minimum, CA$6 Halifax delivery terms, substitution policy, payment terms, quote/list validity and whether higher committed volume changes pricing.
+
+This is a feasibility request only and not yet a committed order.
+
+Thank you.
+
+## Kings Produce / TapRoot Farms
+
+**To:** melissa@kingsproduce.ns.ca  
+**Phone:** 902-542-5515 ext. 205  
+**Public evidence:** https://kingsproduce.ns.ca/wholesale/ and https://taprootfarms.ca/who-we-are/
+
+**Subject:** HarbourCart — weekly Valley wholesale list and Halifax delivery terms
+
+Hello,
+
+I am validating HarbourCart, a Halifax household buying club that consolidates committed household demand into one wholesale order.
+
+TapRoot's public wholesale information says Kings Produce manages its organic wholesale list, ordering and delivery. Could you send the current weekly wholesale list and advise whether HarbourCart can open a wholesale account?
+
+For an initial 50 / 100 / 250-household pilot, we are especially interested in intact consumer packs or fixed-count cases of:
+
+- potatoes;
+- onions;
+- carrots;
+- cabbage;
+- broccoli;
+- cauliflower;
+- apples or other storage fruit;
+- winter squash.
+
+Please include pack/case sizes, MOQ, current prices, Halifax delivery or pickup terms, delivery minimum/fee, payment terms, price validity, substitutions, and any volume-price breaks.
+
+Thank you.
+
+## Agri-Growers Limited / Sawler Gardens
+
+**To:** agri-growers@ns.sympatico.ca  
+**Phone:** 902-542-2263  
+**Public evidence:** https://www.agrigrowers.com/produce-availabity.html
+
+**Subject:** HarbourCart — current pricing for supplier-packed staple produce
+
+Hello,
+
+I am validating HarbourCart, a Halifax household buying club designed around consolidated supplier orders.
+
+Your published pack formats are unusually well suited to our first pilot because they include consumer-manageable bags and fixed-count cases.
+
+Could you quote current availability and pricing for:
+
+- potatoes — preferably 10 lb supplier-packed bags;
+- onions — preferably 5 lb or other intact household bags;
+- carrots — preferably 3 lb or 5 lb bags;
+- broccoli — 14/18-count cases;
+- cauliflower — 9/12/16-count cases;
+- cucumbers — fixed-count cartons;
+- apples — 3 lb or 5 lb packs where available.
+
+Please include MOQ, exact pack configuration, Halifax delivery/pickup terms, quote validity, payment terms and any higher-volume tier at roughly 50 / 100 / 250 households.
+
+Thank you.
+
+## Vermeulen Farms Limited
+
+**To:** info@vermeulenfarms.com  
+**Phone:** 902-582-7806  
+**Public evidence:** https://www.vermeulenfarms.com/wholesale
+
+**Subject:** HarbourCart — fixed-count fall produce wholesale quote
+
+Hello,
+
+I am validating HarbourCart, a Halifax household buying club that aggregates household demand before purchasing.
+
+Your wholesale case formats are a strong fit for our first pilot. Could you quote current availability and prices for the most suitable late-season items, particularly:
+
+- field cucumbers — 24-count;
+- celery — 18/24/30-count;
+- lettuce — 24-count;
+- winter squash — 50 lb bags, including whether count/average-piece information is available;
+- tomatoes — 20 lb cases;
+- zucchini — 20 lb cases.
+
+Please include MOQ, whether orders below pallet quantities are accepted, Halifax delivery/pickup terms, quote validity, payment terms, substitution policy and separate seconds pricing where offered.
+
+Thank you.
+
+## Good Clean Farm
+
+**Public evidence:** https://www.goodcleanfarm.com/csa
+
+Use the farm's published contact channel to request a bulk-purchase quote. Its 2026 CSA page explicitly states that bulk purchases can be arranged in advance.
+
+Priority questions:
+
+- which current fall crops can be sold in intact supplier-packed or fixed-count formats;
+- available bulk quantities for 50 / 100 households;
+- price;
+- pickup vs Halifax delivery;
+- MOQ;
+- payment terms;
+- whether any bulk farm purchase can use a current Nova Scotia Loyal program (do not assume eligibility).

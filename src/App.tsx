@@ -4,6 +4,7 @@ import LiveRetailPanel from "./components/LiveRetailPanel";
 import LocalSupportView from "./components/LocalSupportView";
 import OperatingCostPanel from "./components/OperatingCostPanel";
 import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";
+import SupplierAvailabilityPanel from "./components/SupplierAvailabilityPanel";
 import BasketEconomicsPanel from "./components/BasketEconomicsPanel";
 import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
@@ -838,6 +839,8 @@ function AdminView({
       </div>
 
       <LiveRetailPanel feed={liveRetailFeed} error={liveRetailError} />
+
+      <SupplierAvailabilityPanel />
 
       <SupplierQuoteWorkspace
         offers={supplierOffers}
