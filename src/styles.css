@@ -2795,3 +2795,246 @@ footer {
     }
   }
 }
+
+
+/* Farm directory discovery */
+.farm-directory-panel {
+  margin: 0 0 28px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.82);
+}
+
+.farm-directory-panel > p {
+  margin: 0 0 18px;
+  line-height: 1.55;
+}
+
+.farm-directory-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0 12px;
+}
+
+.farm-directory-summary > div {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+.farm-directory-summary span,
+.farm-directory-summary strong {
+  display: block;
+}
+
+.farm-directory-summary span {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+}
+
+.farm-directory-summary strong {
+  color: var(--deep);
+  font-size: 1.5rem;
+  letter-spacing: -0.035em;
+}
+
+.farm-directory-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.farm-directory-controls {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) minmax(150px, 0.6fr) auto auto;
+  gap: 12px;
+  align-items: end;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+.farm-directory-controls label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.farm-directory-controls input[type="search"],
+.farm-directory-controls select {
+  min-height: 42px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--deep);
+  background: #fff;
+  font: inherit;
+}
+
+.farm-directory-controls .farm-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8f6ef;
+}
+
+.farm-directory-results {
+  margin-top: 16px;
+}
+
+.farm-directory-results__heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 9px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.farm-directory-results__heading strong {
+  color: var(--deep);
+}
+
+.farm-directory-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+}
+
+.farm-directory-table {
+  min-width: 1120px;
+  box-shadow: none;
+}
+
+.farm-directory-table td small,
+.farm-directory-table td span {
+  display: block;
+  margin-top: 5px;
+}
+
+.farm-directory-table td a {
+  color: var(--sea);
+  font-weight: 800;
+  text-underline-offset: 3px;
+}
+
+.farm-directory-table details summary {
+  color: var(--deep);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.farm-directory-table details ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.farm-signal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.farm-empty {
+  padding: 20px;
+  text-align: center;
+}
+
+.farm-source-health {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #f8f6ef;
+}
+
+.farm-source-health > summary {
+  color: var(--deep);
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.farm-source-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.farm-source-grid article {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+}
+
+.farm-source-grid article > div {
+  min-width: 0;
+}
+
+.farm-source-grid strong,
+.farm-source-grid span,
+.farm-source-grid small {
+  display: block;
+}
+
+.farm-source-grid strong {
+  color: var(--deep);
+  font-size: 0.82rem;
+}
+
+.farm-source-grid article > div span,
+.farm-source-grid small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 1100px) {
+  .farm-directory-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .farm-directory-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .farm-source-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .farm-directory-summary,
+  .farm-directory-controls,
+  .farm-source-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-directory-meta,
+  .farm-directory-results__heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

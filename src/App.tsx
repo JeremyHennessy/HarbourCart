@@ -5,9 +5,11 @@ import LocalSupportView from "./components/LocalSupportView";
 import OperatingCostPanel from "./components/OperatingCostPanel";
 import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";
 import SupplierAvailabilityPanel from "./components/SupplierAvailabilityPanel";
+import FarmDirectoryPanel from "./components/FarmDirectoryPanel";
 import BasketEconomicsPanel from "./components/BasketEconomicsPanel";
 import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
+import { useFarmDirectory } from "./hooks/useFarmDirectory";
 import { useSupplierOffers } from "./hooks/useSupplierOffers";
 import {
   usePilotDemand,
@@ -16,6 +18,7 @@ import {
 } from "./hooks/usePilotDemand";
 import { lowestCurrentComparator, type LiveRetailFeed } from "./domain/liveRetail";
 import { evaluateBasket, type BasketItemEconomics } from "./domain/basket";
+import type { FarmDirectoryFeed } from "./domain/farmDirectory";
 import {
   selectBestSupplierProjection,
   validateSupplierOffer,
@@ -736,6 +739,8 @@ function AdminView({
   demandRecord,
   liveRetailFeed,
   liveRetailError,
+  farmDirectoryFeed,
+  farmDirectoryError,
   supplierOffers,
   addSupplierOffer,
   removeSupplierOffer,
@@ -744,6 +749,8 @@ function AdminView({
   demandRecord: DemandRecord;
   liveRetailFeed?: LiveRetailFeed;
   liveRetailError?: string;
+  farmDirectoryFeed?: FarmDirectoryFeed;
+  farmDirectoryError?: string;
   supplierOffers: SupplierOffer[];
   addSupplierOffer: (offer: SupplierOffer) => void;
   removeSupplierOffer: (id: string) => void;
@@ -887,6 +894,11 @@ function AdminView({
       </div>
 
       <LiveRetailPanel feed={liveRetailFeed} error={liveRetailError} />
+
+      <FarmDirectoryPanel
+        feed={farmDirectoryFeed}
+        error={farmDirectoryError}
+      />
 
       <SupplierAvailabilityPanel />
 
@@ -1136,6 +1148,8 @@ function App() {
   const [view, setView] = useState<View>("buys");
   const [demandRecord, updateDemand] = useDemandRecord();
   const { feed: liveRetailFeed, error: liveRetailError } = useLiveRetailFeed();
+  const { feed: farmDirectoryFeed, error: farmDirectoryError } =
+    useFarmDirectory();
   const {
     aggregateByProduct,
     loading: demandLoading,
@@ -1219,6 +1233,8 @@ function App() {
             demandRecord={demandRecord}
             liveRetailFeed={liveRetailFeed}
             liveRetailError={liveRetailError}
+            farmDirectoryFeed={farmDirectoryFeed}
+            farmDirectoryError={farmDirectoryError}
             supplierOffers={supplierOffers}
             addSupplierOffer={addSupplierOffer}
             removeSupplierOffer={removeSupplierOffer}

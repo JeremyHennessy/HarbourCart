@@ -39,7 +39,8 @@ Lets a test household record the maximum price it would pay. During this researc
 
 Separates:
 
-- **research signal** — whether public economics justify quote outreach; from
+- **broad farm discovery** — public farm, producer, market, CSA, organic-directory, and agriculture-program evidence;
+- **curated supplier research** — suppliers with enough evidence to investigate commercially;
 - **publication decision** — whether quote, local benchmark, handling eligibility, saving, and contribution evidence all pass.
 
 ### Evidence
@@ -117,6 +118,14 @@ The shared anonymous demand backend is deployed and integrated. GitHub issue #20
 ## Data model
 
 See [docs/DATA_MODEL.md](docs/DATA_MODEL.md).
+
+## Nova Scotia farm directory
+
+HarbourCart maintains a separate farm-discovery feed sourced from Buy Local NS, the Halifax Regional Food Hub, ACORN, the 2026 NSFA CSA directory, Farmers' Markets of Nova Scotia, and Nova Scotia agriculture-funding records. Directory evidence never substitutes for a current wholesale quote or farm inventory confirmation.
+
+The live farm snapshot is refreshed weekly to `data/farm-directory`, with stale-source retention on upstream failures.
+
+See [docs/FARM_DATA.md](docs/FARM_DATA.md).
 
 ## Operating-cost model
 

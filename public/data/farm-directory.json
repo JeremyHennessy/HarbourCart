@@ -1,0 +1,2107 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-29T01:31:55Z",
+  "currentNovaScotiaSeason": "FALL",
+  "refreshCadence": "WEEKLY",
+  "evidenceContract": {
+    "discoveryListingIsNotWholesaleEvidence": true,
+    "fundingRecipientIsNotSupplierEvidence": true,
+    "seasonalMatchIsNotInventoryConfirmation": true,
+    "foodHubProducerIsWholesaleChannelEvidence": true,
+    "currentPriceRequiresSeparateQuoteEvidence": true
+  },
+  "stats": {
+    "farms": 25,
+    "highFit": 0,
+    "mediumFit": 25,
+    "foodHubProducers": 25,
+    "buyLocalSuppliers": 0,
+    "buyLocalWholesalers": 0,
+    "csa2026": 0,
+    "acornDirectory": 0,
+    "fundingRecipients": 0,
+    "markets": 46,
+    "sourceCounts": {
+      "HALIFAX_FOOD_HUB": 25,
+      "FMNS_MARKETS": 46
+    }
+  },
+  "sources": [
+    {
+      "id": "HALIFAX_FOOD_HUB",
+      "label": "Halifax Regional Food Hub producer roster",
+      "url": "https://www.halifaxfoodhub.ca/our-producers",
+      "status": "SUCCESS",
+      "fetchedAt": "2026-09-29T01:31:55Z",
+      "recordCount": 25,
+      "requestCount": 1,
+      "errors": []
+    },
+    {
+      "id": "FMNS_MARKETS",
+      "label": "Farmers' Markets of Nova Scotia",
+      "url": "https://farmersmarketsnovascotia.ca/find-a-market-new/",
+      "status": "SUCCESS",
+      "fetchedAt": "2026-09-29T01:31:55Z",
+      "recordCount": 46,
+      "requestCount": 2,
+      "errors": []
+    }
+  ],
+  "seasonality": {
+    "WINTER": [
+      "Apples",
+      "Arugula",
+      "Beets",
+      "Cabbage",
+      "Carrots",
+      "Celeriac",
+      "Kale",
+      "Kohlrabi",
+      "Microgreens",
+      "Mushrooms",
+      "Onions",
+      "Parsnips",
+      "Pears",
+      "Potatoes",
+      "Rutabaga",
+      "Spinach",
+      "Squashes",
+      "Sweet Potatoes",
+      "Turnips",
+      "Winter Radishes"
+    ],
+    "SPRING": [
+      "Arugula",
+      "Asparagus",
+      "Beet Greens",
+      "Herbs",
+      "Garlic Scapes",
+      "Green Onion",
+      "Kale",
+      "Lettuce",
+      "Microgreens",
+      "Mushrooms",
+      "Mustard Greens",
+      "Napini",
+      "Peas",
+      "Pea Shoots",
+      "Radishes",
+      "Rhubarb",
+      "Salad Turnips",
+      "Spinach",
+      "Strawberries"
+    ],
+    "SUMMER": [
+      "Beans",
+      "Beet Greens",
+      "Berries",
+      "Bok Choy",
+      "Broccoli",
+      "Cabbage",
+      "Carrots",
+      "Cauliflower",
+      "Celery",
+      "Collard Greens",
+      "Corn",
+      "Cucumber",
+      "Eggplant",
+      "Fennel",
+      "Garlic Scapes",
+      "Green Onions",
+      "Herbs",
+      "Kale",
+      "Lettuce",
+      "Melons",
+      "Mushrooms",
+      "Onions",
+      "Peas",
+      "Peppers",
+      "Potatoes",
+      "Radish",
+      "Spinach",
+      "Stone Fruits",
+      "Sweet Potatoes",
+      "Swiss Chard",
+      "Tomatoes",
+      "Zucchini"
+    ],
+    "FALL": [
+      "Apples",
+      "Beets",
+      "Bok Choy",
+      "Broccoli",
+      "Brussels Sprouts",
+      "Cabbage",
+      "Carrots",
+      "Cauliflower",
+      "Celeriac",
+      "Cranberries",
+      "Cucumber",
+      "Eggplant",
+      "Garlic",
+      "Herbs",
+      "Kale",
+      "Kohlrabi",
+      "Leeks",
+      "Lettuce",
+      "Melons",
+      "Mushrooms",
+      "Onions",
+      "Parsnips",
+      "Pears",
+      "Peppers",
+      "Potatoes",
+      "Rutabaga",
+      "Spinach",
+      "Squash",
+      "Sweet Potatoes",
+      "Swiss Chard",
+      "Tomatoes",
+      "Turnip",
+      "Zucchini"
+    ],
+    "ALWAYS": [
+      "Honey",
+      "Beeswax Products",
+      "Meat",
+      "Cheese",
+      "Eggs",
+      "Bread",
+      "Baked Goods",
+      "Prepared Foods",
+      "Drinks",
+      "Artisan Products"
+    ]
+  },
+  "markets": [
+    {
+      "name": "Avon Community Farmers' Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Sundays, May–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Digby Farmers' & Artisans' Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Fridays & Sundays, May–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "North Mountain United Tapestry Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Saturdays, May–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Bear River Night Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Biweekly Wednesdays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Kentville Farmers' Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Wednesdays, May–December",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Sissiboo Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Fridays, July–September",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Clarence Country Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Sundays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Kingston Farmers' Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Thursdays, June–September",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Wolfville Farmers' Market",
+      "region": "Annapolis Valley & Digby Area",
+      "schedule": "Saturdays, Year–Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Chéticamp Farmers’ Market",
+      "region": "Cape Breton Island",
+      "schedule": "Saturdays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Sydney Public Market",
+      "region": "Cape Breton Island",
+      "schedule": "Saturdays, Year–Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Louisbourg Market",
+      "region": "Cape Breton Island",
+      "schedule": "First Sunday of each month, May–December",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Mabou Farmers' Market",
+      "region": "Cape Breton Island",
+      "schedule": "Sundays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Antigonish Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Saturdays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Old School Markets",
+      "region": "Fundy & North Shore",
+      "schedule": "Fridays, July–September",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Portapique Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Sunday, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Truro Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Saturdays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Merigomish Schoolhouse Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Sundays, May–November",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Parrsboro Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Saturdays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Pugwash Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Saturdays, May–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "New Glasgow Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Saturdays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Pictou Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Wednesdays, July–September",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Tatamagouche Farmers' Market",
+      "region": "Fundy & North Shore",
+      "schedule": "Saturdays, February–December",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Alderney Landing Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Saturdays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Greater Bedford Farm & Craft Market",
+      "region": "Halifax Metro",
+      "schedule": "Wednesdays, June–November",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Hope Blooms Market",
+      "region": "Halifax Metro",
+      "schedule": "Thursdays, July–August",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Prospect Communities Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Wednesdays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Tantallon Village Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Tuesdays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "East Hants Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Monthly Saturdays, April–December",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Halifax Brewery Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Saturdays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Musquodoboit Harbour Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Sundays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Sackville Farmers' Market at Acadia Park",
+      "region": "Halifax Metro",
+      "schedule": "Saturdays, May–November",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Fairview Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Thursdays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Halifax Seaport Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Saturdays & Sundays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Novalea Farmers' Market",
+      "region": "Halifax Metro",
+      "schedule": "Saturdays, June–September",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Spryfield Farmers Market",
+      "region": "Halifax Metro",
+      "schedule": "Sundays, June–December",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Bridgewater Farmers' Market",
+      "region": "South Shore",
+      "schedule": "Saturdays, May–December",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Chester Farmers' & Artisans' Market",
+      "region": "South Shore",
+      "schedule": "Fridays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Hubbards Farmers' Market",
+      "region": "South Shore",
+      "schedule": "Saturdays, May–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Lunenburg Farmers' Market",
+      "region": "South Shore",
+      "schedule": "Thursdays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "West Dublin Market",
+      "region": "South Shore",
+      "schedule": "Sundays, May–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "New Germany Farmers' Market",
+      "region": "South Shore",
+      "schedule": "Fridays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Privateer Farmers' & Artisans' Market",
+      "region": "South Shore",
+      "schedule": "Saturdays, May–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Barrington Farmers' Market",
+      "region": "South West Nova",
+      "schedule": "Saturdays, May–September",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Shelburne Guild Hall Market",
+      "region": "South West Nova",
+      "schedule": "Sundays, June–October",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    },
+    {
+      "name": "Yarmouth Farmers' Community Market",
+      "region": "South West Nova",
+      "schedule": "Saturdays, Year-Round",
+      "sourceUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/"
+    }
+  ],
+  "farms": [
+    {
+      "id": "farm-abundant-acres",
+      "canonicalName": "Abundant Acres",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Abundant Acres",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-annapolis-fine-cheese",
+      "canonicalName": "Annapolis Fine Cheese",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Annapolis Fine Cheese",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-apple-lane-farm",
+      "canonicalName": "Apple Lane Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Apple Lane Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-bee-cee-farms",
+      "canonicalName": "Bee Cee Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Bee Cee Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-beck-farms",
+      "canonicalName": "Beck Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Beck Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-eyking-farms",
+      "canonicalName": "Eyking Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Eyking Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-evermore-mushrooms",
+      "canonicalName": "Evermore Mushrooms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Evermore Mushrooms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-elix-beverage-co",
+      "canonicalName": "Elix Beverage Co.",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Elix Beverage Co.",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-good-clean-farm",
+      "canonicalName": "Good Clean Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Good Clean Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-herbal-hill-farm",
+      "canonicalName": "Herbal Hill Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Herbal Hill Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-holdfast-farm",
+      "canonicalName": "Holdfast Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Holdfast Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-knoydart-dairy-farm",
+      "canonicalName": "Knoydart Dairy Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Knoydart Dairy Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-hutchinson-s-maple-syrup",
+      "canonicalName": "Hutchinson's Maple Syrup",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Hutchinson's Maple Syrup",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-lahave-regenerative-farm",
+      "canonicalName": "Lahave Regenerative Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Lahave Regenerative Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-medford-farms",
+      "canonicalName": "Medford Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Medford Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-melvin-farms",
+      "canonicalName": "Melvin Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Melvin Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-nerdy-girl-farm",
+      "canonicalName": "Nerdy Girl Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Nerdy Girl Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-new-moon-farms",
+      "canonicalName": "New Moon Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "New Moon Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-seven-acres-farm",
+      "canonicalName": "Seven Acres Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Seven Acres Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-snowy-river-farms",
+      "canonicalName": "Snowy River Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Snowy River Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-skye-glen-creamery",
+      "canonicalName": "Skye Glen Creamery",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Skye Glen Creamery",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-soil-to-soul",
+      "canonicalName": "Soil to Soul",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Soil to Soul",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-wandering-farm",
+      "canonicalName": "Wandering Farm",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Wandering Farm",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-taproot-farms",
+      "canonicalName": "Taproot Farms",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "Taproot Farms",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    },
+    {
+      "id": "farm-the-little-leaf-company",
+      "canonicalName": "The Little Leaf Company",
+      "aliases": [],
+      "roles": [
+        "FOOD_HUB_PRODUCER"
+      ],
+      "locations": [],
+      "regions": [],
+      "products": [],
+      "productCategories": [],
+      "contacts": {
+        "phones": [],
+        "emails": [],
+        "websites": []
+      },
+      "whereToBuy": [],
+      "attributes": [],
+      "marketAssociations": [],
+      "signals": {
+        "foodHubProducer": true,
+        "buyLocalFarm": false,
+        "buyLocalProducer": false,
+        "buyLocalSupplier": false,
+        "buyLocalWholesaler": false,
+        "csa2026": false,
+        "acornDirectory": false,
+        "acornMember": false,
+        "agricultureFundingRecipient": false,
+        "delivery": false,
+        "onlineShop": false
+      },
+      "funding": {
+        "records": 0,
+        "totalKnownAmount": 0
+      },
+      "evidence": [
+        {
+          "sourceId": "HALIFAX_FOOD_HUB",
+          "sourceLabel": "Halifax Regional Food Hub producer roster",
+          "recordName": "The Little Leaf Company",
+          "recordUrl": "https://www.halifaxfoodhub.ca/our-producers",
+          "observedAt": "2026-09-29",
+          "fields": [
+            "foodHubProducer"
+          ]
+        }
+      ],
+      "currentSeasonScreen": {
+        "season": "FALL",
+        "status": "UNSCREENED",
+        "matchedProducts": [],
+        "sourceId": "FMNS_SEASONALITY",
+        "note": "Packaged seed does not infer individual-farm inventory."
+      },
+      "harbourCart": {
+        "fitScore": 40,
+        "fitBand": "MEDIUM",
+        "reasons": [
+          "Halifax Food Hub producer"
+        ],
+        "phase1ProductMatches": [],
+        "laterPhaseProductMatches": []
+      },
+      "lastObservedAt": "2026-09-29T01:31:55Z"
+    }
+  ]
+}

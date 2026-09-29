@@ -1,0 +1,70 @@
+name: Refresh Nova Scotia farm directory
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 10 * * 1"
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/fetch-farm-directory.mjs"
+      - "scripts/farm-parser.mjs"
+      - "config/farm-directory.json"
+      - ".github/workflows/farm-directory.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: farm-directory-refresh
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout application code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Load previous farm snapshot
+        run: |
+          git fetch origin data/farm-directory || true
+          git show origin/data/farm-directory:public/data/farm-directory.json > /tmp/previous-farm-directory.json || true
+          if [ -s /tmp/previous-farm-directory.json ]; then
+            cp /tmp/previous-farm-directory.json public/data/farm-directory.json
+          fi
+
+      - name: Refresh farm directory
+        run: node scripts/fetch-farm-directory.mjs
+
+      - name: Publish snapshot to data branch
+        run: |
+          cp public/data/farm-directory.json /tmp/farm-directory.json
+
+          if git show-ref --verify --quiet refs/remotes/origin/data/farm-directory; then
+            git checkout -B data/farm-directory origin/data/farm-directory
+          else
+            git checkout -b data/farm-directory
+          fi
+
+          mkdir -p public/data
+          cp /tmp/farm-directory.json public/data/farm-directory.json
+
+          if git diff --quiet -- public/data/farm-directory.json; then
+            echo "No farm directory snapshot change."
+            exit 0
+          fi
+
+          git config user.name "HarbourCart Farm Directory"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/farm-directory.json
+          git commit -m "data: refresh Nova Scotia farm directory"
+          git push origin data/farm-directory
