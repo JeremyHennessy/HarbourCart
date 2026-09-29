@@ -20,10 +20,12 @@ export function useLiveRetailFeed() {
     const controller = new AbortController();
     const stamp = String(Date.now());
 
+    const isLocalDev =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+
     const remoteUrl = new URL(
-      import.meta.env.DEV
-        ? "data/retail-live.json"
-        : LIVE_DATA_URL,
+      isLocalDev ? "data/retail-live.json" : LIVE_DATA_URL,
       window.location.href,
     );
     remoteUrl.searchParams.set("t", stamp);
@@ -39,7 +41,7 @@ export function useLiveRetailFeed() {
       .catch(async (reason: unknown) => {
         if (controller.signal.aborted) return;
 
-        if (import.meta.env.DEV) {
+        if (isLocalDev) {
           setError(
             reason instanceof Error
               ? reason.message
