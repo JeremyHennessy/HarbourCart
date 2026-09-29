@@ -7,6 +7,7 @@ on:
       - brand/approved-harbourcart-assets-20260928
     paths:
       - "scripts/generate-brand-assets.py"
+      - "scripts/postprocess-brand-assets.py"
       - "scripts/brand-masters/**"
       - ".github/workflows/brand-assets.yml"
 
@@ -37,6 +38,9 @@ jobs:
       - name: Generate each handoff asset
         run: python scripts/generate-brand-assets.py
 
+      - name: Apply visual QA corrections and additions
+        run: python scripts/postprocess-brand-assets.py
+
       - name: Commit generated assets
         run: |
           if [ -z "$(git status --porcelain -- public/brand)" ]; then
@@ -46,5 +50,5 @@ jobs:
           git config user.name "HarbourCart Brand Assets"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/brand
-          git commit -m "brand: add approved HarbourCart asset suite [skip ci]"
+          git commit -m "brand: update approved HarbourCart asset suite [skip ci]"
           git push origin HEAD:${GITHUB_REF_NAME}
