@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "observedRegion": "Nova Scotia",
+  "refreshCadence": "WEEKLY",
+  "sourceTimeoutMs": 20000,
+  "requestDelayMs": 80,
+  "buyLocal": {
+    "enabled": true,
+    "searchUrlTemplate": "https://buylocal.novascotia.ca/business-search?name=&page={page}&product=All&region=All",
+    "maxPages": 60,
+    "fetchDetails": true,
+    "maxDetailPages": 220
+  },
+  "foodHub": {
+    "enabled": true,
+    "url": "https://www.halifaxfoodhub.ca/our-producers"
+  },
+  "acorn": {
+    "enabled": true,
+    "urlTemplate": "https://acornorganic.org/resources/organicdirectory/results/P{offset}",
+    "pageSize": 10,
+    "maxOffset": 220
+  },
+  "nsfaCsa": {
+    "enabled": true,
+    "url": "https://nsfa-fane.ca/csadirectory/"
+  },
+  "fmns": {
+    "enabled": true,
+    "marketsUrl": "https://farmersmarketsnovascotia.ca/find-a-market-new/",
+    "seasonalityUrl": "https://farmersmarketsnovascotia.ca/whats-in-season-in-nova-scotia/"
+  },
+  "agFunding": {
+    "enabled": true,
+    "csvUrl": "https://data.novascotia.ca/api/views/jv92-pedy/rows.csv?accessType=DOWNLOAD"
+  },
+  "phase1ProductTerms": [
+    "apple",
+    "apples",
+    "fruit",
+    "vegetable",
+    "vegetables",
+    "potato",
+    "potatoes",
+    "onion",
+    "onions",
+    "carrot",
+    "carrots",
+    "cabbage",
+    "broccoli",
+    "cauliflower",
+    "celery",
+    "cucumber",
+    "cucumbers",
+    "squash",
+    "mushroom",
+    "mushrooms",
+    "flour",
+    "grain",
+    "grains",
+    "oats",
+    "rice",
+    "beans",
+    "berries",
+    "honey",
+    "maple"
+  ],
+  "laterPhaseProductTerms": [
+    "meat",
+    "beef",
+    "pork",
+    "lamb",
+    "chicken",
+    "turkey",
+    "dairy",
+    "cheese",
+    "milk",
+    "egg",
+    "eggs",
+    "seafood",
+    "fish",
+    "prepared food",
+    "bakery"
+  ],
+  "farmNameTerms": [
+    "farm",
+    "farms",
+    "farmstead",
+    "orchard",
+    "orchards",
+    "garden",
+    "gardens",
+    "grower",
+    "growers",
+    "acres",
+    "dairy",
+    "apiary",
+    "berries",
+    "berry",
+    "mushroom",
+    "produce"
+  ],
+  "manualAliases": {
+    "taproot farms inc": "taproot farms",
+    "taproot farms": "taproot farms",
+    "four seasons farm ltd": "four seasons farm",
+    "agri growers ltd": "agri growers",
+    "agri growers limited": "agri growers",
+    "noggins corner farm market": "noggins corner farm",
+    "noggins corner farm": "noggins corner farm",
+    "stirling fruit farms 2000 ltd": "stirling fruit farms",
+    "stirling fruit farms": "stirling fruit farms",
+    "good clean farm ltd": "good clean farm",
+    "good clean farm": "good clean farm"
+  }
+}
