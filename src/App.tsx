@@ -61,6 +61,12 @@ const brandAssets = {
   mark: "./brand/01-logos/harbourcart-mark-fullcolor-512.png",
   markSmall: "./brand/01-logos/harbourcart-mark-fullcolor-128.png",
   arrow: "./brand/04-ui/icons/arrow-right.svg",
+  cart: "./brand/04-ui/icons/cart.svg",
+  users: "./brand/04-ui/icons/users.svg",
+  search: "./brand/04-ui/icons/search.svg",
+  leaf: "./brand/04-ui/icons/leaf.svg",
+  check: "./brand/04-ui/icons/check.svg",
+  location: "./brand/04-ui/icons/location.svg",
 } as const;
 
 function BrandLockup({
@@ -403,7 +409,10 @@ function CustomerBuys({
     <>
       <section className="hero">
         <div className="hero__copy">
-          <span className="eyebrow">Halifax group buying</span>
+          <span className="eyebrow eyebrow--with-icon">
+            <img src={brandAssets.location} alt="" aria-hidden="true" />
+            Halifax group buying
+          </span>
           <h1>Groceries, bought together.</h1>
           <p className="hero__lede">
             HarbourCart combines real household demand, current Halifax grocery
@@ -1158,19 +1167,21 @@ function App() {
 
         <nav aria-label="Primary navigation">
           {([
-            ["buys", "Candidate buys"],
-            ["demand", "Demand"],
-            ["admin", "Procurement"],
-            ["support", "Local support"],
-            ["evidence", "Evidence"],
-          ] as const).map(([id, label]) => (
+            ["buys", "Candidate buys", brandAssets.cart],
+            ["demand", "Demand", brandAssets.users],
+            ["admin", "Procurement", brandAssets.search],
+            ["support", "Local support", brandAssets.leaf],
+            ["evidence", "Evidence", brandAssets.check],
+          ] as const).map(([id, label, icon]) => (
             <button
               key={id}
               type="button"
               className={view === id ? "nav-button nav-button--active" : "nav-button"}
               onClick={() => setView(id)}
+              aria-current={view === id ? "page" : undefined}
             >
-              {label}
+              <img className="nav-icon" src={icon} alt="" aria-hidden="true" />
+              <span>{label}</span>
             </button>
           ))}
         </nav>
