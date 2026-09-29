@@ -1958,3 +1958,46 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+
+.scenario-control {
+  display: grid;
+  grid-template-columns: auto minmax(150px, 220px) 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 253, 247, 0.72);
+}
+
+.scenario-control label {
+  color: var(--deep);
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.scenario-control select {
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--deep);
+  background: var(--paper);
+  font: inherit;
+  font-weight: 750;
+}
+
+.scenario-control span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .scenario-control {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+}
