@@ -35,7 +35,7 @@ Sobeys' public site states that product pricing and availability can vary and te
 
 ## Refresh architecture
 
-GitHub Actions runs the retail monitor twice daily.
+GitHub Actions runs the retail monitor twice daily. The monitor executes using code from `main`, then publishes only the generated snapshot to the dedicated `data/retail-live` branch. This prevents normal price changes from mutating the approved application code baseline or triggering a Pages release.
 
 ```text
 official retailer pages
@@ -46,6 +46,7 @@ HTML → visible text
         ↓
 target product parser
         ↓
+data/retail-live branch
 public/data/retail-live.json
         ↓
 HarbourCart Procurement view
@@ -75,9 +76,12 @@ A price is allowed to satisfy HarbourCart's live publication comparator only whe
 
 1. it is tied to a verified Halifax store session/source;
 2. it is within the configured freshness window;
-3. the product/unit is genuinely comparable.
+3. the product/unit is genuinely comparable;
+4. comparator quality is explicit: `EXACT`, `COMPARABLE`, or `VALUE_ALTERNATIVE`.
 
 If store scope cannot be independently confirmed, the observation is still shown as a **research signal**, but it does not unlock a customer-facing savings claim.
+
+A cheaper consumer value pack may be linked to a candidate as `VALUE_ALTERNATIVE`. It can be the conservative price HarbourCart must beat, but the UI must disclose that it is an alternative rather than pretending it is the exact SKU. `NOT_COMPARABLE` observations are excluded from publication math.
 
 ## Current Atlantic Superstore public signals
 
@@ -147,3 +151,14 @@ Current result:
 
 - Superstore: live Halifax store-scoped comparator pipeline demonstrated;
 - Sobeys: current public/flyer research signals available, but local normalized comparator coverage remains incomplete.
+
+
+## Release/data separation
+
+Production reads the current snapshot from:
+
+`data/retail-live:public/data/retail-live.json`
+
+The packaged file on the application release remains a fallback only. If the live data branch cannot be reached, HarbourCart may display the packaged snapshot with a warning, but the normal freshness logic can still make that snapshot stale and unusable for publication.
+
+This preserves a stable application SHA while retailer observations continue changing.
