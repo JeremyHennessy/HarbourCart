@@ -1,0 +1,301 @@
+{
+  "count": 74,
+  "files": [
+    {
+      "path": "01-logos/harbourcart-logo-horizontal-fullcolor-notag.png",
+      "bytes": 34048
+    },
+    {
+      "path": "01-logos/harbourcart-logo-horizontal-fullcolor.png",
+      "bytes": 44530
+    },
+    {
+      "path": "01-logos/harbourcart-logo-horizontal-fullcolor.webp",
+      "bytes": 127468
+    },
+    {
+      "path": "01-logos/harbourcart-logo-horizontal-reverse-notag.png",
+      "bytes": 19347
+    },
+    {
+      "path": "01-logos/harbourcart-logo-horizontal-reverse.png",
+      "bytes": 25212
+    },
+    {
+      "path": "01-logos/harbourcart-logo-horizontal-reverse.webp",
+      "bytes": 59938
+    },
+    {
+      "path": "01-logos/harbourcart-logo-stacked-fullcolor.png",
+      "bytes": 44231
+    },
+    {
+      "path": "01-logos/harbourcart-logo-stacked-reverse.png",
+      "bytes": 23561
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-1024.png",
+      "bytes": 52807
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-1024.webp",
+      "bytes": 148430
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-128.png",
+      "bytes": 4546
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-128.webp",
+      "bytes": 8822
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-256.png",
+      "bytes": 10858
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-256.webp",
+      "bytes": 21582
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-32.png",
+      "bytes": 1165
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-32.webp",
+      "bytes": 1564
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-512.png",
+      "bytes": 24836
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-512.webp",
+      "bytes": 60362
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-64.png",
+      "bytes": 2060
+    },
+    {
+      "path": "01-logos/harbourcart-mark-fullcolor-64.webp",
+      "bytes": 3652
+    },
+    {
+      "path": "01-logos/harbourcart-mark-navy-1024.png",
+      "bytes": 53469
+    },
+    {
+      "path": "01-logos/harbourcart-mark-white-1024.png",
+      "bytes": 25230
+    },
+    {
+      "path": "01-logos/harbourcart-wordmark-white.png",
+      "bytes": 12244
+    },
+    {
+      "path": "01-logos/harbourcart-wordmark.png",
+      "bytes": 28061
+    },
+    {
+      "path": "02-app-icons/apple-touch-icon.png",
+      "bytes": 4156
+    },
+    {
+      "path": "02-app-icons/favicon.ico",
+      "bytes": 5742
+    },
+    {
+      "path": "02-app-icons/icon-1024x1024.png",
+      "bytes": 47478
+    },
+    {
+      "path": "02-app-icons/icon-120x120.png",
+      "bytes": 2607
+    },
+    {
+      "path": "02-app-icons/icon-128x128.png",
+      "bytes": 2790
+    },
+    {
+      "path": "02-app-icons/icon-144x144.png",
+      "bytes": 3185
+    },
+    {
+      "path": "02-app-icons/icon-152x152.png",
+      "bytes": 3373
+    },
+    {
+      "path": "02-app-icons/icon-167x167.png",
+      "bytes": 3774
+    },
+    {
+      "path": "02-app-icons/icon-16x16.png",
+      "bytes": 680
+    },
+    {
+      "path": "02-app-icons/icon-180x180.png",
+      "bytes": 4156
+    },
+    {
+      "path": "02-app-icons/icon-192x192.png",
+      "bytes": 4557
+    },
+    {
+      "path": "02-app-icons/icon-256x256.png",
+      "bytes": 6735
+    },
+    {
+      "path": "02-app-icons/icon-32x32.png",
+      "bytes": 905
+    },
+    {
+      "path": "02-app-icons/icon-48x48.png",
+      "bytes": 1172
+    },
+    {
+      "path": "02-app-icons/icon-512x512.png",
+      "bytes": 17859
+    },
+    {
+      "path": "02-app-icons/icon-60x60.png",
+      "bytes": 1332
+    },
+    {
+      "path": "02-app-icons/icon-72x72.png",
+      "bytes": 1569
+    },
+    {
+      "path": "02-app-icons/icon-76x76.png",
+      "bytes": 1684
+    },
+    {
+      "path": "02-app-icons/icon-96x96.png",
+      "bytes": 2092
+    },
+    {
+      "path": "02-app-icons/icon-maskable-192x192.png",
+      "bytes": 2610
+    },
+    {
+      "path": "02-app-icons/icon-maskable-512x512.png",
+      "bytes": 8645
+    },
+    {
+      "path": "02-app-icons/manifest-example.json",
+      "bytes": 721
+    },
+    {
+      "path": "02-app-icons/pwa-192.png",
+      "bytes": 4557
+    },
+    {
+      "path": "02-app-icons/pwa-512.png",
+      "bytes": 17859
+    },
+    {
+      "path": "03-banners/email-header-1200x400.png",
+      "bytes": 14990
+    },
+    {
+      "path": "03-banners/email-header-1200x400.webp",
+      "bytes": 27858
+    },
+    {
+      "path": "03-banners/hero-desktop-1920x600.png",
+      "bytes": 26821
+    },
+    {
+      "path": "03-banners/hero-desktop-1920x600.webp",
+      "bytes": 44926
+    },
+    {
+      "path": "03-banners/hero-mobile-390x260.png",
+      "bytes": 6680
+    },
+    {
+      "path": "03-banners/hero-mobile-390x260.webp",
+      "bytes": 12992
+    },
+    {
+      "path": "03-banners/hero-tablet-1024x400.png",
+      "bytes": 14840
+    },
+    {
+      "path": "03-banners/hero-tablet-1024x400.webp",
+      "bytes": 27808
+    },
+    {
+      "path": "04-ui/css/harbourcart-components.css",
+      "bytes": 994
+    },
+    {
+      "path": "04-ui/css/harbourcart-tokens.css",
+      "bytes": 336
+    },
+    {
+      "path": "04-ui/design-tokens.json",
+      "bytes": 595
+    },
+    {
+      "path": "04-ui/icons/arrow-right.svg",
+      "bytes": 194
+    },
+    {
+      "path": "04-ui/icons/cart.svg",
+      "bytes": 297
+    },
+    {
+      "path": "04-ui/icons/check.svg",
+      "bytes": 187
+    },
+    {
+      "path": "04-ui/icons/leaf.svg",
+      "bytes": 263
+    },
+    {
+      "path": "04-ui/icons/location.svg",
+      "bytes": 254
+    },
+    {
+      "path": "04-ui/icons/plus.svg",
+      "bytes": 189
+    },
+    {
+      "path": "04-ui/icons/search.svg",
+      "bytes": 220
+    },
+    {
+      "path": "04-ui/icons/users.svg",
+      "bytes": 336
+    },
+    {
+      "path": "04-ui/preview.html",
+      "bytes": 365
+    },
+    {
+      "path": "04-ui/react/HarbourButton.tsx",
+      "bytes": 409
+    },
+    {
+      "path": "05-social/open-graph-1200x630.png",
+      "bytes": 24431
+    },
+    {
+      "path": "05-social/open-graph-1200x630.webp",
+      "bytes": 43620
+    },
+    {
+      "path": "05-social/social-square-1080x1080.png",
+      "bytes": 30492
+    },
+    {
+      "path": "06-docs/IMPLEMENTATION-NOTES.md",
+      "bytes": 657
+    },
+    {
+      "path": "README.md",
+      "bytes": 817
+    }
+  ]
+}
