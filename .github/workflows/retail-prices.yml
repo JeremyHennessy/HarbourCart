@@ -34,6 +34,14 @@ jobs:
         with:
           node-version: 22
 
+      - name: Load previous live snapshot
+        run: |
+          git fetch origin data/retail-live
+          git show origin/data/retail-live:public/data/retail-live.json > /tmp/previous-retail-live.json || true
+          if [ -s /tmp/previous-retail-live.json ]; then
+            cp /tmp/previous-retail-live.json public/data/retail-live.json
+          fi
+
       - name: Refresh official retailer price observations
         run: node scripts/fetch-retail-prices.mjs
 
