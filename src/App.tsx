@@ -213,8 +213,8 @@ function BuyCard({
       </div>
 
       <div className="progress-label">
-        <strong>{householdCount} households interested</strong>
-        <span>{buy.targetHouseholds} target</span>
+        <strong>{householdCount} households · research scenario</strong>
+        <span>{buy.targetHouseholds} target scenario</span>
       </div>
       <div className="progress" aria-label={`${progress}% of target interest`}>
         <span style={{ width: `${progress}%` }} />
@@ -442,8 +442,9 @@ function DemandView({
           <h2>What would you actually buy?</h2>
         </div>
         <p>
-          These are local-only pilot signals stored in this browser. No order is
-          placed and no payment method is collected.
+          These are local-only pilot signals stored in this browser. The displayed
+          community counts are research scenarios, not collected HarbourCart
+          households. No order is placed and no payment method is collected.
         </p>
       </div>
 
@@ -463,7 +464,7 @@ function DemandView({
               <div>
                 <span className="eyebrow">{idea.unitLabel}</span>
                 <h3>{idea.name}</h3>
-                <p>{households} households currently modelled as interested</p>
+                <p>{households} households in the research scenario</p>
               </div>
               <label>
                 I would buy at or below
@@ -524,11 +525,12 @@ function AdminView({
   removeSupplierOffer: (id: string) => void;
   replaceSupplierOffers: (offers: SupplierOffer[]) => void;
 }) {
+  const [scenarioHouseholds, setScenarioHouseholds] = useState(50);
+
   const rows = useMemo(
     () =>
       pilotCandidates.map((buy) => {
-        const householdCount =
-          buy.householdsInterested + (demandRecord[buy.id]?.joined ? 1 : 0);
+        const householdCount = scenarioHouseholds;
         const liveComparator = lowestCurrentComparator(
           liveRetailFeed?.prices ?? [],
           buy.id,
@@ -569,7 +571,7 @@ function AdminView({
           ),
         };
       }),
-    [demandRecord, liveRetailFeed, supplierOffers],
+    [liveRetailFeed, supplierOffers, scenarioHouseholds],
   );
 
   const todayDate = new Date().toISOString().slice(0, 10);
@@ -620,6 +622,25 @@ function AdminView({
           Economics and evidence are separate gates. A strong public spread can
           justify supplier outreach; it cannot publish a customer-facing deal.
         </p>
+      </div>
+
+      <div className="scenario-control">
+        <label htmlFor="procurement-households">Procurement scenario</label>
+        <select
+          id="procurement-households"
+          value={scenarioHouseholds}
+          onChange={(event) =>
+            setScenarioHouseholds(Number(event.target.value))
+          }
+        >
+          <option value={50}>50 households</option>
+          <option value={100}>100 households</option>
+          <option value={250}>250 households</option>
+        </select>
+        <span>
+          Quote, MOQ and case-surplus economics use this scenario. It is not
+          represented as collected demand.
+        </span>
       </div>
 
       <div className="admin-summary">
