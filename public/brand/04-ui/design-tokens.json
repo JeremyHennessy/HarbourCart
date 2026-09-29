@@ -1,0 +1,34 @@
+{
+  "brand": {
+    "navy": "#0B315E",
+    "ocean": "#1E88E5",
+    "sky": "#A7D4F2",
+    "green": "#2E7D32",
+    "yellow": "#FFD166"
+  },
+  "surface": {
+    "background": "#F6FAFE",
+    "card": "#FFFFFF",
+    "border": "#DDE7F0"
+  },
+  "text": {
+    "primary": "#0B315E",
+    "muted": "#55718F",
+    "inverse": "#FFFFFF"
+  },
+  "radius": {
+    "sm": "8px",
+    "md": "12px",
+    "lg": "18px",
+    "pill": "999px"
+  },
+  "font": {
+    "family": "Poppins, Inter, system-ui, sans-serif",
+    "weight": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  }
+}

@@ -1,0 +1,13 @@
+:root {
+  --hc-navy: #0B315E;
+  --hc-ocean: #1E88E5;
+  --hc-sky: #A7D4F2;
+  --hc-green: #2E7D32;
+  --hc-yellow: #FFD166;
+  --hc-bg: #F6FAFE;
+  --hc-surface: #FFFFFF;
+  --hc-border: #DDE7F0;
+  --hc-text: #0B315E;
+  --hc-muted: #55718F;
+  --hc-font: Poppins, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
