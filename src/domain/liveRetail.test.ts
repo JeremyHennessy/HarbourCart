@@ -102,4 +102,60 @@ describe("live retail comparator", () => {
     ).toBeUndefined();
     expect(lowestResearchSignal([publicOnly], "english-cucumber")).toBeDefined();
   });
+
+  it("uses a cheaper value alternative when it is explicitly mapped to the comparison product", () => {
+    const valueBag: LiveRetailPrice = {
+      ...base,
+      id: "value-apples",
+      productId: "value-apple-bag",
+      comparisonProductId: "gala-apples",
+      comparability: "VALUE_ALTERNATIVE",
+      productName: "Value apple bag",
+      normalizedPrice: 2.57,
+      normalizedUnit: "kg",
+      price: 7,
+      quantity: 2.72,
+      unit: "kg",
+    };
+    const looseGala: LiveRetailPrice = {
+      ...base,
+      id: "gala-loose",
+      productId: "gala-apples",
+      comparisonProductId: "gala-apples",
+      comparability: "EXACT",
+      productName: "Royal Gala Apples",
+      normalizedPrice: 6.61,
+      normalizedUnit: "kg",
+      price: 6.61,
+      quantity: 1,
+      unit: "kg",
+    };
+
+    expect(
+      lowestCurrentComparator(
+        [looseGala, valueBag],
+        "gala-apples",
+        "2026-09-28T20:00:00Z",
+      )?.id,
+    ).toBe("value-apples");
+  });
+
+  it("never uses an explicitly non-comparable price as the savings benchmark", () => {
+    const unrelated: LiveRetailPrice = {
+      ...base,
+      id: "unrelated",
+      comparisonProductId: "english-cucumber",
+      comparability: "NOT_COMPARABLE",
+      normalizedPrice: 0.5,
+      price: 0.5,
+    };
+
+    expect(
+      lowestCurrentComparator(
+        [unrelated, base],
+        "english-cucumber",
+        "2026-09-28T20:00:00Z",
+      )?.id,
+    ).toBe(base.id);
+  });
 });
