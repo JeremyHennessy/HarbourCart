@@ -12,9 +12,11 @@ A customer-facing buy is publishable only when all of the following are true:
 2. a current Halifax retail comparator is available;
 3. the handling workflow is permitted for the current operating phase;
 4. any HarbourCart sale-by-weight measurement requirement is resolved;
-5. the customer saving clears the configured minimum;
-6. variable contribution clears the configured minimum;
-7. the evidence snapshot used to show the claim is retained.
+5. item-specific costs do not make the item uneconomic before shared basket overhead;
+6. the household basket clears the configured saving minimum;
+7. the household basket clears the configured contribution minimum after one card fixed fee, one order-labour allocation and one basket-packaging allocation;
+8. the weekly cohort can cover the applicable operating-cost scenario;
+9. the evidence snapshot used to show the claim is retained.
 
 The code implements this as an evidence-gated decision engine. Strong economics alone cannot return PUBLISH.
 
@@ -136,15 +138,15 @@ A current page also showed promotional prices such as a sale on 10 lb yellow oni
 
 Current default model inputs:
 
-- target minimum customer saving: **15%**;
-- normal minimum variable contribution: **CA$5/order**;
-- card fee: **2.9% + CA$0.30**;
-- labour: **4 minutes/order at CA$17/hour**;
-- packaging: **CA$0.75/order**;
-- shrink: **1% of procurement cost**;
+- target minimum household-basket saving: **15%**;
+- normal minimum household-basket contribution: **CA$5/order**;
+- card fee: **2.9% + CA$0.30 once per household basket**;
+- order labour: **4 minutes/order at CA$17/hour once per basket**;
+- basket packaging: **CA$0.75/order once per basket**;
+- shrink: **1% of item procurement cost**;
 - candidate-specific inbound freight allocation.
 
-Fixed expenses such as insurance, pickup-site cost, vehicle/transport overhead, software, accounting, administration, and spoilage variance above the model are not yet included in the publication gate.
+Item economics, basket economics and weekly cohort economics are separate. A $4–$10 item is not required to generate $5 of contribution on its own. Fixed weekly expenses such as insurance, pickup-site cost, vehicle/transport overhead, software and administration are evaluated at the cohort layer and remain unresolved where evidence is missing.
 
 ## External evidence gates
 
@@ -232,9 +234,10 @@ benchmark_geography
 benchmark_promo_flag
 customer_price
 procurement_cost
-payment_cost
-labour_cost
-packaging_cost
+item_costs
+basket_payment_cost
+basket_labour_cost
+basket_packaging_cost
 shrink_cost
 freight_cost
 landed_variable_cost
