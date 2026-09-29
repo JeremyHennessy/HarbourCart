@@ -189,6 +189,55 @@ Immutable record of what supported the customer-facing claim.
 - contribution
 - calculation version/time
 
+### FarmDirectoryRecord
+
+Broad source-backed farm/producer identity used for discovery only.
+
+- farm_id
+- canonical_name
+- aliases
+- roles
+- address / locations / regions
+- products / normalized product categories
+- public business contacts
+- where_to_buy / market associations
+- source signals: Food Hub / Buy Local / CSA / ACORN / funding / delivery
+- source evidence array
+- current province-wide seasonality screen
+- HarbourCart research-fit score / reasons
+- last_observed_at
+
+FarmDirectoryRecord does **not** satisfy SupplierOffer. Promotion from broad
+discovery into the curated supplier queue requires stronger supplier evidence,
+and customer economics still require a retained current quote.
+
+### FarmDirectorySourceHealth
+
+Tracks each upstream directory independently.
+
+- source_id
+- source_url
+- fetched_at
+- status: SUCCESS / PARTIAL / FAILED / STALE_RETAINED
+- parsed record count
+- request count
+- retained record count when stale
+- parse/fetch errors
+
+A failed source retains its last verified records as stale rather than deleting
+identities from the spine.
+
+### FarmersMarket
+
+Normalized Farmers' Markets of Nova Scotia network record.
+
+- market_name
+- region
+- public schedule
+- source_url
+
+Market association is a discovery/distribution signal, not wholesale evidence.
+
 ## Decision separation
 
 HarbourCart intentionally has two distinct concepts:
@@ -209,6 +258,15 @@ Initial working policy:
 
 ## Phase 1 storage
 
-The current prototype uses static typed research data, browser localStorage for private supplier-quote research, and browser localStorage for fake-money demand only. None of those browser stores is authoritative shared operational data.
+The current prototype uses:
 
-Do not treat browser localStorage as authoritative operational storage. Before real accounts, payments, or orders, move durable entities to a transactional database with audit fields and immutable evidence snapshots.
+- typed/static application research data;
+- the dedicated HarbourCart Supabase backend for shared anonymous fake-money demand;
+- browser localStorage for private supplier-quote research;
+- the `data/retail-live` branch for volatile retail observations;
+- the `data/farm-directory` branch for broad farm/producer discovery snapshots.
+
+Supplier quotes stored in browser localStorage are not authoritative shared
+operational data. Before real accounts, payments, or orders, move durable
+commercial entities to a transactional database with audit fields and immutable
+evidence snapshots.
