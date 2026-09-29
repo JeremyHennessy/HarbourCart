@@ -1,6 +1,6 @@
 # HarbourCart validation contract
 
-Last research pass: **2026-09-28**
+Last research pass: **2026-09-29**
 
 HarbourCart must distinguish confirmed evidence, evidence-supported conclusions, model assumptions, and unresolved external questions. A public catalogue price is never promoted to a supplier quote by inference.
 
