@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-28T22:59:15.651Z",
-  "lastAttemptAt": "2026-09-28T22:59:15.651Z",
+  "generatedAt": "2026-09-28T23:56:29.433Z",
+  "lastAttemptAt": "2026-09-28T23:56:29.433Z",
   "lastSuccessfulAt": "2026-09-28T22:59:15.651Z",
   "prices": [
     {
@@ -296,11 +296,123 @@
       "note": "Official Sobeys public catalogue currently exposes English Cucumber Seedless 1 Count at $2.49. Sobeys states product pricing and availability may vary; this is not a Halifax-local publication benchmark."
     }
   ],
+  "signals": [
+    {
+      "id": "sobeys-flyer-signal-8142835-gala-apples",
+      "retailer": "SOBEYS",
+      "retailerLabel": "Sobeys",
+      "storeId": "0574",
+      "storeName": "Queen Street",
+      "storeAddress": "1120 Queen Street, Halifax, NS B3H 2R9",
+      "scope": "HALIFAX_FLYER",
+      "status": "UNIT_UNVERIFIED",
+      "productId": "gala-apples",
+      "productName": "Royal Gala Apples",
+      "displayName": "Gala Apples - Apple Fest",
+      "price": 0.99,
+      "observedAt": "2026-09-28T23:56:29.431Z",
+      "validFrom": "2026-09-24T00:00:00-04:00",
+      "validTo": "2026-09-30T22:59:59-04:00",
+      "sourceUrl": "https://backflipp.wishabi.com/flipp/flyers/8142835?locale=en-ca&postal_code=B3H2R9",
+      "imageUrl": "https://f.wishabi.net/page_items/434222572/1789727994/extra_large.jpg",
+      "note": "Current local flyer price captured, but package/unit is not explicit enough for normalized savings math."
+    },
+    {
+      "id": "sobeys-flyer-signal-8142835-carrots",
+      "retailer": "SOBEYS",
+      "retailerLabel": "Sobeys",
+      "storeId": "0574",
+      "storeName": "Queen Street",
+      "storeAddress": "1120 Queen Street, Halifax, NS B3H 2R9",
+      "scope": "HALIFAX_FLYER",
+      "status": "UNIT_UNVERIFIED",
+      "productId": "carrots",
+      "productName": "Carrots",
+      "displayName": "Carrots or COMPLIMENTS Onions",
+      "price": 2.99,
+      "observedAt": "2026-09-28T23:56:29.432Z",
+      "validFrom": "2026-09-24T00:00:00-04:00",
+      "validTo": "2026-09-30T22:59:59-04:00",
+      "sourceUrl": "https://backflipp.wishabi.com/flipp/flyers/8142835?locale=en-ca&postal_code=B3H2R9",
+      "imageUrl": "https://f.wishabi.net/page_items/434222456/1789727988/extra_large.jpg",
+      "note": "Current local flyer price captured, but package/unit is not explicit enough for normalized savings math."
+    },
+    {
+      "id": "sobeys-flyer-signal-8142835-sweet-potato",
+      "retailer": "SOBEYS",
+      "retailerLabel": "Sobeys",
+      "storeId": "0574",
+      "storeName": "Queen Street",
+      "storeAddress": "1120 Queen Street, Halifax, NS B3H 2R9",
+      "scope": "HALIFAX_FLYER",
+      "status": "UNIT_UNVERIFIED",
+      "productId": "sweet-potato",
+      "productName": "Sweet Potato",
+      "displayName": "Orange-Fleshed Sweet Potatoes",
+      "price": 1.44,
+      "observedAt": "2026-09-28T23:56:29.432Z",
+      "validFrom": "2026-09-24T00:00:00-04:00",
+      "validTo": "2026-09-30T22:59:59-04:00",
+      "sourceUrl": "https://backflipp.wishabi.com/flipp/flyers/8142835?locale=en-ca&postal_code=B3H2R9",
+      "imageUrl": "https://f.wishabi.net/page_items/434222476/1789728002/extra_large.jpg",
+      "note": "Current local flyer price captured, but package/unit is not explicit enough for normalized savings math."
+    },
+    {
+      "id": "sobeys-flyer-signal-8142835-romaine-hearts",
+      "retailer": "SOBEYS",
+      "retailerLabel": "Sobeys",
+      "storeId": "0574",
+      "storeName": "Queen Street",
+      "storeAddress": "1120 Queen Street, Halifax, NS B3H 2R9",
+      "scope": "HALIFAX_FLYER",
+      "status": "UNIT_UNVERIFIED",
+      "productId": "romaine-hearts",
+      "productName": "Romaine Hearts",
+      "displayName": "Romaine Hearts",
+      "price": 3.99,
+      "observedAt": "2026-09-28T23:56:29.433Z",
+      "validFrom": "2026-09-24T00:00:00-04:00",
+      "validTo": "2026-09-30T22:59:59-04:00",
+      "sourceUrl": "https://backflipp.wishabi.com/flipp/flyers/8142835?locale=en-ca&postal_code=B3H2R9",
+      "imageUrl": "https://f.wishabi.net/page_items/435237102/1790193960/extra_large.jpg",
+      "note": "Current local flyer price captured, but package/unit is not explicit enough for normalized savings math."
+    }
+  ],
   "errors": [
     {
       "retailer": "ATLANTIC_SUPERSTORE",
       "sourceUrl": "https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true",
-      "message": "https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/fresh-vegetables/c/28195: The operation was aborted due to timeout"
+      "message": "bootstrap: HTTP 403 for https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true"
+    },
+    {
+      "retailer": "ATLANTIC_SUPERSTORE",
+      "sourceUrl": "https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true",
+      "message": "https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/fresh-vegetables/c/28195: HTTP 403 for https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/fresh-vegetables/c/28195"
+    },
+    {
+      "retailer": "ATLANTIC_SUPERSTORE",
+      "sourceUrl": "https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true",
+      "message": "https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/c/28000: HTTP 403 for https://www.atlanticsuperstore.ca/en/food/fruits-vegetables/c/28000"
+    },
+    {
+      "retailer": "ATLANTIC_SUPERSTORE",
+      "sourceUrl": "https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true",
+      "message": "https://www.atlanticsuperstore.ca/en/search?search-bar=apples: HTTP 403 for https://www.atlanticsuperstore.ca/en/search?search-bar=apples"
+    },
+    {
+      "retailer": "ATLANTIC_SUPERSTORE",
+      "sourceUrl": "https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true",
+      "message": "https://www.atlanticsuperstore.ca/en/search?search-bar=potatoes: HTTP 403 for https://www.atlanticsuperstore.ca/en/search?search-bar=potatoes"
+    },
+    {
+      "retailer": "ATLANTIC_SUPERSTORE",
+      "sourceUrl": "https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true",
+      "message": "https://www.atlanticsuperstore.ca/en/search?search-bar=carrots: HTTP 403 for https://www.atlanticsuperstore.ca/en/search?search-bar=carrots"
+    },
+    {
+      "retailer": "ATLANTIC_SUPERSTORE",
+      "sourceUrl": "https://www.atlanticsuperstore.ca/en?pc-express-book=0369&redirect=true",
+      "message": "https://www.atlanticsuperstore.ca/en/search?search-bar=flour: HTTP 403 for https://www.atlanticsuperstore.ca/en/search?search-bar=flour"
     },
     {
       "retailer": "SOBEYS",
@@ -341,11 +453,6 @@
       "retailer": "SOBEYS",
       "sourceUrl": "https://www.sobeys.com/flyer?set_preferred_store_number=0574",
       "message": "https://www.sobeys.com/products/russet-potatoes-2%252E27-kg: HTTP 403 for https://www.sobeys.com/products/russet-potatoes-2%252E27-kg"
-    },
-    {
-      "retailer": "SOBEYS",
-      "sourceUrl": "https://www.sobeys.com/flyer?set_preferred_store_number=0574",
-      "message": "Flipp fallback: matched 1 active flyer(s) but no configured target product had a safely normalizable price"
     }
   ]
 }
