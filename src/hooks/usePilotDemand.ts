@@ -14,6 +14,13 @@ export type RemoteDemandAggregate = {
   updated_at: string | null;
 };
 
+export type DemandAggregateView = {
+  product_id: string;
+  interested_households: number;
+  median_maximum_price?: number;
+  updated_at: string | null;
+};
+
 type SubmitDemandInput = {
   productId: string;
   joined: boolean;
@@ -71,16 +78,18 @@ export function usePilotDemand() {
 
   const aggregateByProduct = useMemo(
     () =>
-      new Map(
+      new Map<string, DemandAggregateView>(
         aggregates.map((aggregate) => [
           aggregate.product_id,
           {
-            ...aggregate,
-            interested_households: Number(aggregate.interested_households) || 0,
+            product_id: aggregate.product_id,
+            interested_households:
+              Number(aggregate.interested_households) || 0,
             median_maximum_price:
               aggregate.median_maximum_price == null
                 ? undefined
                 : Number(aggregate.median_maximum_price),
+            updated_at: aggregate.updated_at,
           },
         ]),
       ),
