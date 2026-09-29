@@ -453,6 +453,11 @@ export function parseAcornPage(html, pageUrl) {
   const records = [];
 
   for (const heading of extractHeadingsWithSegments(html)) {
+    // ACORN result cards use h2/h3 for the farm identity and lower-level
+    // headings (commonly h5) for location/details. Never promote those nested
+    // metadata headings into separate farm records.
+    if (heading.level > 3) continue;
+
     const name = heading.text.trim();
     if (!name || /search results|organic producers|search by/i.test(name)) {
       continue;
