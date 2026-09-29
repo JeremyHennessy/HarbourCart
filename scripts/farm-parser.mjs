@@ -434,12 +434,19 @@ function extractHeadingsWithSegments(html) {
     ),
   ];
 
-  return matches.map((match, index) => ({
-    level: Number(match[1]),
-    text: htmlToText(match[2]),
-    index: match.index,
-    segment: html.slice(match.index, matches[index + 1]?.index ?? html.length),
-  }));
+  return matches.map((match, index) => {
+    const level = Number(match[1]);
+    const nextBoundary = matches
+      .slice(index + 1)
+      .find((candidate) => Number(candidate[1]) <= level);
+
+    return {
+      level,
+      text: htmlToText(match[2]),
+      index: match.index,
+      segment: html.slice(match.index, nextBoundary?.index ?? html.length),
+    };
+  });
 }
 
 export function parseAcornPage(html, pageUrl) {
