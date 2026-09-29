@@ -863,7 +863,7 @@ footer {
 
 .mini-metrics {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -2937,5 +2937,54 @@ footer {
   .readiness-gate__top {
     align-items: stretch;
     flex-direction: column;
+  }
+}
+
+
+.pilot-cohort-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.pilot-cohort-summary > div {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.pilot-cohort-summary span,
+.pilot-cohort-summary strong {
+  display: block;
+}
+
+.pilot-cohort-summary span {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pilot-cohort-summary strong {
+  color: var(--deep);
+  font-size: 1.65rem;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 760px) {
+  .pilot-cohort-summary,
+  .readiness-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pilot-cohort-summary,
+  .readiness-summary {
+    grid-template-columns: 1fr;
   }
 }
