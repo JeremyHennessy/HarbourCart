@@ -163,6 +163,44 @@ Your current wholesale information references Halifax peninsula delivery and pic
 
 Thank you.
 
+
+
+## Speerville Flour Mill
+
+**To:** speerville@xplornet.com  
+**Phone:** 1-866-277-6371  
+**Current public site:** https://www.speervilleflourmill.ca/
+
+**Subject:** Halifax buying-group flour and pantry volume pricing request
+
+Hello,
+
+I am validating HarbourCart, a Halifax household buying club that aggregates household demand before placing one consolidated supplier order.
+
+Speerville is especially relevant because your published catalogue describes bulk-purchasing discounts for food-buying groups, and large-format flour/grain products are already part of your current range.
+
+Could you quote current buying-group/commercial pricing and terms for products suitable for roughly 50 / 100 / 250 Halifax households, particularly:
+
+- all-purpose / whole-white flour in intact 10 kg or other consumer-manageable large bags;
+- whole-wheat flour in intact large bags;
+- oats and other high-demand pantry staples;
+- rice or grains where case/bag formats could be transferred intact to households.
+
+For each suitable product, please include:
+- exact product and organic/conventional specification;
+- bag/case size;
+- minimum order;
+- buying-group or volume price tiers;
+- shipping/delivery terms to Halifax, or pickup/freight alternatives;
+- quote validity;
+- payment terms.
+
+HarbourCart's initial operating model intentionally avoids opening bulk sacks and repacking dry goods, so intact supplier-packed household formats are preferred.
+
+This is a pricing/feasibility request only and not yet a committed order.
+
+Thank you.
+
 ## Halifax Regional Food Hub
 
 Use the buyer-eligibility message in `docs/OUTREACH.md` before treating Hub catalogue pricing as HarbourCart procurement evidence.
