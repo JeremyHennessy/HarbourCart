@@ -65,19 +65,18 @@ Hello,
 
 I am developing HarbourCart, a Halifax household buying-club pilot designed to aggregate committed consumer demand before placing larger local-food orders.
 
-I have reviewed the current Halifax Regional Food Hub producer handbook and weekly order cycle. Rather than duplicate aggregation/storage/distribution infrastructure, I would like to understand whether HarbourCart could participate as a wholesale buyer, retailer, community buying group, or other eligible buyer.
+I have reviewed the current Halifax Regional Food Hub buyer page, producer handbook and weekly order cycle. The public buyer page now confirms that buyers can register through the online store, order Friday through Monday, and receive pickup or delivery on Thursday afternoon. It also states that buyer co-op membership is optional, with a one-time $50 membership share.
 
-For an initial 50–250 household pilot, could you please confirm:
+Rather than duplicate aggregation/storage/distribution infrastructure, I would like to confirm the remaining terms that matter for a 50–250 household HarbourCart pilot:
 
-1. whether a household buying club / retailer like HarbourCart can buy through the Hub;
-2. membership/account requirements for buyers;
-3. minimum weekly order value or minimum product quantities;
-4. buyer-facing pricing, markup, delivery, pickup, and other fees;
-5. payment terms;
-6. whether pickup from the Dartmouth Hub is available instead of last-mile delivery;
-7. whether buyer catalogue/product data can be exported by CSV or accessed through an authorized Local Line/API integration;
-8. whether committed aggregate demand can be used to request producer volume pricing at specific quantities;
-9. whether the Hub could support pre-sold household order aggregation without HarbourCart taking long-term inventory.
+1. whether an online household buying club / retailer like HarbourCart is accepted as a wholesale buyer;
+2. minimum weekly order value and any per-product/case minimums for buyers;
+3. buyer-facing pricing, markup, pickup, delivery and other fees;
+4. payment terms for a new buyer;
+5. whether HarbourCart can use Thursday pickup directly from the Dartmouth Hub for consolidated pre-sold household orders;
+6. whether buyer catalogue/product data can be exported by CSV or accessed through an authorized Local Line/API integration;
+7. whether committed aggregate household demand can be used to request producer volume pricing at specific quantities;
+8. whether the Hub could support pre-sold household order aggregation without HarbourCart taking long-term inventory.
 
 The initial product scope would deliberately favour whole produce and intact sealed low-risk food while regulatory classification is confirmed.
 
