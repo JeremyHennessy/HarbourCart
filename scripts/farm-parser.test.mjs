@@ -129,7 +129,7 @@ describe("farm directory parser", () => {
       "Recipient,Amount,Year,Program",
       '"Sawler Gardens Ltd","1,623.75","2018-2019","Small Farm Acceleration"',
       '"Stirling Fruit Farms (2000) Ltd","8100","2018-2019","Other"',
-    ].join("\\n");
+    ].join("\n");
     const rows = parseAgricultureFundingCsv(csv);
 
     expect(rows[0].recipient).toBe("Sawler Gardens Ltd");
