@@ -22,4 +22,12 @@ describe("live retail target registry", () => {
     expect(gala?.atlanticAliases).toContain("Royal Gala Apples");
     expect(gala?.atlanticAliases).not.toContain("Royal Gala");
   });
+
+  it("maps cheaper value packs explicitly instead of pretending they are the exact product", () => {
+    const valueApples = retailProductTargets.find(
+      (target) => target.productId === "value-apples",
+    );
+    expect(valueApples?.comparisonProductId).toBe("gala-apples");
+    expect(valueApples?.comparability).toBe("VALUE_ALTERNATIVE");
+  });
 });

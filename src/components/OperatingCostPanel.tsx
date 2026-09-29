@@ -10,9 +10,11 @@ const money = new Intl.NumberFormat("en-CA", {
   currency: "CAD",
 });
 
-const workingContribution = 7.2847;
-
-export default function OperatingCostPanel() {
+export default function OperatingCostPanel({
+  contributionPerHousehold,
+}: {
+  contributionPerHousehold?: number;
+}) {
   const unresolved = operatingAssumptions.filter(
     (item) => item.evidence === "QUOTE_REQUIRED",
   );
@@ -31,7 +33,7 @@ export default function OperatingCostPanel() {
       </div>
 
       <p className="muted">
-        Product contribution is not profit. These scenarios allocate the currently
+        Basket contribution is not profit. These scenarios allocate the currently
         evidenced/modelled pickup, transport and software costs across the weekly
         cohort. Insurance and site permission stay unresolved rather than being
         assigned invented values.
@@ -58,8 +60,15 @@ export default function OperatingCostPanel() {
                   <dd>{money.format(costs.software)}</dd>
                 </div>
                 <div>
-                  <dt>Break-even @ $7.28 contribution</dt>
-                  <dd>{breakEvenHouseholds(costs.total, workingContribution)} households</dd>
+                  <dt>Break-even at current basket contribution</dt>
+                  <dd>
+                    {contributionPerHousehold && contributionPerHousehold > 0
+                      ? breakEvenHouseholds(
+                          costs.total,
+                          contributionPerHousehold,
+                        ) + " households"
+                      : "Awaiting evidence-ready basket"}
+                  </dd>
                 </div>
               </dl>
               <div className="cohort-costs">

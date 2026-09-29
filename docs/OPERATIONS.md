@@ -2,9 +2,9 @@
 
 Research pass: **2026-09-28**
 
-This model answers a different question from per-order unit economics:
+This model answers a different question from item and basket economics:
 
-> After a candidate clears product-level savings and variable contribution, can the weekly cohort cover the operating costs of running the pickup?
+> After item evidence is complete and the household basket clears its savings/contribution gate, can the weekly cohort cover the operating costs of running the pickup?
 
 ## Confirmed public inputs
 
@@ -97,8 +97,9 @@ Do not call these scenarios a full operating margin until we have:
 
 Before a real weekly buy opens:
 
-1. product-level candidate must pass the evidence/economics publication gate;
-2. cohort-level expected contribution must cover the applicable weekly operating-cost scenario;
-3. unresolved fixed costs must be surfaced rather than silently treated as zero.
+1. item-level evidence must pass for every product in the basket;
+2. the household basket must clear the configured savings and contribution gates after one card fixed fee, one order-labour allocation and one basket-packaging allocation;
+3. cohort-level expected basket contribution must cover the applicable weekly operating-cost scenario;
+4. unresolved fixed costs must be surfaced rather than silently treated as zero.
 
 The first 50-household pilot should therefore optimize for **cheap logistics**, not just cheap produce.

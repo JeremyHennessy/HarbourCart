@@ -55,7 +55,9 @@
       "aliases": [
         "English Cucumber",
         "English Cucumber Seedless"
-      ]
+      ],
+      "comparisonProductId": "english-cucumber",
+      "comparability": "EXACT"
     },
     {
       "productId": "broccoli-heads",
@@ -64,7 +66,9 @@
       "aliases": [
         "Broccoli Crown",
         "Broccoli Crowns"
-      ]
+      ],
+      "comparisonProductId": "broccoli-heads",
+      "comparability": "EXACT"
     },
     {
       "productId": "roma-tomatoes",
@@ -73,7 +77,9 @@
       "aliases": [
         "Roma Tomatoes",
         "Tomatoes Roma"
-      ]
+      ],
+      "comparisonProductId": "roma-tomatoes",
+      "comparability": "EXACT"
     },
     {
       "productId": "green-cabbage",
@@ -82,7 +88,9 @@
       "aliases": [
         "Cabbage, Green",
         "Green Cabbage"
-      ]
+      ],
+      "comparisonProductId": "green-cabbage",
+      "comparability": "EXACT"
     },
     {
       "productId": "yellow-onions",
@@ -91,7 +99,9 @@
       "aliases": [
         "Yellow Onions, 3 lb Bag",
         "Yellow Onions"
-      ]
+      ],
+      "comparisonProductId": "yellow-onions",
+      "comparability": "EXACT"
     },
     {
       "productId": "russet-potatoes",
@@ -100,7 +110,9 @@
       "aliases": [
         "Russet Potatoes",
         "Baking Russet Potatoes"
-      ]
+      ],
+      "comparisonProductId": "russet-potatoes",
+      "comparability": "EXACT"
     },
     {
       "productId": "gala-apples",
@@ -109,6 +121,20 @@
       "aliases": [
         "Royal Gala Apples",
         "Gala Apples"
+      ],
+      "comparisonProductId": "gala-apples",
+      "comparability": "EXACT"
+    },
+    {
+      "productId": "value-apples",
+      "comparisonProductId": "gala-apples",
+      "comparability": "VALUE_ALTERNATIVE",
+      "productName": "Value Apple Bag",
+      "canonicalUnit": "kg",
+      "aliases": [
+        "Naturally Imperfect Apples",
+        "Naturally Imperfect, Apples",
+        "Naturally Imperfect Apple"
       ]
     },
     {
@@ -117,7 +143,9 @@
       "canonicalUnit": "ea",
       "aliases": [
         "Cauliflower"
-      ]
+      ],
+      "comparisonProductId": "cauliflower",
+      "comparability": "EXACT"
     },
     {
       "productId": "celery",
@@ -126,7 +154,9 @@
       "aliases": [
         "Celery Stalks",
         "Celery Stalk"
-      ]
+      ],
+      "comparisonProductId": "celery",
+      "comparability": "EXACT"
     },
     {
       "productId": "green-onion",
@@ -134,7 +164,9 @@
       "canonicalUnit": "ea",
       "aliases": [
         "Green Onion"
-      ]
+      ],
+      "comparisonProductId": "green-onion",
+      "comparability": "EXACT"
     },
     {
       "productId": "carrots",
@@ -143,7 +175,9 @@
       "aliases": [
         "Carrots, 3 lb Bag",
         "Carrots"
-      ]
+      ],
+      "comparisonProductId": "carrots",
+      "comparability": "EXACT"
     },
     {
       "productId": "sweet-potato",
@@ -152,7 +186,9 @@
       "aliases": [
         "Sweet Potato",
         "Sweet Potatoes"
-      ]
+      ],
+      "comparisonProductId": "sweet-potato",
+      "comparability": "EXACT"
     },
     {
       "productId": "sweet-peppers",
@@ -161,7 +197,9 @@
       "aliases": [
         "Naturally Imperfect Mixed Sweet Peppers",
         "Mixed Sweet Peppers"
-      ]
+      ],
+      "comparisonProductId": "sweet-peppers",
+      "comparability": "EXACT"
     },
     {
       "productId": "romaine-hearts",
@@ -170,7 +208,9 @@
       "aliases": [
         "Romaine Heart, 3 Pack",
         "Romaine Hearts"
-      ]
+      ],
+      "comparisonProductId": "romaine-hearts",
+      "comparability": "EXACT"
     },
     {
       "productId": "flour",
@@ -179,7 +219,9 @@
       "aliases": [
         "All Purpose Flour",
         "All-Purpose Flour"
-      ]
+      ],
+      "comparisonProductId": "flour",
+      "comparability": "EXACT"
     }
   ]
 }

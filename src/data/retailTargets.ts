@@ -87,10 +87,25 @@ export const retailProductTargets = [
   },
   {
     productId: "gala-apples",
+    comparisonProductId: "gala-apples",
+    comparability: "EXACT",
     productName: "Royal Gala Apples",
     canonicalUnit: "kg",
     atlanticAliases: ["Royal Gala Apples", "Gala Apples"],
     sobeysAliases: ["Royal Gala Apples", "Gala Apples"],
+  },
+  {
+    productId: "value-apples",
+    comparisonProductId: "gala-apples",
+    comparability: "VALUE_ALTERNATIVE",
+    productName: "Value Apple Bag",
+    canonicalUnit: "kg",
+    atlanticAliases: [
+      "Naturally Imperfect Apples",
+      "Naturally Imperfect, Apples",
+      "Naturally Imperfect Apple",
+    ],
+    sobeysAliases: ["Value Apples", "Imperfect Apples"],
   },
   {
     productId: "cauliflower",

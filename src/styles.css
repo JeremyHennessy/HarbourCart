@@ -1849,3 +1849,155 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Basket-level economics */
+.basket-panel {
+  margin: 28px 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.82);
+}
+
+.basket-panel__heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.basket-panel__heading h3 {
+  margin: 6px 0 0;
+  color: var(--deep);
+  font-size: 1.25rem;
+}
+
+.basket-panel > p {
+  margin: 0 0 18px;
+  line-height: 1.55;
+}
+
+.basket-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.basket-metrics > div {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+.basket-metrics span,
+.basket-metrics strong {
+  display: block;
+}
+
+.basket-metrics span {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.basket-metrics strong {
+  color: var(--deep);
+  font-size: 1.08rem;
+}
+
+.basket-items {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.basket-items summary {
+  color: var(--ink);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.basket-items li {
+  padding: 4px 0;
+}
+
+.basket-reasons {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.basket-reasons p {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #704521;
+  background: #f7e8da;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .basket-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .basket-panel__heading {
+    flex-direction: column;
+  }
+
+  .basket-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.scenario-control {
+  display: grid;
+  grid-template-columns: auto minmax(150px, 220px) 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 253, 247, 0.72);
+}
+
+.scenario-control label {
+  color: var(--deep);
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.scenario-control select {
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--deep);
+  background: var(--paper);
+  font: inherit;
+  font-weight: 750;
+}
+
+.scenario-control span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .scenario-control {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+}

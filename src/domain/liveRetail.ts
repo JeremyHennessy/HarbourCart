@@ -12,6 +12,12 @@ export type LivePriceStatus =
   | "STORE_UNVERIFIED"
   | "PARSE_FAILED";
 
+export type RetailComparability =
+  | "EXACT"
+  | "COMPARABLE"
+  | "VALUE_ALTERNATIVE"
+  | "NOT_COMPARABLE";
+
 export type LiveRetailPrice = {
   id: string;
   retailer: RetailerId;
@@ -22,6 +28,8 @@ export type LiveRetailPrice = {
   scope: LivePriceScope;
   status: LivePriceStatus;
   productId: string;
+  comparisonProductId?: string;
+  comparability?: RetailComparability;
   productName: string;
   price: number;
   quantity: number;
@@ -110,6 +118,23 @@ export function livePriceStatus(
   return age <= maxAgeHours ? "CURRENT" : "STALE";
 }
 
+function comparisonProductId(price: LiveRetailPrice): string {
+  return price.comparisonProductId ?? price.productId;
+}
+
+function comparabilityRank(price: LiveRetailPrice): number {
+  switch (price.comparability ?? "EXACT") {
+    case "EXACT":
+      return 0;
+    case "COMPARABLE":
+      return 1;
+    case "VALUE_ALTERNATIVE":
+      return 2;
+    case "NOT_COMPARABLE":
+      return 99;
+  }
+}
+
 export function lowestCurrentComparator(
   prices: LiveRetailPrice[],
   productId: string,
@@ -118,10 +143,16 @@ export function lowestCurrentComparator(
   return prices
     .filter(
       (price) =>
-        price.productId === productId &&
+        comparisonProductId(price) === productId &&
+        (price.comparability ?? "EXACT") !== "NOT_COMPARABLE" &&
         livePriceStatus(price, asOf) === "CURRENT",
     )
-    .sort((a, b) => a.normalizedPrice - b.normalizedPrice)[0];
+    .sort((a, b) => {
+      if (a.normalizedPrice !== b.normalizedPrice) {
+        return a.normalizedPrice - b.normalizedPrice;
+      }
+      return comparabilityRank(a) - comparabilityRank(b);
+    })[0];
 }
 
 export function lowestResearchSignal(
@@ -129,6 +160,15 @@ export function lowestResearchSignal(
   productId: string,
 ): LiveRetailPrice | undefined {
   return prices
-    .filter((price) => price.productId === productId)
-    .sort((a, b) => a.normalizedPrice - b.normalizedPrice)[0];
+    .filter(
+      (price) =>
+        comparisonProductId(price) === productId &&
+        (price.comparability ?? "EXACT") !== "NOT_COMPARABLE",
+    )
+    .sort((a, b) => {
+      if (a.normalizedPrice !== b.normalizedPrice) {
+        return a.normalizedPrice - b.normalizedPrice;
+      }
+      return comparabilityRank(a) - comparabilityRank(b);
+    })[0];
 }

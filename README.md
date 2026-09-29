@@ -46,16 +46,22 @@ Separates:
 
 Surfaces the current public authorities and explains the publication contract.
 
-## Working economics gate
+## Working economics gates
+
+HarbourCart now separates three levels of economics:
+
+1. **Item** — supplier cost, product freight, shrink, MOQ/case surplus and any item-specific packaging.
+2. **Household basket** — card processing, the fixed card fee, order-level labour, basket packaging, total savings and the normal **CA$5/basket** contribution target.
+3. **Weekly cohort** — pickup site, transport, software, insurance, admin and other weekly overhead.
 
 Default working assumptions:
 
-- minimum customer saving: **15%**
-- normal minimum variable contribution: **CA$5/order**
-- domestic-card processing: **2.9% + CA$0.30**
-- fulfilment labour: **4 minutes/order at CA$17/hour**
-- packaging: **CA$0.75/order**
-- shrink: **1% of procurement**
+- minimum household-basket saving: **15%**
+- normal minimum household-basket contribution: **CA$5/order**
+- domestic-card processing: **2.9% + CA$0.30 once per basket**
+- fulfilment labour: **4 minutes per household order at CA$17/hour**
+- basket packaging: **CA$0.75/order**
+- shrink: **1% of item procurement**
 - candidate-specific inbound freight allocation
 
 These are validation assumptions, not final production pricing.
@@ -104,11 +110,15 @@ See [docs/DATA_MODEL.md](docs/DATA_MODEL.md).
 
 ## Operating-cost model
 
-The product-level contribution gate is not treated as full profit. Pickup space, transport, pilot software and unresolved fixed costs are modelled separately in [docs/OPERATIONS.md](docs/OPERATIONS.md).
+Item margin is not treated as basket profit, and basket contribution is not treated as weekly profit. Pickup space, transport, pilot software and unresolved fixed costs are modelled separately in [docs/OPERATIONS.md](docs/OPERATIONS.md).
 
 ## Live retail comparison
 
 Atlantic Superstore and Sobeys public price observations are refreshed by a scheduled GitHub Actions workflow and shown in Procurement with explicit store/freshness status. Store-unverified prices remain research signals and cannot unlock a savings claim.
+
+Volatile retail snapshots are published to the dedicated `data/retail-live` branch, so a grocery-price refresh does not create a new application release on `main`. The app keeps a packaged snapshot only as a fail-closed fallback; freshness rules still apply.
+
+Retail evidence also distinguishes exact products, comparable products and explicit value alternatives so HarbourCart cannot claim savings by comparing against an artificially expensive reference.
 
 See [docs/LIVE_RETAIL.md](docs/LIVE_RETAIL.md).
 
