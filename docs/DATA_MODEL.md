@@ -96,22 +96,39 @@ A supplier-sealed pack or fixed-count whole item can avoid a HarbourCart weighin
 
 ### BuyCandidate
 
-Joins the commercial and regulatory evidence needed to evaluate an offer.
+Joins the commercial and regulatory evidence needed to evaluate one item.
 
 - product_id
 - supplier_offer_id
 - benchmark_id
 - customer pack quantity
 - target saving
-- payment cost assumptions
-- labour cost assumptions
-- packaging
+- item-specific packaging
 - shrink
 - freight
-- calculated contribution
-- decision
+- item contribution before basket overhead
+- evidence/economic status
 - decision reasons
 - calculated_at
+
+The item does **not** receive the household-order fixed card fee, household-order labour, or basket packaging.
+
+### BasketEconomics
+
+Evaluates the household transaction after viable items are combined.
+
+- item candidate snapshots
+- total customer price
+- total comparable retail
+- one percentage card fee plus one fixed card fee
+- order-level labour
+- basket packaging
+- basket saving amount/rate
+- contribution per household order
+- minimum basket contribution
+- decision / reasons
+
+The normal CA$5 contribution target belongs here, not to every item.
 
 ### Buy
 
@@ -192,6 +209,6 @@ Initial working policy:
 
 ## Phase 1 storage
 
-The current prototype uses static typed research data and browser localStorage for fake-money demand only.
+The current prototype uses static typed research data, browser localStorage for private supplier-quote research, and browser localStorage for fake-money demand only. None of those browser stores is authoritative shared operational data.
 
 Do not treat browser localStorage as authoritative operational storage. Before real accounts, payments, or orders, move durable entities to a transactional database with audit fields and immutable evidence snapshots.
