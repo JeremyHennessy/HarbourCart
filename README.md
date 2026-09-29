@@ -70,13 +70,14 @@ These are validation assumptions, not final production pricing.
 
 The code will not return a publish decision solely because the math looks attractive.
 
-A publishable buy currently requires:
+A publishable household basket currently requires:
 
-1. verified supplier quote;
-2. current Halifax retail comparator;
-3. phase-1-confirmed handling status;
-4. configured savings threshold;
-5. configured contribution threshold.
+1. every included item has a verified supplier quote;
+2. every included item has a current Halifax retail comparator;
+3. handling/measurement eligibility is resolved for every included item;
+4. the basket clears the configured customer-savings threshold;
+5. the basket clears the configured contribution threshold;
+6. the weekly cohort can cover the applicable operating-cost scenario.
 
 See [docs/VALIDATION.md](docs/VALIDATION.md).
 
@@ -87,7 +88,14 @@ Tracked in GitHub issues:
 - #2 — Nova Scotia food-handling classification
 - #3 — Halifax Regional Food Hub eligibility/terms
 - #4 — real supplier quotes at 50 / 100 / 250-household demand
-- #5 — weekly Halifax retail comparator capture
+- #7 — insurance / fixed operating costs
+- #10 — Measurement Canada for weighed shares
+- #13 — Nova Scotia Loyal eligibility
+- #15 — Sobeys normalized Halifax retail coverage
+- #19 — written pickup-site permission
+- #20 — shared anonymous pilot-demand backend
+
+Issue #5 (weekly Halifax comparator coverage) is complete: the live feed now exceeds the 10-product Halifax-store threshold.
 
 Outreach templates: [docs/OUTREACH.md](docs/OUTREACH.md)
 
@@ -103,6 +111,8 @@ The first behavioural validation is intentionally fake-money:
 - compare demand curves with real quotes.
 
 See [docs/PILOT.md](docs/PILOT.md).
+
+The public prototype still stores demand locally in one browser. A real 50-household pilot must not launch until the shared anonymous demand backend in [docs/DEMAND_BACKEND.md](docs/DEMAND_BACKEND.md) is deployed.
 
 ## Data model
 
