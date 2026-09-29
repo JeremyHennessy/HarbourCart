@@ -95,6 +95,20 @@ export const supplierTargets: SupplierTarget[] = [
       "Official site explicitly invites retail and wholesale inquiries and lists many of HarbourCart's phase-1 produce targets.",
   },
   {
+    id: "speerville-flour-mill",
+    name: "Speerville Flour Mill",
+    kind: "FARM_WHOLESALE",
+    evidence: "OFFICIAL_WHOLESALE",
+    products: ["flour", "grains", "rice", "oats", "bulk pantry staples"],
+    serviceArea: "Atlantic Canada",
+    contactEmail: "speerville@xplornet.com",
+    contactPhone: "1-866-277-6371",
+    sourceUrl: "https://www.speervilleflourmill.ca/",
+    observedAt: "2026-09-29",
+    note:
+      "Current official site shows large-format flour/grain products and Atlantic Canada distribution. Speerville's published catalogue explicitly describes bulk-purchasing discounts for food-buying groups. Current Halifax Grainery operations also place collective monthly orders directly with Speerville, validating the channel for group purchasing.",
+  },
+  {
     id: "halifax-regional-food-hub",
     name: "Halifax Regional Food Hub",
     kind: "FOOD_HUB",
