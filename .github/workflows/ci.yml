@@ -35,3 +35,7 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Verify production pilot-demand contract
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: node scripts/pilot-demand-acceptance.mjs
