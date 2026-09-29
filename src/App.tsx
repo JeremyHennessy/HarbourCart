@@ -53,12 +53,38 @@ const assumptions = {
   shrinkRate: 0.01,
 };
 
-function HarbourMark() {
+const brandAssets = {
+  horizontal:
+    "./brand/01-logos/harbourcart-logo-horizontal-fullcolor-notag.png",
+  horizontalReverse:
+    "./brand/01-logos/harbourcart-logo-horizontal-reverse-notag.png",
+  mark: "./brand/01-logos/harbourcart-mark-fullcolor-512.png",
+  markSmall: "./brand/01-logos/harbourcart-mark-fullcolor-128.png",
+  arrow: "./brand/04-ui/icons/arrow-right.svg",
+} as const;
+
+function BrandLockup({
+  reverse = false,
+  compact = false,
+}: {
+  reverse?: boolean;
+  compact?: boolean;
+}) {
   return (
-    <div className="brand-mark" aria-hidden="true">
-      <span className="brand-mark__wave" />
-      <span className="brand-mark__handle" />
-    </div>
+    <>
+      <img
+        className={compact ? "brand-logo brand-logo--compact" : "brand-logo brand-logo--wide"}
+        src={
+          compact
+            ? brandAssets.markSmall
+            : reverse
+              ? brandAssets.horizontalReverse
+              : brandAssets.horizontal
+        }
+        alt={compact ? "" : "HarbourCart"}
+        aria-hidden={compact ? true : undefined}
+      />
+    </>
   );
 }
 
@@ -378,15 +404,19 @@ function CustomerBuys({
       <section className="hero">
         <div className="hero__copy">
           <span className="eyebrow">Halifax group buying</span>
-          <h1>Buy together. Keep the good deals.</h1>
+          <h1>Groceries, bought together.</h1>
           <p className="hero__lede">
-            HarbourCart starts with real anonymous household demand, tests the
-            landed cost, and only turns a candidate into a buy when current
-            evidence supports the price.
+            HarbourCart combines real household demand, current Halifax grocery
+            prices, and verified supplier economics to find group buys that are
+            actually worth opening.
+          </p>
+          <p className="hero__brand-line">
+            Local food. Real savings. A stronger Halifax.
           </p>
           <div className="hero__actions">
             <a className="button" href="#candidate-buys">
-              Explore candidates
+              Explore candidate buys
+              <img className="button__icon" src={brandAssets.arrow} alt="" />
             </a>
             <span className="prototype-warning">
               Fake-money pilot · no checkout or payment method
@@ -395,6 +425,15 @@ function CustomerBuys({
         </div>
 
         <div className="hero__panel" aria-label="How HarbourCart works">
+          <div className="hero__panel-brand">
+            <div className="hero__mark-shell">
+              <img src={brandAssets.mark} alt="" aria-hidden="true" />
+            </div>
+            <div>
+              <span>LOCAL FOOD. STRONGER TOGETHER.</span>
+              <strong>Evidence-backed group buying for Halifax.</strong>
+            </div>
+          </div>
           <div className="step">
             <span>01</span>
             <div>
@@ -1113,8 +1152,8 @@ function App() {
           onClick={() => setView("buys")}
           aria-label="HarbourCart home"
         >
-          <HarbourMark />
-          <span>HarbourCart</span>
+          <BrandLockup />
+          <BrandLockup compact />
         </button>
 
         <nav aria-label="Primary navigation">
@@ -1136,7 +1175,7 @@ function App() {
           ))}
         </nav>
 
-        <span className="prototype-pill">Research pilot</span>
+        <span className="prototype-pill">Halifax pilot</span>
       </header>
 
       <main id="top">
@@ -1181,13 +1220,15 @@ function App() {
 
       <footer>
         <div className="brand brand--footer">
-          <HarbourMark />
-          <span>HarbourCart</span>
+          <BrandLockup reverse />
         </div>
-        <p>
-          Halifax fake-money pilot · anonymous demand is shared across participating
-          households · no live ordering or payments
-        </p>
+        <div className="footer-copy">
+          <strong>LOCAL FOOD. STRONGER TOGETHER.</strong>
+          <p>
+            Halifax fake-money pilot · anonymous demand is shared across
+            participating households · no live ordering or payments
+          </p>
+        </div>
       </footer>
     </>
   );
