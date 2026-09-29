@@ -12,11 +12,11 @@ The repository now contains a phase-1 research pilot with:
 
 - customer-facing candidate-buy cards;
 - price-tier demand mechanics;
-- price-specific reverse-demand capture stored locally in the browser;
+- shared anonymous price-specific pilot demand through the dedicated HarbourCart Supabase backend;
 - a procurement/admin decision queue;
 - an evidence-gated economics engine;
 - conservative weekly benchmark-selection logic;
-- supplier-offer validation/expiry rules;
+- supplier-offer validation/expiry rules;\n- typed supplier availability, quote-status, pack-format and commercial-term evidence;
 - typed pilot research data with provenance;
 - regulatory/source evidence documentation;
 - a 50-household fake-money pilot plan;
@@ -33,7 +33,7 @@ Shows research candidates and model price tiers while clearly distinguishing pub
 
 ### Demand
 
-Lets a test household record the maximum price it would pay. During this research phase, those signals stay in browser localStorage and are non-binding.
+Lets a test household record the maximum price it would pay. During this research phase, a random anonymous browser session submits non-binding demand to the dedicated HarbourCart pilot backend. Public aggregates expose household counts and median maximum price without exposing raw session IDs.
 
 ### Procurement
 
@@ -97,7 +97,7 @@ Tracked in GitHub issues:
 
 Issue #5 (weekly Halifax comparator coverage) is complete: the live feed now exceeds the 10-product Halifax-store threshold.
 
-Outreach templates: [docs/OUTREACH.md](docs/OUTREACH.md)
+Outreach templates: [docs/OUTREACH.md](docs/OUTREACH.md)\n\nSupplier availability and quote queue: [docs/SUPPLIERS_AND_BENCHMARKS.md](docs/SUPPLIERS_AND_BENCHMARKS.md) and [docs/SUPPLIER_QUOTE_REQUESTS.md](docs/SUPPLIER_QUOTE_REQUESTS.md)
 
 ## Pilot
 
@@ -112,7 +112,7 @@ The first behavioural validation is intentionally fake-money:
 
 See [docs/PILOT.md](docs/PILOT.md).
 
-The public prototype still stores demand locally in one browser. A real 50-household pilot must not launch until the shared anonymous demand backend in [docs/DEMAND_BACKEND.md](docs/DEMAND_BACKEND.md) is deployed.
+The shared anonymous demand backend is deployed and integrated. GitHub issue #20 remains open only for production browser acceptance: verify live submit/update/opt-out and confirm the shared count changes across independent browsers before recruiting the 50-household cohort.
 
 ## Data model
 
