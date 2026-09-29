@@ -367,6 +367,7 @@ function CustomerBuys({
   submitDemand,
   submittingProductId,
   demandError,
+  recruitedHouseholds,
 }: {
   demandRecord: DemandRecord;
   updateDemand: (next: DemandRecord) => void;
@@ -379,6 +380,7 @@ function CustomerBuys({
   }) => Promise<boolean>;
   submittingProductId?: string;
   demandError?: string;
+  recruitedHouseholds: number;
 }) {
   const toggle = async (buy: PilotCandidate) => {
     const current = demandRecord[buy.id];
@@ -478,8 +480,8 @@ function CustomerBuys({
           <span>household basket contribution gate</span>
         </div>
         <div>
-          <strong>50</strong>
-          <span>household pilot target</span>
+          <strong>{recruitedHouseholds}/50</strong>
+          <span>unique pilot households joined</span>
         </div>
         <div>
           <strong>0</strong>
@@ -534,6 +536,9 @@ function DemandView({
   error,
   pickupPreference,
   setPickupPreference,
+  uniqueHouseholds,
+  activeIntents,
+  productsWithInterest,
 }: {
   demandRecord: DemandRecord;
   updateDemand: (next: DemandRecord) => void;
@@ -549,6 +554,9 @@ function DemandView({
   error?: string;
   pickupPreference: PickupPreference;
   setPickupPreference: (value: PickupPreference) => void;
+  uniqueHouseholds: number;
+  activeIntents: number;
+  productsWithInterest: number;
 }) {
   const setPrice = (id: string, value: number) => {
     const current = demandRecord[id];
@@ -613,6 +621,21 @@ function DemandView({
           stores a random session ID, product choice, maximum price and optional
           pickup preference — not your name, email, address or payment details.
         </p>
+      </div>
+
+      <div className="pilot-cohort-summary" aria-label="Pilot participation summary">
+        <div>
+          <span>Unique households</span>
+          <strong>{uniqueHouseholds}</strong>
+        </div>
+        <div>
+          <span>Active product intents</span>
+          <strong>{activeIntents}</strong>
+        </div>
+        <div>
+          <span>Products with interest</span>
+          <strong>{productsWithInterest}</strong>
+        </div>
       </div>
 
       <div className="pilot-preferences">
@@ -742,6 +765,7 @@ function AdminView({
   removeSupplierOffer,
   replaceSupplierOffers,
   pilotDemandReady,
+  recruitedHouseholds,
 }: {
   demandRecord: DemandRecord;
   liveRetailFeed?: LiveRetailFeed;
@@ -751,6 +775,7 @@ function AdminView({
   removeSupplierOffer: (id: string) => void;
   replaceSupplierOffers: (offers: SupplierOffer[]) => void;
   pilotDemandReady: boolean;
+  recruitedHouseholds: number;
 }) {
   const [scenarioHouseholds, setScenarioHouseholds] = useState(50);
 
@@ -898,6 +923,7 @@ function AdminView({
         demandReady={pilotDemandReady}
         currentRetailCount={currentHalifaxRetailCount}
         verifiedQuoteCount={verifiedQuoteCount}
+        recruitedHouseholds={recruitedHouseholds}
       />
 
       <LiveRetailPanel feed={liveRetailFeed} error={liveRetailError} />
@@ -1154,6 +1180,7 @@ function App() {
   const { feed: liveRetailFeed, error: liveRetailError } = useLiveRetailFeed();
   const {
     aggregateByProduct,
+    summary: demandSummary,
     loading: demandLoading,
     submittingProductId,
     error: demandError,
@@ -1215,6 +1242,7 @@ function App() {
             submitDemand={submitDemand}
             submittingProductId={submittingProductId}
             demandError={demandError}
+            recruitedHouseholds={demandSummary.unique_households}
           />
         )}
         {view === "demand" && (
@@ -1228,6 +1256,9 @@ function App() {
             error={demandError}
             pickupPreference={pickupPreference}
             setPickupPreference={setPickupPreference}
+            uniqueHouseholds={demandSummary.unique_households}
+            activeIntents={demandSummary.active_intents}
+            productsWithInterest={demandSummary.products_with_interest}
           />
         )}
         {view === "admin" && (
@@ -1240,6 +1271,7 @@ function App() {
             removeSupplierOffer={removeSupplierOffer}
             replaceSupplierOffers={replaceSupplierOffers}
             pilotDemandReady={!demandLoading && !demandError}
+            recruitedHouseholds={demandSummary.unique_households}
           />
         )}
         {view === "support" && <LocalSupportView />}
