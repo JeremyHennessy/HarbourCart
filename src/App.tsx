@@ -3,7 +3,7 @@ import { demandIdeas, pilotCandidates, type PilotCandidate } from "./data/pilot"
 import LiveRetailPanel from "./components/LiveRetailPanel";
 import LocalSupportView from "./components/LocalSupportView";
 import OperatingCostPanel from "./components/OperatingCostPanel";
-import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";
+import SupplierQuoteWorkspace from "./components/SupplierQuoteWorkspace";\nimport SupplierAvailabilityPanel from "./components/SupplierAvailabilityPanel";
 import BasketEconomicsPanel from "./components/BasketEconomicsPanel";
 import { supplierTargets } from "./data/suppliers";
 import { useLiveRetailFeed } from "./hooks/useLiveRetailFeed";
