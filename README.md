@@ -16,7 +16,8 @@ The repository now contains a phase-1 research pilot with:
 - a procurement/admin decision queue;
 - an evidence-gated economics engine;
 - conservative weekly benchmark-selection logic;
-- supplier-offer validation/expiry rules;\n- typed supplier availability, quote-status, pack-format and commercial-term evidence;
+- supplier-offer validation/expiry rules;
+- typed supplier availability, quote-status, pack-format and commercial-term evidence;
 - typed pilot research data with provenance;
 - regulatory/source evidence documentation;
 - a 50-household fake-money pilot plan;
@@ -93,7 +94,7 @@ Tracked in GitHub issues:
 - #13 — Nova Scotia Loyal eligibility
 - #15 — Sobeys normalized Halifax retail coverage
 - #19 — written pickup-site permission
-- #20 — shared anonymous pilot-demand backend
+- #20 — shared anonymous pilot-demand backend production acceptance
 
 Issue #5 (weekly Halifax comparator coverage) is complete: the live feed now exceeds the 10-product Halifax-store threshold.
 
@@ -112,7 +113,7 @@ The first behavioural validation is intentionally fake-money:
 
 See [docs/PILOT.md](docs/PILOT.md).
 
-The shared anonymous demand backend is deployed and integrated. GitHub issue #20 remains open only for production browser acceptance: verify live submit/update/opt-out and confirm the shared count changes across independent browsers before recruiting the 50-household cohort.
+The shared anonymous demand backend is deployed and integrated. Main-branch CI now runs a production contract test against the Edge Function: allowed-origin CORS, submit, update-without-duplicate-counting, opt-out, unexpected-field rejection and disallowed-origin rejection. Issue #20 closes only after that production acceptance is green on main.
 
 ## Data model
 
