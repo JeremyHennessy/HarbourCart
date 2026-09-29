@@ -1,16 +1,19 @@
 # HarbourCart approved brand assets
 
-This folder is generated from the project owner's approved **lighthouse-in-cart HarbourCart identity**. The earlier ZIP is used only as the checklist for which deliverables to include; none of its experimental artwork is reused.
+These files follow the approved **lighthouse-in-cart HarbourCart identity** shown in the supplied brand-system and mobile-asset reference boards. The earlier ZIP is a deliverable checklist only; its experimental artwork is not reused.
 
-## Brand baseline
-- Approved mark: lighthouse + Halifax/harbour skyline + waves inside a shopping cart
-- Wordmark: HarbourCart
+## Locked baseline
+- Lighthouse + Halifax harbour skyline + waves inside a shopping cart
+- Wordmark: **HarbourCart**
 - Tagline: **LOCAL FOOD. STRONGER TOGETHER.**
-- Primary font direction: Poppins (Inter/system UI fallback)
-- Harbour Navy: #0B315E
-- Ocean Blue: #1E88E5
-- Sky Blue: #A7D4F2
-- Fresh Green: #2E7D32
-- Harbour Yellow: #FFD166
+- Harbour Navy / Ocean Blue / Sky Blue with restrained Fresh Green and Harbour Yellow accents
+- Poppins direction with Inter/system fallback
 
-The full-colour horizontal logo is the default header/marketing logo. The icon-only mark is for app icons, favicons and compact mobile contexts. Use reverse/white artwork on navy or dark photography.
+## Production use
+- `01-logos`: horizontal, stacked, mark-only, wordmark and tagline variants
+- `02-app-icons`: favicon, Apple, Android/PWA, alternate dark and maskable icons
+- `03-banners`: desktop/tablet/mobile/email art plus background-only hero assets, promo, login, splash and footer-wave graphics
+- `04-ui`: tokens/components, mobile navigation SVGs and state illustrations
+- `05-social`: Open Graph and social assets
+
+Use background-only hero files when copy should remain live HTML. Do not redraw, stretch or substitute the approved mark.

@@ -1,9 +1,10 @@
 # Implementation notes
 
-1. Treat the approved lighthouse-cart mark as locked.
-2. Do not substitute the earlier H/wave, grocery-bag or generic cart concepts.
-3. Use the horizontal full-colour logo on light surfaces and reverse art on dark surfaces.
-4. Use icon-only artwork for small/mobile contexts.
-5. Banner artwork follows the supplied mobile asset kit: light sky, Halifax skyline, ocean waves, navy/blue typography and restrained yellow accent.
-6. Keep actual app copy as live HTML text whenever practical for accessibility and responsive behavior.
-7. No font binaries are included; Poppins should be loaded by the app separately if licensed/available.
+1. Treat the lighthouse-cart mark and blue/yellow harbour palette as the approved baseline.
+2. Do not substitute earlier H/wave, grocery-bag or generic-cart experiments.
+3. Use horizontal full-colour on light surfaces and reverse artwork on dark surfaces.
+4. Use mark-only artwork for compact/mobile contexts and app icons.
+5. Prefer `*-background-*` hero assets with live HTML headings/buttons.
+6. The skyline/wave treatment is supporting scenery, not a second logo.
+7. Load Poppins in the app; font binaries are intentionally excluded.
+8. `icon-light-1024x1024.png` is the default app identity; the dark version is an alternate.

@@ -1,6 +1,10 @@
 {
-  "count": 74,
+  "count": 102,
   "files": [
+    {
+      "path": "01-logos/harbourcart-header-lockup-360x96.png",
+      "bytes": 7131
+    },
     {
       "path": "01-logos/harbourcart-logo-horizontal-fullcolor-notag.png",
       "bytes": 34048
@@ -27,7 +31,7 @@
     },
     {
       "path": "01-logos/harbourcart-logo-stacked-fullcolor.png",
-      "bytes": 44231
+      "bytes": 64032
     },
     {
       "path": "01-logos/harbourcart-logo-stacked-reverse.png",
@@ -90,12 +94,28 @@
       "bytes": 25230
     },
     {
+      "path": "01-logos/harbourcart-mobile-wordmark-240x64.png",
+      "bytes": 4734
+    },
+    {
+      "path": "01-logos/harbourcart-tagline-white.png",
+      "bytes": 9416
+    },
+    {
+      "path": "01-logos/harbourcart-tagline.png",
+      "bytes": 25371
+    },
+    {
       "path": "01-logos/harbourcart-wordmark-white.png",
-      "bytes": 12244
+      "bytes": 16059
     },
     {
       "path": "01-logos/harbourcart-wordmark.png",
-      "bytes": 28061
+      "bytes": 48171
+    },
+    {
+      "path": "01-logos/harbourcart-wordmark.webp",
+      "bytes": 96834
     },
     {
       "path": "02-app-icons/apple-touch-icon.png",
@@ -174,12 +194,20 @@
       "bytes": 2092
     },
     {
+      "path": "02-app-icons/icon-dark-1024x1024.png",
+      "bytes": 49047
+    },
+    {
+      "path": "02-app-icons/icon-light-1024x1024.png",
+      "bytes": 46637
+    },
+    {
       "path": "02-app-icons/icon-maskable-192x192.png",
-      "bytes": 2610
+      "bytes": 3811
     },
     {
       "path": "02-app-icons/icon-maskable-512x512.png",
-      "bytes": 8645
+      "bytes": 14317
     },
     {
       "path": "02-app-icons/manifest-example.json",
@@ -202,12 +230,24 @@
       "bytes": 27858
     },
     {
+      "path": "03-banners/footer-waves-1920x220.png",
+      "bytes": 1834
+    },
+    {
       "path": "03-banners/hero-desktop-1920x600.png",
       "bytes": 26821
     },
     {
       "path": "03-banners/hero-desktop-1920x600.webp",
       "bytes": 44926
+    },
+    {
+      "path": "03-banners/hero-desktop-background-1920x600.png",
+      "bytes": 3166
+    },
+    {
+      "path": "03-banners/hero-desktop-background-1920x600.webp",
+      "bytes": 9672
     },
     {
       "path": "03-banners/hero-mobile-390x260.png",
@@ -218,12 +258,44 @@
       "bytes": 12992
     },
     {
+      "path": "03-banners/hero-mobile-background-390x260.png",
+      "bytes": 1378
+    },
+    {
+      "path": "03-banners/hero-mobile-background-390x260.webp",
+      "bytes": 3206
+    },
+    {
       "path": "03-banners/hero-tablet-1024x400.png",
       "bytes": 14840
     },
     {
       "path": "03-banners/hero-tablet-1024x400.webp",
       "bytes": 27808
+    },
+    {
+      "path": "03-banners/hero-tablet-background-1024x400.png",
+      "bytes": 2008
+    },
+    {
+      "path": "03-banners/hero-tablet-background-1024x400.webp",
+      "bytes": 5790
+    },
+    {
+      "path": "03-banners/login-header-mobile-780x520.png",
+      "bytes": 12097
+    },
+    {
+      "path": "03-banners/promo-banner-780x280.png",
+      "bytes": 10356
+    },
+    {
+      "path": "03-banners/promo-banner-780x280.webp",
+      "bytes": 20246
+    },
+    {
+      "path": "03-banners/splash-1290x2796.png",
+      "bytes": 52091
     },
     {
       "path": "04-ui/css/harbourcart-components.css",
@@ -238,8 +310,16 @@
       "bytes": 595
     },
     {
+      "path": "04-ui/icons/account.svg",
+      "bytes": 225
+    },
+    {
       "path": "04-ui/icons/arrow-right.svg",
       "bytes": 194
+    },
+    {
+      "path": "04-ui/icons/bell.svg",
+      "bytes": 228
     },
     {
       "path": "04-ui/icons/cart.svg",
@@ -250,6 +330,18 @@
       "bytes": 187
     },
     {
+      "path": "04-ui/icons/compass.svg",
+      "bytes": 230
+    },
+    {
+      "path": "04-ui/icons/heart.svg",
+      "bytes": 279
+    },
+    {
+      "path": "04-ui/icons/home.svg",
+      "bytes": 235
+    },
+    {
       "path": "04-ui/icons/leaf.svg",
       "bytes": 263
     },
@@ -258,12 +350,24 @@
       "bytes": 254
     },
     {
+      "path": "04-ui/icons/menu.svg",
+      "bytes": 196
+    },
+    {
+      "path": "04-ui/icons/orders.svg",
+      "bytes": 329
+    },
+    {
       "path": "04-ui/icons/plus.svg",
       "bytes": 189
     },
     {
       "path": "04-ui/icons/search.svg",
       "bytes": 220
+    },
+    {
+      "path": "04-ui/icons/tag.svg",
+      "bytes": 229
     },
     {
       "path": "04-ui/icons/users.svg",
@@ -276,6 +380,14 @@
     {
       "path": "04-ui/react/HarbourButton.tsx",
       "bytes": 409
+    },
+    {
+      "path": "04-ui/states/empty-state-512x384.png",
+      "bytes": 1704
+    },
+    {
+      "path": "04-ui/states/loading-state-512x384.png",
+      "bytes": 10843
     },
     {
       "path": "05-social/open-graph-1200x630.png",
@@ -291,11 +403,11 @@
     },
     {
       "path": "06-docs/IMPLEMENTATION-NOTES.md",
-      "bytes": 657
+      "bytes": 655
     },
     {
       "path": "README.md",
-      "bytes": 817
+      "bytes": 1125
     }
   ]
 }
