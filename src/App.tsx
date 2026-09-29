@@ -193,7 +193,13 @@ function BuyCard({
         </div>
         <strong>
           {percent.format(economics.savingsRate)} vs{" "}
-          {liveComparator ? "current local retail" : "public reference"}
+          {liveComparator
+            ? liveComparator.comparability === "VALUE_ALTERNATIVE"
+              ? "current local value alternative"
+              : liveComparator.comparability === "COMPARABLE"
+                ? "current local comparable product"
+                : "current local retail"
+            : "public reference"}
         </strong>
       </div>
 
@@ -256,6 +262,11 @@ function BuyCard({
           <p className="evidence-line">
             Current local comparator: {liveComparator.retailerLabel} ·{" "}
             {liveComparator.storeName} ·{" "}
+            {liveComparator.comparability === "VALUE_ALTERNATIVE"
+              ? "value alternative · "
+              : liveComparator.comparability === "COMPARABLE"
+                ? "comparable product · "
+                : "exact product · "}
             {money.format(liveComparator.normalizedPrice)}/
             {liveComparator.normalizedUnit} · observed{" "}
             {new Date(liveComparator.observedAt).toLocaleString("en-CA")}.{" "}
