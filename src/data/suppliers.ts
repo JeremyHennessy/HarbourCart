@@ -365,13 +365,15 @@ export const supplierTargets: SupplierTarget[] = [
       "multiple suppliers in one checkout and invoice",
       "buyer co-op membership optional",
       "optional membership share: one-time CA$50",
+      "non-member buyer service fee: CA$2/order",
+      "producer handbook: Hub adds 25% markup to producer-set prices",
     ],
     contactEmail: "info@halifaxfoodhub.ca",
     contactPhone: "902-943-6282",
     sourceUrl: "https://www.halifaxfoodhub.ca/fr/buyers",
     observedAt: "2026-09-28",
     note:
-      "Primary multi-producer logistics channel. HarbourCart buyer classification, minimum order, delivery charges, payment terms, catalogue export and volume-pricing flexibility remain external gates.",
+      "Primary multi-producer logistics channel. Public buyer terms now resolve optional membership and the CA$2/order non-member service fee; the producer handbook documents a 25% markup on producer-set prices. HarbourCart buyer classification, minimum order, delivery charges, payment terms, catalogue export and volume-pricing flexibility remain external gates.",
   },
   {
     id: "station-food-hub",

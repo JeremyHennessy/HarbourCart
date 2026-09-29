@@ -65,13 +65,13 @@ Hello,
 
 I am developing HarbourCart, a Halifax household buying-club pilot designed to aggregate committed consumer demand before placing larger local-food orders.
 
-I have reviewed the current Halifax Regional Food Hub buyer page, producer handbook and weekly order cycle. The public buyer page now confirms that buyers can register through the online store, order Friday through Monday, and receive pickup or delivery on Thursday afternoon. It also states that buyer co-op membership is optional, with a one-time $50 membership share.
+I have reviewed the current Halifax Regional Food Hub buyer page, producer handbook and weekly order cycle. The public buyer page now confirms that buyers can register through the online store, order Friday through Monday, and receive pickup or delivery on Thursday afternoon. It also states that buyer co-op membership is optional, with a one-time $50 membership share, and that non-member buyers can order for a $2/order service fee. The current producer handbook states that the Hub adds a 25% markup to producer-set prices.
 
 Rather than duplicate aggregation/storage/distribution infrastructure, I would like to confirm the remaining terms that matter for a 50–250 household HarbourCart pilot:
 
 1. whether an online household buying club / retailer like HarbourCart is accepted as a wholesale buyer;
 2. minimum weekly order value and any per-product/case minimums for buyers;
-3. buyer-facing pricing, markup, pickup, delivery and other fees;
+3. whether the published 25% Hub markup is the full markup applied to buyer checkout prices, and what pickup/delivery fees apply beyond the confirmed $2/order non-member service fee;
 4. payment terms for a new buyer;
 5. whether HarbourCart can use Thursday pickup directly from the Dartmouth Hub for consolidated pre-sold household orders;
 6. whether buyer catalogue/product data can be exported by CSV or accessed through an authorized Local Line/API integration;
