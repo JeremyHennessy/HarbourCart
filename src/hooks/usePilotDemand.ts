@@ -21,6 +21,13 @@ export type DemandAggregateView = {
   updated_at: string | null;
 };
 
+export type PilotDemandSummary = {
+  unique_households: number;
+  active_intents: number;
+  products_with_interest: number;
+  pickup_preferences: Record<string, number>;
+};
+
 type SubmitDemandInput = {
   productId: string;
   joined: boolean;
@@ -68,6 +75,12 @@ export function usePilotDemand() {
     typeof window === "undefined" ? "" : getSessionId(),
   );
   const [aggregates, setAggregates] = useState<RemoteDemandAggregate[]>([]);
+  const [summary, setSummary] = useState<PilotDemandSummary>({
+    unique_households: 0,
+    active_intents: 0,
+    products_with_interest: 0,
+    pickup_preferences: {},
+  });
   const [pickupPreference, setPickupPreferenceState] =
     useState<PickupPreference>(() =>
       typeof window === "undefined" ? "flexible" : readPickupPreference(),
@@ -108,12 +121,28 @@ export function usePilotDemand() {
       }
       const payload = (await response.json()) as {
         data?: RemoteDemandAggregate[];
+        summary?: Partial<PilotDemandSummary>;
         error?: string;
       };
       if (!Array.isArray(payload.data)) {
         throw new Error(payload.error ?? "Demand service returned invalid data.");
       }
       setAggregates(payload.data);
+      setSummary({
+        unique_households: Number(payload.summary?.unique_households) || 0,
+        active_intents: Number(payload.summary?.active_intents) || 0,
+        products_with_interest:
+          Number(payload.summary?.products_with_interest) || 0,
+        pickup_preferences:
+          payload.summary?.pickup_preferences &&
+          typeof payload.summary.pickup_preferences === "object"
+            ? Object.fromEntries(
+                Object.entries(payload.summary.pickup_preferences).map(
+                  ([key, value]) => [key, Number(value) || 0],
+                ),
+              )
+            : {},
+      });
       setError(undefined);
     } catch (reason) {
       setError(
@@ -188,6 +217,7 @@ export function usePilotDemand() {
 
   return {
     aggregateByProduct,
+    summary,
     loading,
     submittingProductId,
     error,
