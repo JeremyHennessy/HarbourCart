@@ -95,7 +95,7 @@ export const localSupportPrograms: LocalSupportProgram[] = [
       "https://investnovascotia.ca/incentives-programs-services/nova-scotia-loyal-producer-labelling-program",
     harbourCartRelevance:
       "Useful to HarbourCart suppliers/producers; HarbourCart as a retailer should not assume producer-program eligibility.",
-  },,
+  },
   {
     id: "strategic-funding-initiatives-2026",
     name: "Strategic Funding Initiatives",
