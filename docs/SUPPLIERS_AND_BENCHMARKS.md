@@ -108,13 +108,15 @@ Public buyer terms currently confirm:
 - multiple Nova Scotia suppliers in one checkout;
 - one invoice;
 - optional buyer membership;
-- one-time CA$50 optional membership share.
+- one-time CA$50 optional membership share;
+- non-members can order with a CA$2/order service fee;
+- the current producer handbook says the Hub adds a 25% markup to producer-set prices.
 
 Still unresolved for HarbourCart:
 
 - whether an online household buying club / retailer is accepted;
 - buyer minimum order;
-- delivery/pickup charges;
+- delivery/pickup charges beyond the confirmed CA$2 non-member service fee;
 - payment terms;
 - catalogue export/API/CSV;
 - whether committed aggregate volume can unlock supplier volume pricing.
